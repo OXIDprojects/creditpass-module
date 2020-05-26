@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSE>
+    <CUSTOMER>
+        <AUTH_ID>M607960</AUTH_ID>
+        <CUSTOMER_TA_ID>6281fd1fd4c6ca53a72e3bfe71cc4a54</CUSTOMER_TA_ID>
+    </CUSTOMER>
+    <PROCESS>
+        <TA_TYPE>11201</TA_TYPE>
+        <TA_ID>9a4372ef5a1643a8a001561787431d55</TA_ID>
+        <PROCESSING_CODE>1</PROCESSING_CODE>
+        <REQUESTREASON>ABK</REQUESTREASON>
+        <ANSWER_CODE>0</ANSWER_CODE>
+        <ANSWER_TEXT>Request Executed</ANSWER_TEXT>
+        <KONTOCHECKS>0</KONTOCHECKS>
+        <ADDR_CHECK>0</ADDR_CHECK>
+        <BONI_RECOMMENDATION>0</BONI_RECOMMENDATION>
+        <INFOSCORE>0</INFOSCORE>
+        <INFORMASCORE>0</INFORMASCORE>
+        <CONSUMERCREDITCHECK>0</CONSUMERCREDITCHECK>
+        <BUERGEL>0</BUERGEL>
+        <DETAIL>0</DETAIL>
+        <AZ_TEST>-1</AZ_TEST>
+    </PROCESS>
+    <DETAIL>
+        <ADDR_CHECK>0</ADDR_CHECK>
+        <INFOSCORE>
+            <RECORDS>
+                <RECORD_TYPE>1</RECORD_TYPE>
+                <FIRST_NAME>INGRID</FIRST_NAME>
+                <LAST_NAME>WIRTH</LAST_NAME>
+                <DOB>1977-11-04</DOB>
+                <ADDR_STREET>BERLINER STR 20</ADDR_STREET>
+                <ADDR_ZIP>64546</ADDR_ZIP>
+                <ADDR_CITY>MOERFELDEN-WALLDORF</ADDR_CITY>
+                <ADDR_COUNTRY>DE</ADDR_COUNTRY>
+                <NEGINFO>
+                    <NEG_CODE>IA</NEG_CODE>
+                    <DATE>2010-04-06</DATE>
+                    <INFO>S101111577017</INFO>
+                    <RESOLVEDDATE>2010-04-06</RESOLVEDDATE>
+                    <NEG_TYPE>0</NEG_TYPE>
+                </NEGINFO>
+            </RECORDS>
+        </INFOSCORE>
+    </DETAIL>
+    <COST>13024</COST>
+</RESPONSE>
+
+

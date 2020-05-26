@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="TaService" targetNamespace="urn:TaService" xmlns:typens="urn:TaService"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <types>
+        <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:TaService">
+            <xsd:complexType name="TAReturn">
+                <xsd:all>
+                    <xsd:element name="blResult" type="xsd:boolean"/>
+                    <xsd:element name="sMessage" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="Authorize">
+        <part name="iTATypeID" type="xsd:integer"/>
+        <part name="sSourceID" type="xsd:string"/>
+    </message>
+    <message name="AuthorizeResponse">
+        <part name="AuthorizeReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="Capture">
+        <part name="iTATypeID1" type="xsd:integer"/>
+        <part name="sSourceID1" type="xsd:string"/>
+        <part name="sRemark" type="xsd:string"/>
+        <part name="sTAShopID" type="xsd:string"/>
+    </message>
+    <message name="CaptureResponse">
+        <part name="CaptureReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="setSettings">
+        <part name="sSourceID2" type="xsd:string"/>
+        <part name="sXML" type="xsd:string"/>
+        <part name="iCampaignID" type="xsd:integer"/>
+    </message>
+    <message name="setSettingsResponse">
+        <part name="setSettingsReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="getSettings">
+        <part name="sSourceID3" type="xsd:string"/>
+        <part name="iCampaignID1" type="xsd:integer"/>
+    </message>
+    <message name="getSettingsResponse">
+        <part name="getSettingsReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="isPortletEnabled">
+        <part name="sSourceID3" type="xsd:string"/>
+    </message>
+    <message name="isPortletEnabledResponse">
+        <part name="isPortletEnabledReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="reportPayPalTransaction">
+        <part name="shopOrderId" type="xsd:string"/>
+        <part name="transactionId" type="xsd:string"/>
+        <part name="transactionType" type="xsd:string"/>
+        <part name="paymentType" type="xsd:string"/>
+        <part name="orderTime" type="xsd:string"/>
+        <part name="amount" type="xsd:string"/>
+        <part name="currencyCode" type="xsd:string"/>
+        <part name="feeAmount" type="xsd:string"/>
+        <part name="settleAmount" type="xsd:string"/>
+        <part name="taxAmount" type="xsd:string"/>
+        <part name="exchangeRate" type="xsd:string"/>
+        <part name="paymentStatus" type="xsd:string"/>
+        <part name="pendingReason" type="xsd:string"/>
+        <part name="reasonCode" type="xsd:string"/>
+    </message>
+    <message name="reportPayPalTransactionResponse">
+        <part name="reportPayPalTransactionReturn" type="typens:TAReturn"/>
+    </message>
+    <message name="sendMessage">
+        <part name="sSourceId" type="xsd:string"/>
+        <part name="sSubject" type="xsd:string"/>
+        <part name="sMessage" type="xsd:string"/>
+        <part name="sPriority" type="xsd:string"/>
+        <part name="iExpires" type="xsd:integer"/>
+    </message>
+    <message name="sendMessageResponse">
+        <part name="sendMessageReturn" type="typens:TAReturn"/>
+    </message>
+    <portType name="taservicePortType">
+        <operation name="Authorize">
+            <documentation>
+                Authorizes Amount on the specified Account
+                This function evaluates if the Transfer would be valid,
+                it is __NOT__ necessary to call it before executing a capture
+            </documentation>
+            <input message="typens:Authorize"/>
+            <output message="typens:AuthorizeResponse"/>
+        </operation>
+        <operation name="Capture">
+            <documentation>
+                Captures Amount on the specified Account
+            </documentation>
+            <input message="typens:Capture"/>
+            <output message="typens:CaptureResponse"/>
+        </operation>
+        <operation name="setSettings">
+            <documentation>
+                Store Portlet Settings in the database, Allowed is only very simple XML, no Attributes, no nested tags
+            </documentation>
+            <input message="typens:setSettings"/>
+            <output message="typens:setSettingsResponse"/>
+        </operation>
+        <operation name="getSettings">
+            <documentation>
+                Generates XML from the stored settings in the database for the specified Portlet
+            </documentation>
+            <input message="typens:getSettings"/>
+            <output message="typens:getSettingsResponse"/>
+        </operation>
+        <operation name="isPortletEnabled">
+            <documentation>
+                Returns true if Portlet is enabled by this user
+            </documentation>
+            <input message="typens:isPortletEnabled"/>
+            <output message="typens:isPortletEnabledResponse"/>
+        </operation>
+        <operation name="reportPayPalTransaction">
+            <documentation>
+                Reports a shop order, that was paid via PayPal, and some PayPal related transaction details to OXID
+                eFire.
+                Returns true or false.
+            </documentation>
+            <input message="typens:reportPayPalTransaction"/>
+            <output message="typens:reportPayPalTransactionResponse"/>
+        </operation>
+        <operation name="sendMessage">
+            <documentation>
+                Sends a message for the user to the OXID eFire messaging system.
+            </documentation>
+            <input message="typens:sendMessage"/>
+            <output message="typens:sendMessageResponse"/>
+        </operation>
+    </portType>
+    <binding name="taserviceBinding" type="typens:taservicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="Authorize">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="Capture">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="setSettings">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getSettings">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="isPortletEnabled">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="reportPayPalTransaction">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="sendMessage">
+            <soap:operation soapAction="urn:taserviceAction"/>
+            <input>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:TaService" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="TaServiceService">
+        <port name="taservicePort" binding="typens:taserviceBinding">
+            <soap:address location="https://soap.oxid-efire.com/soap/index.php"/>
+        </port>
+    </service>
+</definitions>

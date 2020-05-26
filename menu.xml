@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<OX>
+    <OXMENU id="NAVIGATION_ESHOPADMIN">
+        <MAINMENU id="mxshopsett">
+            <SUBMENU id="OECREDITPASS_SUBMENU" cl="oecreditpass" list="oecreditpass_list">
+                <TAB id="OECREDITPASS_TAB_SETTINGS" cl="oecreditpass_main"/>
+                <TAB id="OECREDITPASS_TAB_PAYMENT" cl="oecreditpass_payment"/>
+            </SUBMENU>
+        </MAINMENU>
+        <MAINMENU id="mxorders">
+            <SUBMENU id="mxdisplayorders">
+                <TAB id="OECREDITPASS_TAB_ORDER" cl="oecreditpass_order"/>
+            </SUBMENU>
+            <SUBMENU id="OECREDITPASS_LOG_SUBMENU" cl="oecreditpass_log" list="oecreditpass_log_list">
+                <TAB id="OECREDITPASS_LOG_TAB_LOG" cl="oecreditpass_log_overview"/>
+            </SUBMENU>
+        </MAINMENU>
+        <MAINMENU id="mxuadmin">
+            <SUBMENU id="mxusers" cl="admin_user" list="user_list">
+                <TAB id="OECREDITPASS_TAB_USER" cl="oecreditpass_user"/>
+            </SUBMENU>
+        </MAINMENU>
+    </OXMENU>
+</OX>
