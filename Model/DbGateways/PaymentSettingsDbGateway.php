@@ -4,6 +4,7 @@ namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 
 use OxidEsales\Eshop\Core\Model\ListModel;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\TableViewNameGenerator;
 use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
 
 class PaymentSettingsDbGateway extends ModelDbGateway
@@ -200,7 +201,7 @@ class PaymentSettingsDbGateway extends ModelDbGateway
     {
         /** @var ListModel $oPaymentSettingsList */
         $oPaymentSettingsList = oxNew(ListModel::class);
-        $sShopPaymentsTable = getViewName("oxpayments");
+        $sShopPaymentsTable = TableViewNameGenerator::getViewName("oxpayments");
         $oPaymentSettingsList->init("oxpayment");
 
         $sCreditPassPaymentsTable = $this->getPaymentSettingsTableName();
