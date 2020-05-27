@@ -1,17 +1,6 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxException
- */
-
-namespace oe\oecreditpass\Core\Exceptions;
+namespace OxidProfessionalServices\CreditPassModule\Core\Exceptions;
 
 use OxidEsales\Eshop\Core\Exception\StandardException;
 

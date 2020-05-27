@@ -1,18 +1,17 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
-namespace oe\oecreditpass\Core;
-
+use OxidEsales\Eshop\Application\Model\Content;
+use OxidEsales\Eshop\Application\Model\UserList;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
+use OxidEsales\Eshop\Core\Field;
+use OxidEsales\Eshop\Core\Model\BaseModel;
+use OxidEsales\Eshop\Core\Model\ListModel;
+use OxidEsales\Eshop\Core\Module\Module;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\ViewConfig;
 
 /**
  * CreditPass configuration handler
@@ -33,13 +32,13 @@ class Config
     /**
      * Return the list of excluded from check user group list
      *
-     * @return oxUserList
+     * @return UserList
      */
     public function getExclUserGroups()
     {
-        $oExclUserGroups = oxNew("oxList");
+        $oExclUserGroups = oxNew(ListModel::class);
         $oExclUserGroups->init("oxGroups");
-        $aConfExclUserGroups = oxRegistry::getConfig()->getConfigParam("aOECreditPassExclUserGroups");
+        $aConfExclUserGroups = Registry::getConfig()->getConfigParam("aOECreditPassExclUserGroups");
 
         if (!is_array($aConfExclUserGroups)) {
             $aConfExclUserGroups = array();
@@ -61,7 +60,7 @@ class Config
      */
     public function isModuleActive()
     {
-        return (bool) oxRegistry::getConfig()->getConfigParam("blOECreditPassIsActive");
+        return (bool) Registry::getConfig()->getConfigParam("blOECreditPassIsActive");
     }
 
     /**
@@ -71,7 +70,7 @@ class Config
      */
     public function setModuleActive($blActive = true)
     {
-        oxRegistry::getConfig()->saveShopConfVar(
+        Registry::getConfig()->saveShopConfVar(
             "bool",
             "blOECreditPassIsActive",
             $blActive,
@@ -89,7 +88,7 @@ class Config
      */
     public function getUnauthorizedErrorMsg($iLang = null)
     {
-        $oCms = oxNew("oxContent");
+        $oCms = oxNew(Content::class);
         if (isset($iLang)) {
             $oCms->setLanguage($iLang);
         }
@@ -101,25 +100,22 @@ class Config
     /**
      * Saves the error msg
      *
-     * @param array  $aFields Fields to be assigned
+     * @param array $aFields Fields to be assigned
      *
-     * @param string $sNewMsg New error message
-     *
-     * @throws DatabaseConnectionException
      */
     public function saveUnauthorizedErrorMsg($aFields)
     {
-        $sShopId = oxRegistry::getConfig()->getShopId();
+        $sShopId = Registry::getConfig()->getShopId();
         $sCmsId = DatabaseProvider::getDb()->getOne(
             "select oxid from oxcontents where oxshopid='$sShopId' and oxloadid='oecreditpassunauthorized'"
         );
 
-        $oCms = oxNew("oxBase");
+        $oCms = oxNew(BaseModel::class);
         $oCms->init("oxcontents");
         $oCms->load($sCmsId);
         //Robustness: in case the record was not existing let's update it
-        $oCms->oxcontents__oxloadid = new oxField("oecreditpassunauthorized");
-        $oCms->oxcontents__oxshopid = new oxField($sShopId);
+        $oCms->oxcontents__oxloadid = new Field("oecreditpassunauthorized");
+        $oCms->oxcontents__oxshopid = new Field($sShopId);
         $oCms->assign($aFields);
         $oCms->save();
     }
@@ -132,15 +128,15 @@ class Config
     public function setCacheTtl($iCacheTtl)
     {
         $iCacheTtl = (float) $iCacheTtl;
-        if ($iCacheTtl > oeCreditPassConfig::OECREDITPASS_MAX_CACHE_TTL) {
-            $iCacheTtl = oeCreditPassConfig::OECREDITPASS_MAX_CACHE_TTL;
+        if ($iCacheTtl > Config::OECREDITPASS_MAX_CACHE_TTL) {
+            $iCacheTtl = Config::OECREDITPASS_MAX_CACHE_TTL;
         }
 
         if ($iCacheTtl < 0) {
             $iCacheTtl = 0;
         }
 
-        oxRegistry::getConfig()->saveShopConfVar(
+        Registry::getConfig()->saveShopConfVar(
             "str",
             "iOECreditPassCheckCacheTimeout",
             $iCacheTtl,
@@ -156,7 +152,7 @@ class Config
      */
     public function getCacheTtl()
     {
-        return oxRegistry::getConfig()->getConfigParam("iOECreditPassCheckCacheTimeout");
+        return Registry::getConfig()->getConfigParam("iOECreditPassCheckCacheTimeout");
     }
 
     /**
@@ -178,9 +174,9 @@ class Config
      */
     public function getModuleAdminUrl($sFile)
     {
-        $oConfig = oxRegistry::getConfig();
-        /** @var oxModule $oModule */
-        $oModule = oxNew("oxViewConfig");
+        $oConfig = Registry::getConfig();
+        /** @var Module $oModule */
+        $oModule = oxNew(ViewConfig::class);
         $sUrl = str_replace(
             rtrim($oConfig->getConfigParam('sShopDir'), '/'),
             rtrim($oConfig->getCurrentShopUrl(true), '/') . "/../",

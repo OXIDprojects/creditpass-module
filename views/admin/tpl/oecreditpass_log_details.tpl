@@ -3,7 +3,6 @@
     td.edittext {
         height: 15px;
     }
-
     /* END adapt main.css style */
 
     td.oecreditpass_log_value {

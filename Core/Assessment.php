@@ -1,19 +1,16 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) anzido GmbH, Andreas Ziethen 2008-2011
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
-namespace oe\oecreditpass\Core;
-
+use OxidEsales\Eshop\Core\SepaValidator;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidEsales\Eshop\Application\Model\PaymentList;
+use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
+use OxidEsales\Eshop\Core\Field;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
 
 class Assessment
 {
@@ -216,12 +213,12 @@ class Assessment
     }
 
     /**
-     * @return oeCreditPassConfig
+     * @return Config
      */
     protected function _getOECreditPassConfig()
     {
         if (!isset($this->_oOECreditPassConfig)) {
-            $this->_oOECreditPassConfig = oxNew('oeCreditPassConfig');
+            $this->_oOECreditPassConfig = oxNew(Config::class);
         }
 
         return $this->_oOECreditPassConfig;
@@ -302,6 +299,8 @@ class Assessment
      * Returns fallback payment methods
      * reads config and sets fallback payment methods for when the integrated logic fails
      *
+     * @param $iAnswerCode
+     *
      * @return array
      */
     public function getAllowedPaymentsAfterResponse($iAnswerCode)
@@ -318,6 +317,8 @@ class Assessment
 
     /**
      * Checks if only fallback payment methods are allowed
+     *
+     * @param $iAnswerCode
      *
      * @return bool
      */
@@ -336,6 +337,8 @@ class Assessment
 
     /**
      * Checks if only on error payment methods are allowed
+     *
+     * @param $iAnswerCode
      *
      * @return bool
      */
@@ -393,7 +396,9 @@ class Assessment
      * Returns only allowed payment methods
      * Check in cache or for fallback methods
      *
-     * @return oxPaymentList
+     * @param $oPaymentMethods
+     *
+     * @return array PaymentList
      */
     public function filterPaymentMethods($oPaymentMethods)
     {
@@ -406,7 +411,9 @@ class Assessment
     /**
      * Returns only allowed payment methods
      *
-     * @return oxPaymentList
+     * @param $oPaymentMethods
+     *
+     * @return array PaymentList
      */
     protected function _filterAllowedPayments($oPaymentMethods)
     {
@@ -429,7 +436,9 @@ class Assessment
     /**
      * Returns only allowed payment methods and unsets rejected ones
      *
-     * @return oxPaymentList
+     * @param $oPaymentMethods
+     *
+     * @return array PaymentList
      */
     protected function _filterRejectedPayments($oPaymentMethods)
     {
@@ -469,12 +478,12 @@ class Assessment
     /**
      * Returns database gateway for database connections
      *
-     * @return oeCreditPassPaymentSettingsDbGateway
+     * @return object PaymentSettingsDbGateway
      */
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_oDbGateway = oxNew('oeCreditPassPaymentSettingsDbGateway');
+            $this->_oDbGateway = oxNew(PaymentSettingsDbGateway::class);
         }
 
         return $this->_oDbGateway;
@@ -524,15 +533,15 @@ class Assessment
                 $sStreet = str_replace(" $sStreetNo", "", $sStreet);
             }
 
-            $this->_oUser->oxuser__oxstreet = new oxField($sStreet);
-            $this->_oUser->oxuser__oxstreetnr = new oxField($sStreetNo);
+            $this->_oUser->oxuser__oxstreet = new Field($sStreet);
+            $this->_oUser->oxuser__oxstreetnr = new Field($sStreetNo);
         }
     }
 
     /**
      * gets and sets current oxuser object to _oUser property
      *
-     * @return oxUser
+     * @return object User
      */
     public function getUser()
     {
@@ -553,7 +562,7 @@ class Assessment
     public function setUser($oUser = null)
     {
         if ($oUser === null) {
-            $this->_oUser = oxNew('oxuser');
+            $this->_oUser = oxNew(User::class);
             $this->_oUser->loadActiveUser();
         } else {
             $this->_oUser = $oUser;
@@ -663,7 +672,7 @@ class Assessment
      */
     protected function _logResponse()
     {
-        /** @var oeCreditPassResponseLogger $oLogger */
+        /** @var ResponseLogger $oLogger */
         $oLogger = $this->getLogger();
 
         $aValues = $this->xmlParser($this->_sBoniResponseXML, '_doIlCheck');
@@ -689,7 +698,7 @@ class Assessment
     /**
      * Returns logger object
      *
-     * @return oeCreditPassResponseLogger
+     * @return object ResponseLogger
      */
     public function getLogger()
     {
@@ -707,9 +716,9 @@ class Assessment
      */
     public function setLogger($oLogger = null)
     {
-        /** @var oeCreditPassResponseLogger $oLogger */
+        /** @var ResponseLogger $oLogger */
         if ($this->_oLogger === null) {
-            $this->_oLogger = oxNew('oeCreditPassResponseLogger');
+            $this->_oLogger = oxNew(ResponseLogger::class);
         } else {
             $this->_oLogger = $oLogger;
         }
@@ -955,7 +964,7 @@ class Assessment
     /**
      * simple function to write content of $this->_aBoniSessionData into session
      * executed in order module after all checks
-     */
+ */
     public function writeSessionData()
     {
         $this->getSession()->setVariable('aBoniSessionData', $this->_aBoniSessionData);
@@ -978,7 +987,10 @@ class Assessment
     /**
      * Returns data from session
      *
-     * @return array
+     * @param $sName
+     * @param $sValue
+     *
+     * @return void
      */
     public function setSessionData($sName, $sValue)
     {
@@ -1168,7 +1180,7 @@ class Assessment
      *
      * @param string $sAnswerCode
      *
-     * @return bool
+     * @return void
      */
     protected function _storeCache($sAnswerCode)
     {
@@ -1200,11 +1212,11 @@ class Assessment
     /**
      * Returns result cache object
      *
-     * @return oeCreditPassResultCache
+     * @return ResultCache
      */
     protected function _getResultCacheObject()
     {
-        return oxNew('oeCreditPassResultCache');
+        return oxNew(ResultCache::class);
     }
 
     /**
@@ -1346,7 +1358,7 @@ class Assessment
         $sOutput = str_replace(">", "&gt;", $sOutput);
         $sOutput = str_replace("<", "&lt;", $sOutput);
 
-        $sShopCharset = oxRegistry::getLang()->translateString("charset");
+        $sShopCharset = Registry::getLang()->translateString("charset");
         if ($sShopCharset && strtolower($sShopCharset) != "utf-8") {
             $sOutput = iconv($sShopCharset, "UTF-8", $sOutput);
         }
@@ -1614,36 +1626,36 @@ class Assessment
     }
 
     /**
-     * @return bool
+     * @return object
      */
     public function getSession()
     {
         if ($this->_oSession === null) {
-            $this->_oSession = oxRegistry::getSession();
+            $this->_oSession = Registry::getSession();
         }
 
         return $this->_oSession;
     }
 
     /**
-     * @return bool
+     * @return object
      */
     public function getConfig()
     {
         if ($this->_oConfig === null) {
-            $this->_oConfig = oxRegistry::getConfig();
+            $this->_oConfig = Registry::getConfig();
         }
 
         return $this->_oConfig;
     }
 
     /**
-     * @return bool
+     * @return object
      */
     public function isAdmin()
     {
         if ($this->_oConfig === null) {
-            $this->_oConfig = oxRegistry::getConfig();
+            $this->_oConfig = Registry::getConfig();
         }
 
         return $this->_oConfig;
@@ -1669,8 +1681,8 @@ class Assessment
     protected function isValidIBAN($sAccNr)
     {
         if (class_exists('oxSepaValidator')) {
-            /** @var oxSepaValidator $oSepaValidator */
-            $oSepaValidator = oxNew('oxSepaValidator');
+            /** @var SepaValidator $oSepaValidator */
+            $oSepaValidator = oxNew(SepaValidator::class);
             if (method_exists($oSepaValidator, 'getIBANRegistry') && !array_key_exists(
                     substr($sAccNr, 0, 2), $oSepaValidator->getIBANRegistry()
                 )

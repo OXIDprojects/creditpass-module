@@ -1,24 +1,18 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
 
-namespace oe\oecreditpass\Model\DbGateways;
+namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
 
 /**
  * ResponseLoggerDbGateway
  */
-class ResponseLoggerDbGateway extends oe\oecreditpass\Core\ModelDbGateway
+class ResponseLoggerDbGateway extends ModelDbGateway
 {
 
     /**
@@ -109,7 +103,7 @@ class ResponseLoggerDbGateway extends oe\oecreditpass\Core\ModelDbGateway
      */
     public function __construct()
     {
-        $this->_iShopId = oxRegistry::getConfig()->getShopId();
+        $this->_iShopId = Registry::getConfig()->getShopId();
         if ($this->_iShopId == "oxbaseshop") {
             $this->_iShopId = 1;
         }

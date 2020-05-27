@@ -1,19 +1,14 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Model;
+
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
-
-namespace oe\oecreditpass\Model;
-
-/*
  * CreditPass check result cache class
  */
+
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
+
 class ResultCache
 {
 
@@ -97,7 +92,7 @@ class ResultCache
      *
      * @param integer $iNAnswerCode answer code for NACK
      *
-     * @return array
+     * @return array|bool
      */
     public function getRejectedPaymentIds($iNAnswerCode = 1)
     {
@@ -293,7 +288,7 @@ class ResultCache
      */
     public function getCheckCacheTimeout()
     {
-        $iDaysForNewCheck = oxRegistry::getConfig()->getConfigParam('iOECreditPassCheckCacheTimeout');
+        $iDaysForNewCheck = Registry::getConfig()->getConfigParam('iOECreditPassCheckCacheTimeout');
         $iSecondsForNewCheck = $iDaysForNewCheck * 86400;
 
         return $iSecondsForNewCheck;
@@ -302,12 +297,12 @@ class ResultCache
     /**
      * Returns database gateway for database connections
      *
-     * @return oeCreditPassResponseCacheDbGateway
+     * @return object ResponseCacheDbGateway
      */
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_oDbGateway = oxNew('oeCreditPassResponseCacheDbGateway');
+            $this->_oDbGateway = oxNew(ResponseCacheDbGateway::class);
         }
 
         return $this->_oDbGateway;

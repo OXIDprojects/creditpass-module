@@ -1,19 +1,14 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxAdminView
+ * @extend    AdminListController
  */
 
-namespace oe\oecreditpass\Controller\Admin;
+namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Model\Log;
 
 class LogListController extends AdminListController
 {
@@ -64,7 +59,7 @@ class LogListController extends AdminListController
      */
     public function __construct()
     {
-        $this->_iShopId = oxRegistry::getConfig()->getShopId();
+        $this->_iShopId = Registry::getConfig()->getShopId();
         if ($this->_iShopId == "oxbaseshop") {
             $this->_iShopId = 1;
         }
@@ -79,7 +74,7 @@ class LogListController extends AdminListController
     {
         parent::render();
 
-        $myConfig = oxRegistry::getConfig();
+        $myConfig = Registry::getConfig();
 
         $sSelectedOrderFilter = $myConfig->getRequestParameter("pwrsearchfld");
 
@@ -111,8 +106,8 @@ class LogListController extends AdminListController
      */
     public function getAnswerCodesForLog()
     {
-        /** @var oeCreditPass_Log $oCreditPassLog */
-        $oCreditPassLog = oxNew('oeCreditPass_Log');
+        /** @var Log $oCreditPassLog */
+        $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
         return $aAnswerCodes;
@@ -125,8 +120,8 @@ class LogListController extends AdminListController
      */
     public function getAnswerCodeFilters()
     {
-        /** @var oeCreditPass_Log $oCreditPassLog */
-        $oCreditPassLog = oxNew('oeCreditPass_Log');
+        /** @var Log $oCreditPassLog */
+        $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodes();
 
         $aFilters = array();
@@ -201,7 +196,7 @@ class LogListController extends AdminListController
     {
         $sSql = parent::_prepareWhereQuery($aWhere, $sqlFull);
 
-        $myConfig = oxRegistry::getConfig();
+        $myConfig = Registry::getConfig();
 
         $sOrderFilter = $myConfig->getRequestParameter("pwrsearchfld");
 

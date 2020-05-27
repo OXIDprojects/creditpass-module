@@ -1,17 +1,9 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       views
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id$
- */
 
 $sLangName = 'English';
-
+$iLangNr = 0;
 $aLang = array(
-    'charset'                                            => 'UTF-8',
+    'charset'                                            => 'ISO-8859-15',
     'OECREDITPASS_TITLE'                                 => 'oecreditpass',
     'OECREDITPASS_SUBMENU'                               => 'creditPass',
     'OECREDITPASS_TAB_SETTINGS'                          => 'Settings',

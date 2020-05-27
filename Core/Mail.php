@@ -1,18 +1,12 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
  * @extend        oxEmail
  *
  */
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
-namespace oe\oecreditpass\Core;
+use OxidEsales\Eshop\Core\Registry;
 
 class Mail extends Mail_parent
 {
@@ -53,7 +47,7 @@ class Mail extends Mail_parent
         // send not pretending from order user, as different email domain rise spam filters
         $this->setFrom($sManualReviewEmail);
 
-        $oLang = oxRegistry::getLang();
+        $oLang = Registry::getLang();
 
         $iOrderLang = $oLang->getObjectTplLanguage();
 

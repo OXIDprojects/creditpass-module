@@ -1,17 +1,10 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxBase
+ * @extend    BaseModel
  */
 
-namespace oe\oecreditpass\Model;
+namespace OxidProfessionalServices\CreditPassModule\Model;
 
 use OxidEsales\Eshop\Core\Model\BaseModel;
 

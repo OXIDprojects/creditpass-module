@@ -1,19 +1,16 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- */
-
-namespace oe\oecreditpass\Core;
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
+use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
 
 /**
  * CreditPass shop aware class which persists data into database.
  */
-class StorageDbShopAwarePersistence implements Interfaces\ICreditPassStorageShopAwarePersistence
+class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersistence
 {
 
     const DATABASE_TABLE = 'oecreditpassstorage';

@@ -1,15 +1,8 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
-namespace oe\oecreditpass\Core;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseLoggerDbGateway;
 
 /**
  * oeCreditPassResponseLogger
@@ -35,11 +28,11 @@ class ResponseLogger
     /**
      * Sets logger.
      *
-     * @param oeCreditPassResponseLoggerDbGateway $oLogger
+     * @param ResponseLoggerDbGateway $oLogger
      *
      * @return null
      */
-    public function setLogger(oeCreditPassResponseLoggerDbGateway $oLogger)
+    public function setLogger(ResponseLoggerDbGateway $oLogger)
     {
         $this->_oLogger = $oLogger;
     }
@@ -47,13 +40,13 @@ class ResponseLogger
     /**
      * Gets logger.
      *
-     * @return oeCreditPassResponseLoggerDbGateway
+     * @return ResponseLoggerDbGateway
      */
     public function getLogger()
     {
         if (is_null($this->_oLogger)) {
-            /** @var oeCreditPassResponseLoggerDbGateway $oDatabaseLogger */
-            $oDatabaseLogger = oxNew('oeCreditPassResponseLoggerDbGateway');
+            /** @var ResponseLoggerDbGateway $oDatabaseLogger */
+            $oDatabaseLogger = oxNew(ResponseLoggerDbGateway::class);
             $this->setLogger($oDatabaseLogger);
         }
 

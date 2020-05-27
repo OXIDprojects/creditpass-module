@@ -1,18 +1,10 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       views
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id$
- */
 
 /**
  * Defining help texts (English)
  */
 $aLang = array(
-    'charset'                              => 'UTF-8',
+    'charset'                              => 'ISO-8859-15',
     'HELP_OECREDITPASS_MAIN_ACTIVATE'      => 'Switches creditPass functionality on or off ',
     'HELP_OECREDITPASS_MAIN_CACHING_TTL'   => 'CreditPass check results are cached for the  current user/address combination for the configured number of days. ' .
                                               'While cached, no further creditPass check is performed for that user /address combination. ' .

@@ -1,19 +1,19 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) anzido GmbH, Andreas Ziethen 2008-2011
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxOrder
+ * @extend    oxOrder
  *
  */
 
-namespace oe\oecreditpass\Model;
+namespace OxidProfessionalServices\CreditPassModule\Model;
+
+use OxidEsales\Eshop\Application\Model\Basket;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Application\Model\UserPayment;
+use OxidEsales\Eshop\Core\Email;
+use OxidEsales\Eshop\Core\Field;
+use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
 
 class Order extends Order_parent
 {
@@ -38,27 +38,27 @@ class Order extends Order_parent
         $aSessionData = $this->getSession()->getVariable('aBoniSessionData');
         $sCreditPassAnswerCode = $aSessionData['azIntLogicResponse'];
 
-        if ($sCreditPassAnswerCode == oeCreditPassAssessment::OECREDITPASS_ANSWER_CODE_MANUAL) {
-            $this->_oeCreditPassSetOrderFolder(oeCreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW);
+        if ($sCreditPassAnswerCode == Assessment::OECREDITPASS_ANSWER_CODE_MANUAL) {
+            $this->_oeCreditPassSetOrderFolder(Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW);
         }
     }
 
     /**
      * return oeCreditPassMail object
      *
-     * @return oxEmail
+     * @return Email
      */
     protected function _getEmailObject()
     {
-        return oxNew('oxEmail');
+        return oxNew(Email::class);
     }
 
     /**
      * Send order to shop owner and user
      *
-     * @param oxUser        $oUser    order user
-     * @param oxBasket      $oBasket  current order basket
-     * @param oxUserPayment $oPayment order payment
+     * @param User        $oUser    order user
+     * @param Basket      $oBasket  current order basket
+     * @param UserPayment $oPayment order payment
      *
      * @return bool
      */
@@ -83,7 +83,7 @@ class Order extends Order_parent
      */
     protected function _oeCreditPassSetOrderFolder($sFolder)
     {
-        $this->{$this->getCoreTableName() . '__oxfolder'} = new oxField($sFolder, oxField::T_RAW);
+        $this->{$this->getCoreTableName() . '__oxfolder'} = new Field($sFolder, Field::T_RAW);
         $this->save();
     }
 
@@ -98,7 +98,7 @@ class Order extends Order_parent
         $iOeIntLogicResponse = (int) $aSessionData['azIntLogicResponse'];
         $iType = (int) $this->getConfig()->getConfigParam('iOECreditPassManualWorkflow');
 
-        return (bool) ($iType == 2 && $iOeIntLogicResponse == oeCreditPassAssessment::OECREDITPASS_ANSWER_CODE_MANUAL);
+        return (bool) ($iType == 2 && $iOeIntLogicResponse == Assessment::OECREDITPASS_ANSWER_CODE_MANUAL);
     }
 
     /**
@@ -106,13 +106,13 @@ class Order extends Order_parent
      */
     protected function _updateLog()
     {
-        /** @var oeCreditPassResponseLogger $oLogger */
-        $oLogger = oxNew('oeCreditPassResponseLogger');
+        /** @var ResponseLogger $oLogger */
+        $oLogger = oxNew(ResponseLogger::class);
 
         $aSessionData = $this->getSession()->getVariable('aBoniSessionData');
         $sCreditPassId = $aSessionData['sOECreditPassId'];
 
-        /** @var oxUser $oUser */
+        /** @var User $oUser */
         $oUser = $this->getOrderUser();
 
         $oLogger->getLogger()->setPrimaryUpdateFieldName('ID');

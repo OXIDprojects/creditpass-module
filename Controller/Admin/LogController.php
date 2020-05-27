@@ -1,20 +1,13 @@
 <?php
 
-
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxAdminView
+ * @extend    AdminListController
  */
 
-namespace oe\oecreditpass\Controller\Admin;
+namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
+use OxidProfessionalServices\CreditPassModule\Core\Assessment;
 
 class LogController extends AdminController
 {
@@ -34,10 +27,10 @@ class LogController extends AdminController
     public function getAnswerCodes()
     {
         $aAnswerCodes = array(
-            oecreditpassassessment::OECREDITPASS_ANSWER_CODE_ACK    => 'OECREDITPASS_LOG_LIST_ACK',
-            oecreditpassassessment::OECREDITPASS_ANSWER_CODE_NACK   => 'OECREDITPASS_LOG_LIST_NACK',
-            oecreditpassassessment::OECREDITPASS_ANSWER_CODE_MANUAL => 'OECREDITPASS_LOG_LIST_MANUAL',
-            oecreditpassassessment::OECREDITPASS_ANSWER_CODE_ERROR  => 'OECREDITPASS_LOG_LIST_ERROR',
+            Assessment::OECREDITPASS_ANSWER_CODE_ACK    => 'OECREDITPASS_LOG_LIST_ACK',
+            Assessment::OECREDITPASS_ANSWER_CODE_NACK   => 'OECREDITPASS_LOG_LIST_NACK',
+            Assessment::OECREDITPASS_ANSWER_CODE_MANUAL => 'OECREDITPASS_LOG_LIST_MANUAL',
+            Assessment::OECREDITPASS_ANSWER_CODE_ERROR  => 'OECREDITPASS_LOG_LIST_ERROR',
         );
 
         return $aAnswerCodes;

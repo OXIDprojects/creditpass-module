@@ -1,20 +1,14 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) anzido GmbH, Andreas Ziethen 2008-2011
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        Shop_Config
+ * @extend    ShopConfiguration
  */
 
-namespace oe\oecreditpass\Controller\Admin;
+namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Core\Config;
 
 class MainController extends ShopConfiguration
 {
@@ -80,11 +74,11 @@ class MainController extends ShopConfiguration
         parent::save();
 
         //saving unauthorized error msg
-        oxNew("oeCreditPassConfig")->saveUnauthorizedErrorMsg(
-            oxRegistry::getConfig()->getRequestParameter('sUnauthorizedErrorMsg')
+        oxNew(Config::class)->saveUnauthorizedErrorMsg(
+            Registry::getConfig()->getRequestParameter('sUnauthorizedErrorMsg')
         );
-        oxNew("oeCreditPassConfig")->setCacheTtl(
-            oxRegistry::getConfig()->getRequestParameter('iOECreditPassCheckCacheTimeout')
+        oxNew(Config::class)->setCacheTtl(
+            Registry::getConfig()->getRequestParameter('iOECreditPassCheckCacheTimeout')
         );
     }
 
@@ -95,7 +89,7 @@ class MainController extends ShopConfiguration
      */
     public function getUserGroups()
     {
-        return oxNew("oeCreditPassConfig")->getExclUserGroups();
+        return oxNew(Config::class)->getExclUserGroups();
     }
 
     /**
@@ -107,7 +101,7 @@ class MainController extends ShopConfiguration
      */
     public function getUnauthorizedErrorMsg($iLangId = null)
     {
-        return oxNew("oeCreditPassConfig")->getUnauthorizedErrorMsg($iLangId);
+        return oxNew(Config::class)->getUnauthorizedErrorMsg($iLangId);
     }
 
     /**
@@ -117,7 +111,7 @@ class MainController extends ShopConfiguration
      */
     public function getLanguageArray()
     {
-        return oxRegistry::getLang()->getLanguageArray();
+        return Registry::getLang()->getLanguageArray();
     }
 
     /**
@@ -142,7 +136,7 @@ class MainController extends ShopConfiguration
      */
     public function getCacheTtl()
     {
-        return oxNew("oeCreditPassConfig")->getCacheTtl();
+        return oxNew(Config::class)->getCacheTtl();
     }
 
     /**
@@ -152,7 +146,7 @@ class MainController extends ShopConfiguration
      */
     public function getMaxCacheTtl()
     {
-        return oxNew("oeCreditPassConfig")->getMaxCacheTtl();
+        return oxNew(Config::class)->getMaxCacheTtl();
     }
 
     /**
@@ -164,7 +158,7 @@ class MainController extends ShopConfiguration
      */
     public function getModuleAdminUrl($sFile)
     {
-        return oxNew("oeCreditPassConfig")->getModuleAdminUrl($sFile);
+        return oxNew(Config::class)->getModuleAdminUrl($sFile);
     }
 
 }

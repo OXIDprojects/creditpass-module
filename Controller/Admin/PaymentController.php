@@ -1,19 +1,16 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxAdminDetails
+ * @extend    AdminDetailsController
  */
 
-namespace oe\oecreditpass\Controller\Admin;
+namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
+use OxidEsales\Eshop\Core\Field;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
 
 class PaymentController extends AdminDetailsController
 {
@@ -94,7 +91,7 @@ class PaymentController extends AdminDetailsController
     /**
      * Sets database gateway
      *
-     * @param oeCreditPassPaymentSettingsDbGateway $oDbGateway
+     * @param PaymentSettingsDbGateway $oDbGateway
      */
     protected function _setDbGateway($oDbGateway)
     {
@@ -104,12 +101,12 @@ class PaymentController extends AdminDetailsController
     /**
      * Returns database gateway
      *
-     * @return oeCreditPassPaymentSettingsDbGateway
+     * @return PaymentSettingsDbGateway
      */
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_setDbGateway(oxNew('oeCreditPassPaymentSettingsDbGateway'));
+            $this->_setDbGateway(oxNew(PaymentSettingsDbGateway::class));
         }
 
         return $this->_oDbGateway;
@@ -141,7 +138,7 @@ class PaymentController extends AdminDetailsController
 
         $aErrors = array_unique($aErrors);
         foreach ($aErrors as $sError) {
-            oxRegistry::get("oxUtilsView")->addErrorToDisplay($sError);
+            Registry::get("oxUtilsView")->addErrorToDisplay($sError);
         }
     }
 
@@ -298,13 +295,13 @@ class PaymentController extends AdminDetailsController
         foreach ($aPaymentSettings as $aPayment) {
             if (!$aPayment->oxpayments__id->value) {
                 // create unique payment setting id
-                $aPayment->oxpayments__id = new oxField($this->getUniqueId($aPayment->oxpayments__oxid->value));
+                $aPayment->oxpayments__id = new Field($this->getUniqueId($aPayment->oxpayments__oxid->value));
                 // associate with payment id
-                $aPayment->oxpayments__paymentid = new oxField($aPayment->oxpayments__oxid->value);
+                $aPayment->oxpayments__paymentid = new Field($aPayment->oxpayments__oxid->value);
                 // set default settings
-                $aPayment->oxpayments__active = new oxField($this->_sDefaultActive);
-                $aPayment->oxpayments__allowonerror = new oxField($this->_sDefaultAllowOnError);
-                $aPayment->oxpayments__fallback = new oxField($this->_sDefaultFallback);
+                $aPayment->oxpayments__active = new Field($this->_sDefaultActive);
+                $aPayment->oxpayments__allowonerror = new Field($this->_sDefaultAllowOnError);
+                $aPayment->oxpayments__fallback = new Field($this->_sDefaultFallback);
             }
         }
 
@@ -363,6 +360,6 @@ class PaymentController extends AdminDetailsController
      */
     public function getModuleAdminUrl($sFile)
     {
-        return oxNew("oeCreditPassConfig")->getModuleAdminUrl($sFile);
+        return oxNew(Config::class)->getModuleAdminUrl($sFile);
     }
 }

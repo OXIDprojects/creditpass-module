@@ -1,15 +1,6 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
-
-namespace oe\oecreditpass\Core;
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
 use OxidEsales\Eshop\Core\DatabaseProvider;

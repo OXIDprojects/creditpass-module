@@ -1,17 +1,12 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
+namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 
-namespace oe\oecreditpass\Model\DbGateways;
+use OxidEsales\Eshop\Core\Model\ListModel;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
 
-class PaymentSettingsDbGateway extends oe\oecreditpass\Core\ModelDbGateway
+class PaymentSettingsDbGateway extends ModelDbGateway
 {
 
     /**
@@ -36,7 +31,7 @@ class PaymentSettingsDbGateway extends oe\oecreditpass\Core\ModelDbGateway
      */
     public function __construct()
     {
-        $this->_iShopId = oxRegistry::getConfig()->getShopId();
+        $this->_iShopId = Registry::getConfig()->getShopId();
         if ($this->_iShopId == "oxbaseshop") {
             $this->_iShopId = 1;
         }
@@ -140,13 +135,13 @@ class PaymentSettingsDbGateway extends oe\oecreditpass\Core\ModelDbGateway
      *
      * @param string $sId model id
      *
-     * @return array|bool
+     * @return ListModel|bool
      */
     public function load($sId)
     {
         $this->_addWhere($sId);
-        if ($aReturn = $this->_fetchPaymentSettingsFromDatabase()) {
-            return $aReturn;
+        if ($oReturn = $this->_fetchPaymentSettingsFromDatabase()) {
+            return $oReturn;
         }
 
         return false;
@@ -169,12 +164,12 @@ class PaymentSettingsDbGateway extends oe\oecreditpass\Core\ModelDbGateway
      * Load all payment settings from credit pass payment settings table
      * Or all payment settings of oxpayment table
      *
-     * @return array|bool
+     * @return ListModel|bool
      */
     public function loadAll()
     {
-        if ($aReturn = $this->_fetchPaymentSettingsFromDatabase()) {
-            return $aReturn;
+        if ($oReturn = $this->_fetchPaymentSettingsFromDatabase()) {
+            return $oReturn;
         }
 
         return false;
@@ -199,12 +194,12 @@ class PaymentSettingsDbGateway extends oe\oecreditpass\Core\ModelDbGateway
     /**
      * Gets payment method options from database oecreditpasspaymentsettings table
      *
-     * @return oxList
+     * @return ListModel
      */
     protected function _fetchPaymentSettingsFromDatabase()
     {
-        /** @var oxList $oPaymentSettingsList */
-        $oPaymentSettingsList = oxNew("oxList");
+        /** @var ListModel $oPaymentSettingsList */
+        $oPaymentSettingsList = oxNew(ListModel::class);
         $sShopPaymentsTable = getViewName("oxpayments");
         $oPaymentSettingsList->init("oxpayment");
 

@@ -1,13 +1,11 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- */
-
-namespace oe\oecreditpass\Core;
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
 
 /**
  * Class responsible for storing data (i.e. config backup).
@@ -18,24 +16,24 @@ class Storage
     /**
      * An instance of oxConfig.
      *
-     * @var \OxidEsales\Eshop\Core\Config
+     * @var Config
      */
     private $_oConfig;
 
     /**
      * An instance of ICreditPassStorageShopAwarePersistence.
      *
-     * @var Interfaces\ICreditPassStorageShopAwarePersistence
+     * @var ICreditPassStorageShopAwarePersistence
      */
     private $_oShopAwarePersistence;
 
     /**
      * Constructor.
      *
-     * @param \OxidEsales\Eshop\Core\Config                     $oConfig               An instance of oxConfig.
-     * @param Interfaces\ICreditPassStorageShopAwarePersistence $oShopAwarePersistence An instance of oeICreditPassStorageShopAwarePersistence.
+     * @param Config                                 $oConfig               An instance of oxConfig.
+     * @param ICreditPassStorageShopAwarePersistence $oShopAwarePersistence An instance of oeICreditPassStorageShopAwarePersistence.
      */
-    public function __construct(\OxidEsales\Eshop\Core\Config $oConfig, Interfaces\ICreditPassStorageShopAwarePersistence $oShopAwarePersistence)
+    public function __construct(Config $oConfig, ICreditPassStorageShopAwarePersistence $oShopAwarePersistence)
     {
         $this->_oConfig = $oConfig;
         $this->_oShopAwarePersistence = $oShopAwarePersistence;
@@ -89,7 +87,7 @@ class Storage
     /**
      * Gets instance of oxConfig.
      *
-     * @return \OxidEsales\Eshop\Core\Config
+     * @return Config
      */
     private function _getConfig()
     {
@@ -114,7 +112,7 @@ class Storage
     /**
      * Gets instance of oeICreditPassStorageShopAwarePersistence.
      *
-     * @return Interfaces\ICreditPassStorageShopAwarePersistence
+     * @return ICreditPassStorageShopAwarePersistence
      */
     private function _getShopAwarePersistence()
     {

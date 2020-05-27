@@ -1,19 +1,11 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       core
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
-
-namespace oe\oecreditpass\Core;
+namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
+use OxidEsales\Eshop\Core\Registry;
 
 class Events
 {
@@ -21,9 +13,9 @@ class Events
     //default values
     const OECREDITPASS_DEFAULT_ERROR_TITLE_DE = "creditPass - abgelehnte Zahlungsart";
     const OECREDITPASS_DEFAULT_ERROR_TITLE_EN = "creditPass - unauthorized payment method";
-    const OECREDITPASS_DEFAULT_ERROR_MSG_DE = "Die gew�nschte Zahlungsart steht derzeit nicht zur Verf�gung. Bitte w�hlen Sie eine andere!";
+    const OECREDITPASS_DEFAULT_ERROR_MSG_DE = "Die gewünschte Zahlungsart steht derzeit nicht zur Verfügung. Bitte wählen Sie eine andere!";
     const OECREDITPASS_DEFAULT_ERROR_MSG_EN = "The chosen payment method is currently not available. Please select another one!";
-    const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE = 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Pr�fung lautet \'Manuelle Pr�fung\'. Bitte pr�fen Sie daher diese Bestellung!';
+    const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE = 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Prüfung lautet \'Manuelle Prüfung\'. Bitte prüfen Sie daher diese Bestellung!';
     const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN = 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!';
     const OECREDITPASS_DEFAULT_CACHE_TTL = 0;
     const OECREDITPASS_DEFAULT_SERVICE_URL = "https://secure.creditpass.de/atgw/authorize.cfm";
@@ -121,7 +113,7 @@ class Events
     {
 
         $sUtfOption = "";
-        if ($iUtfMode = oxRegistry::getConfig()->getShopConfVar('iUtfMode')) {
+        if ($iUtfMode = Registry::getConfig()->getShopConfVar('iUtfMode')) {
             $sUtfOption = " DEFAULT CHARSET=utf8";
         }
 
@@ -207,7 +199,7 @@ class Events
         $sErrorTitleDe = self::OECREDITPASS_DEFAULT_ERROR_TITLE_DE;
         $sErrorTitleEn = self::OECREDITPASS_DEFAULT_ERROR_TITLE_EN;
 
-        $sShopId = oxRegistry::getConfig()->getShopId();
+        $sShopId = Registry::getConfig()->getShopId();
 
         //add CMS page to active subshop
         $sSql .= "INSERT IGNORE INTO oxcontents (OXID, OXLOADID, OXSHOPID, OXSNIPPET, OXACTIVE, OXACTIVE_1, OXTITLE, OXCONTENT, OXTITLE_1, OXCONTENT_1)
@@ -236,12 +228,12 @@ class Events
         $sMsgDE = self::OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE;
         $sMsgEN = self::OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN;
 
-        $sShopId = oxRegistry::getConfig()->getShopId();
+        $sShopId = Registry::getConfig()->getShopId();
 
         $sSql = "INSERT IGNORE INTO `oxcontents` (`OXID`, `OXLOADID`, `OXSHOPID`, `OXSNIPPET`, `OXTYPE`, `OXACTIVE`, `OXACTIVE_1`, `OXPOSITION`, `OXTITLE`, `OXCONTENT`, `OXTITLE_1`, `OXCONTENT_1`, `OXACTIVE_2`, `OXTITLE_2`, `OXCONTENT_2`, `OXACTIVE_3`, `OXTITLE_3`, `OXCONTENT_3`, `OXCATID`, `OXFOLDER`, `OXTERMVERSION`) VALUES
 (\"ad542e49bff479009oe.cp64538090$sShopId\", \"oecreditpassorderemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin\", \"$sMsgDE<br>\r\n<br>\", \"your order admin\", \"$sMsgEN<br>\r\n<br>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
-(\"c8d45408c4998f421oe.cp15746968$sShopId\", \"oecreditpassordernpemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdl�nder)\", \"<div>\r\n<p> <span style='color: #ff0000;'><strong>Hinweis:</strong></span> Derzeit ist keine Liefermethode f�r dieses Land bekannt. Bitte Lieferm�glichkeiten suchen und den Besteller unter Angabe der <strong>Lieferkosten</strong> informieren!\r\n&nbsp;</p> </div>\r\n<div>$sMsgDE<br>\r\n<br>\r\n</div>\", \"your order admin (other country)\", \"<p> <span style='color: #ff0000'><strong>Information:</strong></span> Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the <strong>shipping costs</strong>.</p>\r\n<p>$sMsgEN<br />\r\n<br /></p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
-(\"c8d45408c718782f3oe.cp21298666$sShopId\", \"oecreditpassordernpplainemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdl�nder) Plain\", \"Hinweis: Derzeit ist keine Liefermethode f�r dieses Land bekannt. Bitte Lieferm�glichkeiten suchen und den Besteller informieren!\r\n\r\n$sMsgDE\", \"your order admin plain (other country)\", \"<p>Information: Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the shipping costs.\r\n\r\n$sMsgEN</p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
+(\"c8d45408c4998f421oe.cp15746968$sShopId\", \"oecreditpassordernpemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdländer)\", \"<div>\r\n<p> <span style='color: #ff0000;'><strong>Hinweis:</strong></span> Derzeit ist keine Liefermethode für dieses Land bekannt. Bitte Liefermöglichkeiten suchen und den Besteller unter Angabe der <strong>Lieferkosten</strong> informieren!\r\n&nbsp;</p> </div>\r\n<div>$sMsgDE<br>\r\n<br>\r\n</div>\", \"your order admin (other country)\", \"<p> <span style='color: #ff0000'><strong>Information:</strong></span> Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the <strong>shipping costs</strong>.</p>\r\n<p>$sMsgEN<br />\r\n<br /></p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
+(\"c8d45408c718782f3oe.cp21298666$sShopId\", \"oecreditpassordernpplainemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdländer) Plain\", \"Hinweis: Derzeit ist keine Liefermethode für dieses Land bekannt. Bitte Liefermöglichkeiten suchen und den Besteller informieren!\r\n\r\n$sMsgDE\", \"your order admin plain (other country)\", \"<p>Information: Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the shipping costs.\r\n\r\n$sMsgEN</p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
 (\"ad542e49c19109ad6oe.cp04198712$sShopId\", \"oecreditpassorderplainemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin Plain\", \"<p>$sMsgDE</p>\", \"your order admin plain\", \"$sMsgEN\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\");";
 
         return $sSql;
@@ -252,7 +244,7 @@ class Events
      */
     protected static function _setConfigDefaults()
     {
-        $oConfig = oxRegistry::getConfig();
+        $oConfig = Registry::getConfig();
 
         $iCacheTtl = $oConfig->getConfigParam("iOECreditPassCheckCacheTimeout");
         if (empty($iCacheTtl)) {
@@ -283,11 +275,11 @@ class Events
      */
     protected static function _modifyExistingConfigs()
     {
-        $oConfig = oxRegistry::getConfig();
+        $oConfig = Registry::getConfig();
 
         $aOrderFolder = $oConfig->getConfigParam("aOrderfolder");
-        if (!isset($aOrderFolder[oeCreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW])) {
-            $aOrderFolder[oeCreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW] = '#FFA500';
+        if (!isset($aOrderFolder[Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW])) {
+            $aOrderFolder[Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW] = '#FFA500';
             $oConfig->saveShopConfVar("aarr", "aOrderfolder", $aOrderFolder, null, 'module:oecreditpass');
         }
     }
@@ -300,7 +292,7 @@ class Events
         $aBackup = self::_getModuleSettingsFromDb();
         //$aBackup = array();
 
-        $oBackupStorage = oeCreditPassStorage::createInstance();
+        $oBackupStorage = Storage::createInstance();
         $oBackupStorage->setValue("oecreditPass.settings", $aBackup);
     }
 
@@ -309,7 +301,7 @@ class Events
      */
     protected static function _restoreConfigs()
     {
-        $oBackupStorage = oeCreditPassStorage::createInstance();
+        $oBackupStorage = Storage::createInstance();
         $aBackup = $oBackupStorage->getValue("oecreditPass.settings");
 
         if ($aBackup) {
@@ -337,7 +329,7 @@ class Events
      */
     protected static function _removeModifiedExistingConfigs()
     {
-        $sShopIdQuoted = DatabaseProvider::getDb()->quote(oxRegistry::getConfig()->getShopId());
+        $sShopIdQuoted = DatabaseProvider::getDb()->quote(Registry::getConfig()->getShopId());
         $sModuleQuoted = DatabaseProvider::getDb()->quote('module:oecreditpass');
         $sVarNameQuoted = DatabaseProvider::getDb()->quote('aOrderfolder');
 
@@ -355,7 +347,7 @@ class Events
     protected static function _getModuleSettingsFromDb()
     {
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
-        $iShopId = oxRegistry::getConfig()->getShopId();
+        $iShopId = Registry::getConfig()->getShopId();
         $sQ = "SELECT * FROM oxconfig WHERE oxmodule = 'module:oecreditpass' and oxshopid = '$iShopId' ";
 
         $aBackup = array();
@@ -383,7 +375,7 @@ class Events
             return;
         }
 
-        $iShopId = oxRegistry::getConfig()->getShopId();
+        $iShopId = Registry::getConfig()->getShopId();
         $oDb = DatabaseProvider::getDb();
         foreach ($aBackup as $aRow) {
 

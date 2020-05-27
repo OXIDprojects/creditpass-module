@@ -1,19 +1,13 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       models
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
 
-namespace oe\oecreditpass\Model\DbGateways;
+namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
+
+use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
 
 /**
  * Response cache db gateway class
  */
-class ResponseCacheDbGateway extends oe\oecreditpass\Core\ModelDbGateway
+class ResponseCacheDbGateway extends ModelDbGateway
 {
 
     /**

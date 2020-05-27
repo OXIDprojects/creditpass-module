@@ -1,12 +1,4 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       main
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- */
 
 //error boolean. Set to true if error appears
 $blError = false;
@@ -117,5 +109,5 @@ if ($blHttps) {
 if ($blError) {
     echo '<b><font color="red">Die Systemvoraussetzungen sind nicht erf&uuml;llt.</font></b>';
 } else {
-    echo '<b><font color="green">Gl&uuml;ckwunsch. Die Systemvoraussetzungen sind erf&uuml;llt. Sie k�nnen das creditpass Modul installieren.</font></b>';
+    echo '<b><font color="green">Gl&uuml;ckwunsch. Die Systemvoraussetzungen sind erf&uuml;llt. Sie können das creditpass Modul installieren.</font></b>';
 }

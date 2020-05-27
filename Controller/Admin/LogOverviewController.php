@@ -1,19 +1,14 @@
 <?php
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        oxAdminDetails
+ * @extend    AdminDetailsController
  */
 
-namespace oe\oecreditpass\Controller\Admin;
+namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
+use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Model\Log;
 
 class LogOverviewController extends AdminDetailsController
 {
@@ -32,8 +27,8 @@ class LogOverviewController extends AdminDetailsController
      */
     public function getLogDetails()
     {
-        /** @var oeCreditPassResponseLogger $oLogger */
-        $oLogger = oxNew('oeCreditPassResponseLogger');
+        /** @var ResponseLogger $oLogger */
+        $oLogger = oxNew(ResponseLogger::class);
         $aLogDetails = $oLogger->load($this->getEditObjectId());
 
         return $aLogDetails;
@@ -46,8 +41,8 @@ class LogOverviewController extends AdminDetailsController
      */
     public function getAnswerCodesForLog()
     {
-        /** @var oeCreditPass_Log $oCreditPassLog */
-        $oCreditPassLog = oxNew('oeCreditPass_Log');
+        /** @var Log $oCreditPassLog */
+        $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
         return $aAnswerCodes;

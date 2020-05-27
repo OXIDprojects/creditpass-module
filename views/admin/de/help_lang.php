@@ -1,20 +1,12 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       views
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id$
- */
 
 /**
  * Defining help texts (Deutsch)
  */
 $aLang = array(
-    'charset'                              => 'UTF-8',
+    'charset'                              => 'ISO-8859-15',
     'HELP_OECREDITPASS_MAIN_ACTIVATE'      => 'Schaltet creditPass Funktionalität an oder aus',
-    'HELP_OECREDITPASS_MAIN_CACHING_TTL'   => 'Für die angegebenen Tage werden die creditPass Ergebnisse für die aktuelle Nutzer/Adress-Kombination gespeichert. ' .
+    'HELP_OECREDITPASS_MAIN_CACHING_TTL'   => 'für die angegebenen Tage werden die creditPass Ergebnisse für die aktuelle Nutzer/Adress-Kombination gespeichert. ' .
                                               ' Während die Ergebnisse gespeichert sind, wird für die Nutzer/Adress-Kombination keine creditPass Anfrage gestellt. ' .
                                               'Sollte "0" konfiguriert werden, wird kein Caching durchgeführt.',
     'HELP_OECREDITPASS_MAIN_MANUAL_REVIEW' => 'Konfiguriert, wie sich das creditPass Modul verhält, falls vom credtiPass Dienst manuelle Prüfung empfohlen wird. ' .

@@ -1,17 +1,31 @@
 <?php
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link      http://www.oxid-esales.com
- * @package   main
- * @copyright (c] OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version   SVN: $Id: $
- */
 
 use OxidEsales\Eshop\Application\Controller\OrderController;
 use OxidEsales\Eshop\Application\Controller\PaymentController;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Email;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\ListController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\LogController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\LogListController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\LogOverviewController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\MainController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\UserController;
+use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Core\Events;
+use OxidProfessionalServices\CreditPassModule\Core\Exceptions\NotSupportedException;
+use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
+use OxidProfessionalServices\CreditPassModule\Core\Mail;
+use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Core\Storage;
+use OxidProfessionalServices\CreditPassModule\Core\StorageDbShopAwarePersistence;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseLoggerDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\Log;
+use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
 
 /**
  * Metadata version
@@ -25,7 +39,7 @@ $aModule = [
     'id'          => 'oecreditpass',
     'title'       => 'creditPass',
     'description' => [
-        'de' => 'Modul f&uuml;r Bonit&auml;tspr&uuml;fungen mit creditPass.',
+        'de' => 'Modul für Bonitätsprüfungen mit creditPass.',
         'en' => 'Module for solvency check with creditPass.',
     ],
     'thumbnail'   => 'picture.png',
@@ -34,41 +48,41 @@ $aModule = [
     'url'         => 'http://www.oxid-esales.com',
     'email'       => 'info@oxid-esales.com',
     'extend'      => [
-        OrderController::class   => oe\oecreditpass\Controller\OrderController::class,
-        PaymentController::class => oe\oecreditpass\Controller\PaymentController::class,
-        Order::class             => oe\oecreditpass\Model\Order::class,
-        Email::class             => oe\oecreditpass\Core\Mail::class
+        OrderController::class   => \OxidProfessionalServices\CreditPassModule\Controller\OrderController::class,
+        PaymentController::class => \OxidProfessionalServices\CreditPassModule\Controller\PaymentController::class,
+        Order::class             => \OxidProfessionalServices\CreditPassModule\Model\Order::class,
+        Email::class             => Mail::class
     ],
     'controllers' => [
-        'oeICreditPassStorageShopAwarePersistence' => oe\oecreditpass\Core\Interfaces\ICreditPassStorageShopAwarePersistence::class,
+        'oeICreditPassStorageShopAwarePersistence' => ICreditPassStorageShopAwarePersistence::class,
 
-        'oeCreditPassAssessment'                    => oe\oecreditpass\Core\Assessment::class,
-        'oeCreditPassConfig'                        => oe\oecreditpass\Core\Config::class,
-        'oeCreditPassResponseLogger'                => oe\oecreditpass\Core\ResponseLogger::class,
-        'oeCreditPassEvents'                        => oe\oecreditpass\Core\Events::class,
-        'oeCreditPassModelDbGateway'                => oe\oecreditpass\Core\ModelDbGateway::class,
-        'oeCreditPassStorage'                       => oe\oecreditpass\Core\Storage::class,
-        'oeCreditPassStorageDbShopAwarePersistence' => oe\oecreditpass\Core\StorageDbShopAwarePersistence::class,
+        'oeCreditPassAssessment'                    => Assessment::class,
+        'oeCreditPassConfig'                        => Config::class,
+        'oeCreditPassResponseLogger'                => ResponseLogger::class,
+        'oeCreditPassEvents'                        => Events::class,
+        'oeCreditPassModelDbGateway'                => ModelDbGateway::class,
+        'oeCreditPassStorage'                       => Storage::class,
+        'oeCreditPassStorageDbShopAwarePersistence' => StorageDbShopAwarePersistence::class,
 
 
-        'oeCreditPass'              => oe\oecreditpass\Controller\Admin\CreditPassController::class,
-        'oeCreditPass_List'         => oe\oecreditpass\Controller\Admin\ListController::class,
-        'oeCreditPass_Main'         => oe\oecreditpass\Controller\Admin\MainController::class,
-        'oeCreditPass_Payment'      => oe\oecreditpass\Controller\Admin\PaymentController::class,
-        'oeCreditPass_Order'        => oe\oecreditpass\Controller\Admin\OrderController::class,
-        'oeCreditPass_Log'          => oe\oecreditpass\Controller\Admin\LogController::class,
-        'oeCreditPass_Log_List'     => oe\oecreditpass\Controller\Admin\LogListController::class,
-        'oeCreditPass_Log_Overview' => oe\oecreditpass\Controller\Admin\LogOverviewController::class,
-        'oeCreditPass_User'         => oe\oecreditpass\Controller\Admin\UserController::class,
+        'oeCreditPass'              => CreditPassController::class,
+        'oeCreditPass_List'         => ListController::class,
+        'oeCreditPass_Main'         => MainController::class,
+        'oeCreditPass_Payment'      => \OxidProfessionalServices\CreditPassModule\Controller\Admin\PaymentController::class,
+        'oeCreditPass_Order'        => \OxidProfessionalServices\CreditPassModule\Controller\Admin\OrderController::class,
+        'oeCreditPass_Log'          => LogController::class,
+        'oeCreditPass_Log_List'     => LogListController::class,
+        'oeCreditPass_Log_Overview' => LogOverviewController::class,
+        'oeCreditPass_User'         => UserController::class,
 
-        'oeCreditPassLog'                      => oe\oecreditpass\Model\Log::class,
-        'oeCreditPassResultCache'              => oe\oecreditpass\Model\ResultCache::class,
-        'oeCreditPassPaymentSettingsDbGateway' => oe\oecreditpass\Model\DbGateways\PaymentSettingsDbGateway::class,
-        'oeCreditPassResponseCacheDbGateway'   => oe\oecreditpass\Model\DbGateways\ResponseCacheDbGateway::class,
-        'oeCreditPassResponseLoggerDbGateway'  => oe\oecreditpass\Model\DbGateways\ResponseLoggerDbGateway::class,
+        'oeCreditPassLog'                      => Log::class,
+        'oeCreditPassResultCache'              => ResultCache::class,
+        'oeCreditPassPaymentSettingsDbGateway' => PaymentSettingsDbGateway::class,
+        'oeCreditPassResponseCacheDbGateway'   => ResponseCacheDbGateway::class,
+        'oeCreditPassResponseLoggerDbGateway'  => ResponseLoggerDbGateway::class,
 
-        'oeCreditPassException'             => oe\oecreditpass\Core\Exceptions\Exception::class,
-        'oeCreditPassNotSupportedException' => oe\oecreditpass\Core\Exceptions\NotSupportedException::class,
+        'oeCreditPassException'             => \OxidProfessionalServices\CreditPassModule\Core\Exceptions\Exception::class,
+        'oeCreditPassNotSupportedException' => NotSupportedException::class,
     ],
     'templates'   => [
         'oecreditpass.tpl'              => 'oe/oecreditpass/views/admin/tpl/oecreditpass.tpl',
@@ -93,8 +107,7 @@ $aModule = [
          'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'],
     ],
     'events'      => [
-        'onActivate'   => 'oeCreditPassEvents::onActivate',
-        'onDeactivate' => 'oeCreditPassEvents::onDeactivate'
+        'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\Events::onActivate',
+        'onDeactivate' => '\OxidProfessionalServices\CreditPassModule\Core\Events::onDeactivate'
     ],
-
 ];

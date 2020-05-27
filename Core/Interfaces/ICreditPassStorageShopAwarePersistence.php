@@ -1,10 +1,6 @@
 <?php
 
-/**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- */
-
-namespace oe\oecreditpass\Core\Interfaces;
+namespace OxidProfessionalServices\CreditPassModule\Core\Interfaces;
 
 /**
  * CreditPass shop aware persistence interface.

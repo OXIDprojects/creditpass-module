@@ -1,17 +1,12 @@
 <?php
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
- *
- * @link          http://www.oxid-esales.com
- * @package       controllers
- * @copyright (c) anzido GmbH, Andreas Ziethen 2008-2011
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
- *
- * @extend        Payment
+ * @extend    Payment
  */
 
-namespace oe\oecreditpass\Controller;
+namespace OxidProfessionalServices\CreditPassModule\Controller;
+
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\CreditPassModule\Core\Assessment;
 
 class PaymentController extends PaymentController_parent
 {
@@ -19,7 +14,7 @@ class PaymentController extends PaymentController_parent
     /**
      * Module core class object.
      *
-     * @var oeCreditPassAssessment
+     * @var Assessment
      */
     protected $_oCrAssessment = null;
 
@@ -41,7 +36,7 @@ class PaymentController extends PaymentController_parent
      */
     public function getPaymentList()
     {
-        $blModuleActive = oxRegistry::getConfig()->getConfigParam("blOECreditPassIsActive");
+        $blModuleActive = Registry::getConfig()->getConfigParam("blOECreditPassIsActive");
 
         if ($this->_oPaymentList === null) {
             $this->_oPaymentList = parent::getPaymentList();
@@ -70,10 +65,10 @@ class PaymentController extends PaymentController_parent
     /**
      * Returns an instance of the module core class.
      *
-     * @return oeCreditPassAssessment
+     * @return Assessment
      */
     protected function _getCrAssessment()
     {
-        return oxNew("oeCreditPassAssessment");
+        return oxNew(Assessment::class);
     }
 }
