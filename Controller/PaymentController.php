@@ -8,7 +8,7 @@ namespace OxidProfessionalServices\CreditPassModule\Controller;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\Assessment;
 
-class PaymentController extends PaymentController_parent
+class PaymentController extends \OxidEsales\Eshop\Application\Controller\PaymentController
 {
 
     /**
@@ -32,7 +32,6 @@ class PaymentController extends PaymentController_parent
      *
      * @return object
      * @see    _processPaymentList()
-     *
      */
     public function getPaymentList()
     {

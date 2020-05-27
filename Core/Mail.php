@@ -2,13 +2,13 @@
 
 /**
  * @extend        oxEmail
- *
  */
 namespace OxidProfessionalServices\CreditPassModule\Core;
 
+use OxidEsales\Eshop\Core\Email;
 use OxidEsales\Eshop\Core\Registry;
 
-class Mail extends Mail_parent
+class Mail extends Email
 {
 
     /**
@@ -71,7 +71,8 @@ class Mail extends Mail_parent
 
         //Sets subject to email
         $sSubject = $oShop->oxshops__oxordersubject->getRawValue() . " (#" . $oOrder->oxorder__oxordernr->value . ")" . " " . $sTranslation = $oLang->translateString(
-                'OECREDITPASS_SETTINGS_MANUAL_EMAIL_MESSAGE', $iOrderLang
+                'OECREDITPASS_SETTINGS_MANUAL_EMAIL_MESSAGE',
+                $iOrderLang
             );
 
         $this->setSubject($sSubject);
@@ -82,4 +83,4 @@ class Mail extends Mail_parent
 
         return $blSuccess;
     }
-} 
+}

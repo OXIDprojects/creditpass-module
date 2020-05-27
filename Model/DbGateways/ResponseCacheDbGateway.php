@@ -199,5 +199,4 @@ class ResponseCacheDbGateway extends ModelDbGateway
     {
         return substr(md5(uniqid('', true) . '|' . microtime()), 0, 32);
     }
-
-} 
+}

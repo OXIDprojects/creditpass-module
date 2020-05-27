@@ -106,7 +106,9 @@ class LogListController extends AdminListController
      */
     public function getAnswerCodesForLog()
     {
-        /** @var Log $oCreditPassLog */
+        /**
+         * @var Log $oCreditPassLog
+         */
         $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
@@ -120,7 +122,9 @@ class LogListController extends AdminListController
      */
     public function getAnswerCodeFilters()
     {
-        /** @var Log $oCreditPassLog */
+        /**
+         * @var Log $oCreditPassLog
+         */
         $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodes();
 
@@ -178,7 +182,8 @@ class LogListController extends AdminListController
         $sSql = str_replace(' from ', ", $sSelectCustNr, $sSelectOrderNr from ", $sSql);
         $sSql = str_replace(
             ' oecreditpasslog where ',
-            " oecreditpasslog $sJoinUser $sJoinOrder where `oecreditpasslog`.`SHOPID`={$this->_iShopId} and ", $sSql
+            " oecreditpasslog $sJoinUser $sJoinOrder where `oecreditpasslog`.`SHOPID`={$this->_iShopId} and ",
+            $sSql
         );
 
         return $sSql;

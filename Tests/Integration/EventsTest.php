@@ -22,7 +22,9 @@ class EventsTest extends UnitTestCase
      */
     protected $_iShopId;
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -34,7 +36,9 @@ class EventsTest extends UnitTestCase
         }
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function tearDown()
     {
         $this->_clearTestData();
@@ -95,7 +99,9 @@ class EventsTest extends UnitTestCase
         // Instance of oxConfig was already used internally, it loaded configs and cached them.
         // When new configs are added to database within the same session, oxConfig does not reload them.
         // We are using a new instance of oxConfig to load new configs for assertion.
-        /** @var Config $oConfig */
+        /**
+         * @var Config $oConfig
+         */
         $oConfig = oxNew(Config::class);
         $sActualConfigValue = $oConfig->getConfigParam($sConfigName);
 

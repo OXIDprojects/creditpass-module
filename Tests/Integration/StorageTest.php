@@ -22,7 +22,9 @@ class StorageTest extends UnitTestCase
      */
     protected $_iShopId;
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         parent::setUp();
@@ -33,7 +35,9 @@ class StorageTest extends UnitTestCase
         }
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function tearDown()
     {
         $this->_clearTestData();
@@ -252,7 +256,9 @@ class StorageTest extends UnitTestCase
      */
     public function testGetShopId($mActualShopId, $mExpectedShopId)
     {
-        /** @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence */
+        /**
+         * @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence
+         */
         $oShopAwarePersistence = $this->getMock(ICreditPassStorageShopAwarePersistence::class, array('setValue', 'getValue'));
         $oShopAwarePersistence->expects($this->any())->method('setValue');
         $oShopAwarePersistence->expects($this->any())

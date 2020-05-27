@@ -25,7 +25,6 @@ function printError($sError, $sAction)
  * @param string $sAction Suggestion for to be taken action
  *
  * @return null
- *
  */
 function printWarning($sError, $sAction)
 {
@@ -40,7 +39,6 @@ function printWarning($sError, $sAction)
  * @param string $sNote additional note
  *
  * @return null
- *
  */
 function printOk($sNote = '')
 {

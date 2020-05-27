@@ -152,7 +152,7 @@ class ResponseLoggerTest extends UnitTestCase
      * Test case for logging different data.
      *
      * @dataProvider _dpResponseXMLDataProvider
-     * @throws DatabaseConnectionException
+     * @throws       DatabaseConnectionException
      */
     public function testSave($sResponseXML, $aDatabaseResults)
     {
@@ -192,7 +192,9 @@ class ResponseLoggerTest extends UnitTestCase
         $oLogger->save($aResponseXML);
         $sCreditPassId = $oLogger->getLastID();
 
-        /** @var User $oDummyUser */
+        /**
+         * @var User $oDummyUser
+         */
         $oDummyUser = oxNew(User::class);
         $oDummyUser->load('test_azcr_oxuser');
         $sUserId = $oDummyUser->getId();
@@ -237,7 +239,9 @@ class ResponseLoggerTest extends UnitTestCase
         $oLogger->save($aResponseXML);
         $sCreditPassId = $oLogger->getLastID();
 
-        /** @var User $oDummyUser */
+        /**
+         * @var User $oDummyUser
+         */
         $oDummyUser = oxNew(User::class);
         $oDummyUser->load('test_azcr_oxuser');
         $sUserId = $oDummyUser->getId();
@@ -294,7 +298,9 @@ class ResponseLoggerTest extends UnitTestCase
         $oLogger->save($aResponseXML);
         $sCreditPassId = $oLogger->getLastID();
 
-        /** @var User $oDummyUser */
+        /**
+         * @var User $oDummyUser
+         */
         $oDummyUser = oxNew(User::class);
         $oDummyUser->load('test_azcr_oxuser');
         $sUserId = $oDummyUser->getId();
@@ -346,12 +352,16 @@ class ResponseLoggerTest extends UnitTestCase
         $oLogger->save($aResponseXML);
         $sCreditPassId = $oLogger->getLastID();
 
-        /** @var User $oDummyUser */
+        /**
+         * @var User $oDummyUser
+         */
         $oDummyUser = oxNew(User::class);
         $oDummyUser->load('test_azcr_oxuser');
         $sUserId = $oDummyUser->getId();
 
-        /** @var Order $oDummyOrder */
+        /**
+         * @var Order $oDummyOrder
+         */
         $oDummyOrder = oxNew(Order::class);
         $oDummyOrder->save();
         $sOrderId = $oDummyOrder->getId();

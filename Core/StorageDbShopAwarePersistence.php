@@ -47,7 +47,9 @@ class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersis
         return $oInstance;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function setValue($iShopId, $sKey, $mValue)
     {
         $sTable = self::DATABASE_TABLE;
@@ -60,7 +62,9 @@ class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersis
         $this->_getDb()->execute($sSql, $aSqlParameters);
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function getValue($iShopId, $sKey)
     {
         $sTable = self::DATABASE_TABLE;

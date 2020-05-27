@@ -41,7 +41,9 @@ class UserController extends AdminDetailsController
      */
     public function getLogList()
     {
-        /** @var ResponseLogger $oLogger */
+        /**
+         * @var ResponseLogger $oLogger
+         */
         $oLogger = oxNew(ResponseLogger::class);
         $aLogList = $oLogger->searchUser($this->getEditObjectId());
 
@@ -58,7 +60,9 @@ class UserController extends AdminDetailsController
      */
     public function getAnswerCodesForLog()
     {
-        /** @var Log $oCreditPassLog */
+        /**
+         * @var Log $oCreditPassLog
+         */
         $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
@@ -78,5 +82,4 @@ class UserController extends AdminDetailsController
 
         return $iResult;
     }
-
 }

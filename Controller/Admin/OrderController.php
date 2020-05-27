@@ -27,7 +27,9 @@ class OrderController extends AdminDetailsController
      */
     public function getLogDetails()
     {
-        /** @var ResponseLogger $oLogger */
+        /**
+         * @var ResponseLogger $oLogger
+         */
         $oLogger = oxNew(ResponseLogger::class);
         $aLogDetails = $oLogger->searchOrder($this->getEditObjectId());
 
@@ -41,7 +43,9 @@ class OrderController extends AdminDetailsController
      */
     public function getAnswerCodesForLog()
     {
-        /** @var Log $oCreditPassLog */
+        /**
+         * @var Log $oCreditPassLog
+         */
         $oCreditPassLog = oxNew(Log::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 

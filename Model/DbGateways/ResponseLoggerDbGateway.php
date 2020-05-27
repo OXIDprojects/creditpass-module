@@ -263,7 +263,6 @@ class ResponseLoggerDbGateway extends ModelDbGateway
 
         $rs = $oDb->execute($sSql);
         if ($rs) {
-
             $this->_setLastInsertedID($aData[$this->_getPrimaryFieldName()]);
 
             $blReturn = true;

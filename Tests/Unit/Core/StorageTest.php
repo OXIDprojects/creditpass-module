@@ -66,11 +66,15 @@ class StorageTest extends UnitTestCase
      */
     public function testSetValue($iShopId, $sKey, $sValue)
     {
-        /** @var PHPUnit_Framework_MockObject_MockObject|Config $oConfig */
+        /**
+         * @var PHPUnit_Framework_MockObject_MockObject|Config $oConfig
+         */
         $oConfig = $this->getMock(Config::class, array('getShopId'));
         $oConfig->expects($this->any())->method('getShopId')->will($this->returnValue($iShopId));
 
-        /** @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence */
+        /**
+         * @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence
+         */
         $oShopAwarePersistence = $this->getMock(ICreditPassStorageShopAwarePersistence::class, array('setValue', 'getValue'));
         $oShopAwarePersistence->expects($this->once())->method('setValue')->with($iShopId, $sKey, $sValue);
         $oShopAwarePersistence->expects($this->any())->method('getValue');
@@ -93,11 +97,15 @@ class StorageTest extends UnitTestCase
             array($iShopId, $sKey, $mValue)
         );
 
-        /** @var PHPUnit_Framework_MockObject_MockObject|Config $oConfig */
+        /**
+         * @var PHPUnit_Framework_MockObject_MockObject|Config $oConfig
+         */
         $oConfig = $this->getMock(Config::class, array('getShopId'));
         $oConfig->expects($this->any())->method('getShopId')->will($this->returnValue($iShopId));
 
-        /** @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence */
+        /**
+         * @var PHPUnit_Framework_MockObject_MockObject|ICreditPassStorageShopAwarePersistence $oShopAwarePersistence
+         */
         $oShopAwarePersistence = $this->getMock(ICreditPassStorageShopAwarePersistence::class, array('setValue', 'getValue'));
         $oShopAwarePersistence->expects($this->any())->method('setValue');
         $oShopAwarePersistence->expects($this->any())

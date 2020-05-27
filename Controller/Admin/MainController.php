@@ -34,8 +34,9 @@ class MainController extends ShopConfiguration
     {
         $myConfig = $this->getConfig();
         $this->_iShopId = $myConfig->getShopId();
-        if ($this->_iShopId == "oxbaseshop")
+        if ($this->_iShopId == "oxbaseshop") {
             $this->_iShopId = 1;
+        }
     }
 
     /**
@@ -160,5 +161,4 @@ class MainController extends ShopConfiguration
     {
         return oxNew(Config::class)->getModuleAdminUrl($sFile);
     }
-
 }

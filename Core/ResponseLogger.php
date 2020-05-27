@@ -45,7 +45,9 @@ class ResponseLogger
     public function getLogger()
     {
         if (is_null($this->_oLogger)) {
-            /** @var ResponseLoggerDbGateway $oDatabaseLogger */
+            /**
+             * @var ResponseLoggerDbGateway $oDatabaseLogger
+             */
             $oDatabaseLogger = oxNew(ResponseLoggerDbGateway::class);
             $this->setLogger($oDatabaseLogger);
         }

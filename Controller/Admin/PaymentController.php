@@ -84,8 +84,9 @@ class PaymentController extends AdminDetailsController
     {
         $myConfig = $this->getConfig();
         $this->_iShopId = $myConfig->getShopId();
-        if ($this->_iShopId == "oxbaseshop")
+        if ($this->_iShopId == "oxbaseshop") {
             $this->_iShopId = 1;
+        }
     }
 
     /**
@@ -154,7 +155,6 @@ class PaymentController extends AdminDetailsController
         $aParsedPaymentSettings = array();
 
         foreach ($aAllPaymentSettings as $sKey => $aPaymentSettings) {
-
             if (!$this->_isInt($aPaymentSettings['PURCHASETYPE'])) {
                 $aPaymentSettings['PURCHASETYPE'] = '';
             }

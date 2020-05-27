@@ -2,7 +2,6 @@
 
 /**
  * @extend    oxOrder
- *
  */
 
 namespace OxidProfessionalServices\CreditPassModule\Model;
@@ -10,12 +9,12 @@ namespace OxidProfessionalServices\CreditPassModule\Model;
 use OxidEsales\Eshop\Application\Model\Basket;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Model\UserPayment;
-use OxidEsales\Eshop\Core\Email;
 use OxidEsales\Eshop\Core\Field;
 use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\Mail;
 use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
 
-class Order extends Order_parent
+class Order extends \OxidEsales\Eshop\Application\Model\Order
 {
 
     /**
@@ -46,11 +45,11 @@ class Order extends Order_parent
     /**
      * return oeCreditPassMail object
      *
-     * @return Email
+     * @return Mail
      */
     protected function _getEmailObject()
     {
-        return oxNew(Email::class);
+        return oxNew(Mail::class);
     }
 
     /**
@@ -106,13 +105,17 @@ class Order extends Order_parent
      */
     protected function _updateLog()
     {
-        /** @var ResponseLogger $oLogger */
+        /**
+         * @var ResponseLogger $oLogger
+         */
         $oLogger = oxNew(ResponseLogger::class);
 
         $aSessionData = $this->getSession()->getVariable('aBoniSessionData');
         $sCreditPassId = $aSessionData['sOECreditPassId'];
 
-        /** @var User $oUser */
+        /**
+         * @var User $oUser
+         */
         $oUser = $this->getOrderUser();
 
         $oLogger->getLogger()->setPrimaryUpdateFieldName('ID');

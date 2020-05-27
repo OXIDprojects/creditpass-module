@@ -8,7 +8,7 @@ namespace OxidProfessionalServices\CreditPassModule\Controller;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\Assessment;
 
-class OrderController extends OrderController_parent
+class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderController
 {
 
     /**

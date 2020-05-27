@@ -101,7 +101,6 @@ class Config
      * Saves the error msg
      *
      * @param array $aFields Fields to be assigned
-     *
      */
     public function saveUnauthorizedErrorMsg($aFields)
     {
@@ -175,7 +174,9 @@ class Config
     public function getModuleAdminUrl($sFile)
     {
         $oConfig = Registry::getConfig();
-        /** @var Module $oModule */
+        /**
+         * @var Module $oModule
+         */
         $oModule = oxNew(ViewConfig::class);
         $sUrl = str_replace(
             rtrim($oConfig->getConfigParam('sShopDir'), '/'),
@@ -185,7 +186,4 @@ class Config
 
         return $sUrl;
     }
-
-
 }
- 

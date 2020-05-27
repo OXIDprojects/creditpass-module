@@ -326,8 +326,8 @@ class Assessment
     {
         $blIsFallback = false;
         $iType = $this->_getManualWorkflowType();
-        if ($iAnswerCode == self::OECREDITPASS_ANSWER_CODE_NACK ||
-            ($iAnswerCode == self::OECREDITPASS_ANSWER_CODE_MANUAL && $iType == self::OECREDITPASS_MANUAL_CHECK_TYPE_NACK)
+        if ($iAnswerCode == self::OECREDITPASS_ANSWER_CODE_NACK
+            || ($iAnswerCode == self::OECREDITPASS_ANSWER_CODE_MANUAL && $iType == self::OECREDITPASS_MANUAL_CHECK_TYPE_NACK)
         ) {
             $blIsFallback = true;
         }
@@ -672,7 +672,9 @@ class Assessment
      */
     protected function _logResponse()
     {
-        /** @var ResponseLogger $oLogger */
+        /**
+         * @var ResponseLogger $oLogger
+         */
         $oLogger = $this->getLogger();
 
         $aValues = $this->xmlParser($this->_sBoniResponseXML, '_doIlCheck');
@@ -716,7 +718,9 @@ class Assessment
      */
     public function setLogger($oLogger = null)
     {
-        /** @var ResponseLogger $oLogger */
+        /**
+         * @var ResponseLogger $oLogger
+         */
         if ($this->_oLogger === null) {
             $this->_oLogger = oxNew(ResponseLogger::class);
         } else {
@@ -1279,8 +1283,8 @@ class Assessment
         );
         $sBoniRequestXML .= "<ADDR_COUNTRY>" . $country . "</ADDR_COUNTRY>";
 
-        if (!empty($this->_oUser->oxuser__oxbirthdate->value) &&
-            $this->_oUser->oxuser__oxbirthdate->value != "0000-00-00"
+        if (!empty($this->_oUser->oxuser__oxbirthdate->value)
+            && $this->_oUser->oxuser__oxbirthdate->value != "0000-00-00"
         ) {
             $sBoniRequestXML .= "<DOB>" . $this->_oUser->oxuser__oxbirthdate->value . "</DOB>";
         } else {
@@ -1681,10 +1685,13 @@ class Assessment
     protected function isValidIBAN($sAccNr)
     {
         if (class_exists('oxSepaValidator')) {
-            /** @var SepaValidator $oSepaValidator */
+            /**
+             * @var SepaValidator $oSepaValidator
+             */
             $oSepaValidator = oxNew(SepaValidator::class);
             if (method_exists($oSepaValidator, 'getIBANRegistry') && !array_key_exists(
-                    substr($sAccNr, 0, 2), $oSepaValidator->getIBANRegistry()
+                    substr($sAccNr, 0, 2),
+                    $oSepaValidator->getIBANRegistry()
                 )
             ) {
                 return false;

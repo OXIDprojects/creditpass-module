@@ -20,7 +20,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
      */
     public function testLoadAllMethodFirstMethodSuccess()
     {
-        /** @var PaymentSettingsDbGateway $oePaymentSettingsDbController */
+        /**
+         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         */
         $oePaymentSettingsDbController = $this->getMock(
             PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
         );
@@ -49,7 +51,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
      */
     public function testLoadAllMethodFirstFetchMethodFailureSecondSuccess($aWrongAnswer)
     {
-        /** @var PaymentSettingsDbGateway $oePaymentSettingsDbController */
+        /**
+         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         */
         $oePaymentSettingsDbController = $this->getMock(
             PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
         );
@@ -82,7 +86,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
      */
     public function testLoad($sId, $aTableData, $sResult)
     {
-        /** @var PaymentSettingsDbGateway $oePaymentSettingsDbController */
+        /**
+         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         */
         $oePaymentSettingsDbController = $this->getMock(
             PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
         );
@@ -98,7 +104,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
      */
     public function testGetWhereClause()
     {
-        /** @var PaymentSettingsDbGateway $oePaymentSettingsDbController */
+        /**
+         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         */
         $oePaymentSettingsDbController = $this->getMock(
             PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
         );
@@ -123,7 +131,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
 
         $oTestDb = new oxTestDb(false);
 
-        /** @var PaymentSettingsDbGateway $oePaymentSettingsDbController */
+        /**
+         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         */
         $oePaymentSettingsDbController = $this->getMock(PaymentSettingsDbGateway::class, array('_getDb'));
         $oePaymentSettingsDbController->expects($this->at(0))->method('_getDb')->will(
             $this->returnValue($oTestDb)

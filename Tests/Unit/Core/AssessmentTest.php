@@ -916,10 +916,14 @@ class AssessmentTest extends UnitTestCase
         $aTestData = $this->_getTestPaymentSettings(
             $sActiveReturns, $sFallbackReturns, $sAllowOnErrorReturns, $sPurchaseType, $sKey
         );
-        /** @var PaymentSettingsDbGateway $oeDbGateway */
+        /**
+         * @var PaymentSettingsDbGateway $oeDbGateway
+         */
         $oeDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
         $oeDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue($aTestData));
-        /** @var Assessment $oCreditPass */
+        /**
+         * @var Assessment $oCreditPass
+         */
         $oCreditPass = $this->getMock(Assessment::class, array('_getDbGateway'));
         $oCreditPass->expects($this->once())->method('_getDbGateway')->will($this->returnValue($oeDbGateway));
 
@@ -934,10 +938,14 @@ class AssessmentTest extends UnitTestCase
      */
     public function testLoadPaymentSettingsWhenNullReturned()
     {
-        /** @var PaymentSettingsDbGateway $oeDbGateway */
+        /**
+         * @var PaymentSettingsDbGateway $oeDbGateway
+         */
         $oeDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
         $oeDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue(false));
-        /** @var Assessment $oCreditPass */
+        /**
+         * @var Assessment $oCreditPass
+         */
         $oCreditPass = $this->getMock(Assessment::class, array('_getDbGateway'));
         $oCreditPass->expects($this->once())->method('_getDbGateway')->will($this->returnValue($oeDbGateway));
 

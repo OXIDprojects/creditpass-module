@@ -199,7 +199,9 @@ class PaymentSettingsDbGateway extends ModelDbGateway
      */
     protected function _fetchPaymentSettingsFromDatabase()
     {
-        /** @var ListModel $oPaymentSettingsList */
+        /**
+         * @var ListModel $oPaymentSettingsList
+         */
         $oPaymentSettingsList = oxNew(ListModel::class);
         $sShopPaymentsTable = TableViewNameGenerator::getViewName("oxpayments");
         $oPaymentSettingsList->init("oxpayment");
@@ -215,5 +217,4 @@ class PaymentSettingsDbGateway extends ModelDbGateway
 
         return $oPaymentSettingsList;
     }
-
-} 
+}

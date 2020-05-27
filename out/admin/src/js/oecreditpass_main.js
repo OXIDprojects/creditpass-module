@@ -136,9 +136,11 @@ var oeCreditPassMain = (function ($) {
                 $(this).removeClass(oeCreditPassMain.classRedBorder);
             }
 
-            setTimeout(function () {
-                setCacheInput.removeClass(oeCreditPassMain.classRedBorder);
-            }, 600);
+            setTimeout(
+                function () {
+                    setCacheInput.removeClass(oeCreditPassMain.classRedBorder);
+                }, 600
+            );
 
         }
     }
@@ -147,12 +149,14 @@ var oeCreditPassMain = (function ($) {
 
 })(jQuery);
 $.noConflict();
-jQuery(document).ready(function () {
-    // Main init
-    oeCreditPassMain.init();
+jQuery(document).ready(
+    function () {
+        // Main init
+        oeCreditPassMain.init();
 
-    // Other
-    // User groups selection widget initiation
-    jQuery(".chosen-select").chosen({no_results_text: "-", disable_search_threshold: 15, width: "280px"});
-    jQuery(".chosen-select-multiple").chosen({no_results_text: "-", disable_search_threshold: 15, width: "500px"});
-});
+        // Other
+        // User groups selection widget initiation
+        jQuery(".chosen-select").chosen({no_results_text: "-", disable_search_threshold: 15, width: "280px"});
+        jQuery(".chosen-select-multiple").chosen({no_results_text: "-", disable_search_threshold: 15, width: "500px"});
+    }
+);

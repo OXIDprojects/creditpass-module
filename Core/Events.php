@@ -249,7 +249,10 @@ class Events
         $iCacheTtl = $oConfig->getConfigParam("iOECreditPassCheckCacheTimeout");
         if (empty($iCacheTtl)) {
             $oConfig->saveShopConfVar(
-                "str", "iOECreditPassCheckCacheTimeout", self::OECREDITPASS_DEFAULT_CACHE_TTL, null,
+                "str",
+                "iOECreditPassCheckCacheTimeout",
+                self::OECREDITPASS_DEFAULT_CACHE_TTL,
+                null,
                 'module:oecreditpass'
             );
         }
@@ -257,14 +260,21 @@ class Events
         $sServiceUrl = $oConfig->getConfigParam("sOECreditPassUrl");
         if (!$sServiceUrl) {
             $oConfig->saveShopConfVar(
-                "str", "sOECreditPassUrl", self::OECREDITPASS_DEFAULT_SERVICE_URL, null, 'module:oecreditpass'
+                "str",
+                "sOECreditPassUrl",
+                self::OECREDITPASS_DEFAULT_SERVICE_URL,
+                null,
+                'module:oecreditpass'
             );
         }
 
         $iManualWorkflow = $oConfig->getConfigParam("iOECreditPassManualWorkflow");
         if (empty($iManualWorkflow)) {
             $oConfig->saveShopConfVar(
-                "str", "iOECreditPassManualWorkflow", self::OECREDITPASS_DEFAULT_MANUAL_WORKFLOW, null,
+                "str",
+                "iOECreditPassManualWorkflow",
+                self::OECREDITPASS_DEFAULT_MANUAL_WORKFLOW,
+                null,
                 'module:oecreditpass'
             );
         }
@@ -378,7 +388,6 @@ class Events
         $iShopId = Registry::getConfig()->getShopId();
         $oDb = DatabaseProvider::getDb();
         foreach ($aBackup as $aRow) {
-
             $sOxid = $oDb->quote($aRow["OXID"]);
             $sVarName = $oDb->quote($aRow["OXVARNAME"]);
             $sVarType = $oDb->quote($aRow["OXVARTYPE"]);
