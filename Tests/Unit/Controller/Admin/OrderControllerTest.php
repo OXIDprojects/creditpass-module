@@ -2,7 +2,6 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Controller\Admin;
 
-use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
@@ -10,6 +9,7 @@ use OxidEsales\Eshop\Core\Field;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use OxidProfessionalServices\CreditPassModule\Controller\Admin\OrderController;
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\Order;
 
 class OrderControllerTest extends UnitTestCase
 {
