@@ -458,6 +458,7 @@ class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
      *
      * @return array
      * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
      */
     public function search($aSearchQuery)
     {
@@ -481,7 +482,7 @@ class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
         $sSql .= " LEFT JOIN `oxorder` ON (`{$this->_getTableName()}`.`ORDERID` = `oxorder`.`OXID`)";
         $sSql .= "WHERE {$sWhere}";
 
-        $aData = $oDB->getArray($sSql);
+        $aData = $oDB->getAll($sSql);
 
         return $aData;
     }
