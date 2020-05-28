@@ -8,6 +8,9 @@ namespace OxidProfessionalServices\CreditPassModule\Model;
 
 use OxidEsales\Eshop\Core\Model\BaseModel;
 
+/**
+ * CreditPassLog class
+ */
 class CreditPassLog extends BaseModel
 {
 

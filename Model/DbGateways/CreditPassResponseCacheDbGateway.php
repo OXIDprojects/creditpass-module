@@ -128,8 +128,6 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Set address identification string
      *
      * @param string $sAddress
-     *
-     * @return null
      */
     public function setAddressId($sAddress)
     {
@@ -150,8 +148,6 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Set payment id
      *
      * @param string $sId
-     *
-     * @return null
      */
     public function setPaymentId($sId)
     {
@@ -172,8 +168,6 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Set payment data hash
      *
      * @param string $sHash
-     *
-     * @return null
      */
     public function setPaymentDataHash($sHash)
     {

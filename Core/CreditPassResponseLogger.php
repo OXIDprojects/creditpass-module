@@ -29,8 +29,6 @@ class CreditPassResponseLogger
      * Sets logger.
      *
      * @param CreditPassResponseLoggerDbGateway $oLogger
-     *
-     * @return null
      */
     public function setLogger(CreditPassResponseLoggerDbGateway $oLogger)
     {

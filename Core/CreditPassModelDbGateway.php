@@ -6,6 +6,9 @@ use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 
+/**
+ * CreditPass Model Db Gateway class
+ */
 abstract class CreditPassModelDbGateway
 {
 

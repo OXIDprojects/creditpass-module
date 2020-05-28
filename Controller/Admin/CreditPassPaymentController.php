@@ -9,9 +9,11 @@ namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 
+/**
+ * CreditPass Payment controller class
+ */
 class CreditPassPaymentController extends AdminDetailsController
 {
 
@@ -288,7 +290,9 @@ class CreditPassPaymentController extends AdminDetailsController
     /**
      * In order to remove logic from templates, some data has to be parsed
      *
-     * @param $aPaymentSettings
+     * @param array $aPaymentSettings
+     *
+     * @return array
      */
     protected function _parseResults($aPaymentSettings)
     {
@@ -345,6 +349,8 @@ class CreditPassPaymentController extends AdminDetailsController
 
     /**
      * Renders current payment selection template
+     *
+     * @return string
      */
     public function render()
     {

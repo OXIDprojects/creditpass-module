@@ -8,6 +8,11 @@ namespace OxidProfessionalServices\CreditPassModule\Controller;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
+/**
+ * Order controller class
+ *
+ * @extend    Oxid OrderController
+ */
 class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderController
 {
 
@@ -15,8 +20,6 @@ class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderCont
      * If user goes to order page, bonicheck is started.
      *
      * @extend init
-     *
-     * @return null
      */
     public function init()
     {
@@ -53,7 +56,7 @@ class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderCont
     /**
      * Redirects to the payment page.
      *
-     * @return null (this method does not return, it calls exit() after a header redirect)
+     * (this method does not return, it calls exit() after a header redirect)
      */
     protected function _redirect()
     {

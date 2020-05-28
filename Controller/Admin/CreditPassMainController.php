@@ -10,6 +10,9 @@ use OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
+/**
+ * CreditPass Main controller class
+ */
 class CreditPassMainController extends ShopConfiguration
 {
 
@@ -67,8 +70,6 @@ class CreditPassMainController extends ShopConfiguration
 
     /**
      * Saves credit pass configuration.
-     *
-     * @return null
      */
     public function save()
     {
@@ -96,7 +97,7 @@ class CreditPassMainController extends ShopConfiguration
     /**
      * Returns configured unauthorized error msg.
      *
-     * @param $iLangId
+     * @param int $iLangId
      *
      * @return string
      */
@@ -119,7 +120,7 @@ class CreditPassMainController extends ShopConfiguration
      * Returns db field language prefix depending on lang.
      * Skip prefix on lang 0
      *
-     * @param $iLang
+     * @param int $iLang
      *
      * @return null
      */

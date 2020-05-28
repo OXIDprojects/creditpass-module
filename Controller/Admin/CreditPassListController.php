@@ -7,8 +7,10 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
-use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
+/**
+ * CreditPass List controller class
+ */
 class CreditPassListController extends AdminListController
 {
     /**

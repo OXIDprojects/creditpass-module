@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @extend        oxEmail
- */
 namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\Email;
@@ -33,11 +30,11 @@ class Email extends Email_parent
     /**
      * Sends email to admin
      *
-     * @param      $oOrder
-     * @param      $sManualReviewEmail
-     * @param null $sSubject
+     * @param object $oOrder
+     * @param string $sManualReviewEmail
+     * @param null   $sSubject
      *
-     * @return
+     * @return bool
      */
     public function sendCreditPassAdminEmail($oOrder, $sManualReviewEmail, $sSubject = null)
     {

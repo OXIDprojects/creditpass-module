@@ -8,8 +8,6 @@ $blError = false;
  *
  * @param string $sError  Error message to be printed
  * @param string $sAction Suggestion for to be taken action
- *
- * @return null
  */
 function printError($sError, $sAction)
 {
@@ -23,8 +21,6 @@ function printError($sError, $sAction)
  *
  * @param string $sError  Error message to be printed
  * @param string $sAction Suggestion for to be taken action
- *
- * @return null
  */
 function printWarning($sError, $sAction)
 {
@@ -37,8 +33,6 @@ function printWarning($sError, $sAction)
  * Prints OK message
  *
  * @param string $sNote additional note
- *
- * @return null
  */
 function printOk($sNote = '')
 {

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @extend    oxOrder
- */
-
 namespace OxidProfessionalServices\CreditPassModule\Model;
 
 use OxidEsales\Eshop\Application\Model\Basket;
@@ -14,6 +10,11 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 use OxidProfessionalServices\CreditPassModule\Core\Mail;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 
+/**
+ * Order class
+ *
+ * @extend    oxOrder
+ */
 class Order extends \OxidEsales\Eshop\Application\Model\Order
 {
 
@@ -79,6 +80,8 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
 
     /**
      * Set order folder.
+     *
+     * * @param string $sFolder Order folder
      */
     protected function _oeCreditPassSetOrderFolder($sFolder)
     {

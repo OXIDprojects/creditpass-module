@@ -10,6 +10,9 @@ use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
+/**
+ * User controller class
+ */
 class CreditPassUserController extends AdminDetailsController
 {
 
@@ -55,6 +58,11 @@ class CreditPassUserController extends AdminDetailsController
 
     /**
      * Sort array by field name.
+     *
+     * @param $a
+     * @param $b
+     *
+     * @return int
      */
     protected function _sortByField($a, $b)
     {

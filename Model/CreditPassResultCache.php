@@ -2,13 +2,12 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Model;
 
-/**
- * CreditPass check result cache class
- */
-
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseCacheDbGateway;
 
+/**
+ * CreditPass check result cache class
+ */
 class CreditPassResultCache
 {
 
@@ -153,8 +152,6 @@ class CreditPassResultCache
      * Set address identification string
      *
      * @param string $sAddress
-     *
-     * @return null
      */
     public function setAddressIdentification($sAddress)
     {
@@ -175,8 +172,6 @@ class CreditPassResultCache
      * Set user id
      *
      * @param string $sId
-     *
-     * @return null
      */
     public function setUserId($sId)
     {
@@ -197,8 +192,6 @@ class CreditPassResultCache
      * Set payment id
      *
      * @param string $sId
-     *
-     * @return null
      */
     public function setPaymentId($sId)
     {
@@ -219,8 +212,6 @@ class CreditPassResultCache
      * Set Response xml
      *
      * @param string $sResponse
-     *
-     * @return null
      */
     public function setResponse($sResponse)
     {
@@ -241,8 +232,6 @@ class CreditPassResultCache
      * Set answer code
      *
      * @param integer $iAnswerCode
-     *
-     * @return null
      */
     public function setAnswerCode($iAnswerCode)
     {
@@ -263,8 +252,6 @@ class CreditPassResultCache
      * Set payment data hash
      *
      * @param string $sHash
-     *
-     * @return null
      */
     public function setPaymentDataHash($sHash)
     {
@@ -310,8 +297,6 @@ class CreditPassResultCache
 
     /**
      * Deletes expired cache results
-     *
-     * @return null
      */
     protected function _deleteExpCache()
     {

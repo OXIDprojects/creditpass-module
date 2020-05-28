@@ -8,6 +8,11 @@ namespace OxidProfessionalServices\CreditPassModule\Controller;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
+/**
+ * Payment controller class
+ *
+ * @extend    Oxid PaymentController
+ */
 class PaymentController extends \OxidEsales\Eshop\Application\Controller\PaymentController
 {
 
@@ -49,8 +54,6 @@ class PaymentController extends \OxidEsales\Eshop\Application\Controller\Payment
 
     /**
      * Filters the list of payment methods and removes payment methods depending on the credit rating check.
-     *
-     * @return null
      */
     protected function _processPaymentList()
     {

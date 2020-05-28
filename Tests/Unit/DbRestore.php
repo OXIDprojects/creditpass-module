@@ -648,13 +648,14 @@ class DbRestore
      *
      * @return array
      * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
      */
     protected function _getTableChecksum($aTables)
     {
         $aTables = is_array($aTables) ? $aTables : array($aTables);
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
         $sSelect = 'CHECKSUM TABLE ' . implode(", ", $aTables);
-        $aResults = $oDb->getArray($sSelect);
+        $aResults = $oDb->getAll($sSelect);
 
         $sDbName = Registry::getConfig()->getConfigParam('dbName');
         $aChecksum = array();

@@ -7,6 +7,9 @@ use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
+/**
+ * Payment Settings db gateway class
+ */
 class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
 {
 
@@ -154,7 +157,7 @@ class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
      *
      * @param string $sId model id
      *
-     * @return null
+     * @return bool
      */
     public function delete($sId)
     {
@@ -182,8 +185,6 @@ class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
      *
      * @param string $sId
      * @param string $sFieldName
-     *
-     * @return string
      */
     protected function _addWhere($sId, $sFieldName = 'PAYMENTID')
     {

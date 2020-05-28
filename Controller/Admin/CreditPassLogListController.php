@@ -10,6 +10,9 @@ use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
+/**
+ * LogList controller class
+ */
 class CreditPassLogListController extends AdminListController
 {
 

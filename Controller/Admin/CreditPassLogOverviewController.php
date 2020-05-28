@@ -10,6 +10,9 @@ use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
+/**
+ * LogOverview controller class
+ */
 class CreditPassLogOverviewController extends AdminDetailsController
 {
 
