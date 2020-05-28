@@ -36,7 +36,7 @@ $sMetadataVersion = '2.1';
  * Module information
  */
 $aModule = [
-    'id'          => 'oecreditpass',
+    'id'          => 'oxps/creditpass',
     'title'       => 'creditPass',
     'description' => [
         'de' => 'Modul für Bonitätsprüfungen mit creditPass.',
@@ -64,7 +64,6 @@ $aModule = [
         'oeCreditPassStorage'                       => Storage::class,
         'oeCreditPassStorageDbShopAwarePersistence' => StorageDbShopAwarePersistence::class,
 
-
         'oeCreditPass'              => CreditPassController::class,
         'oeCreditPass_List'         => ListController::class,
         'oeCreditPass_Main'         => MainController::class,
@@ -84,21 +83,21 @@ $aModule = [
         'oeCreditPassException'             => \OxidProfessionalServices\CreditPassModule\Core\Exceptions\Exception::class,
         'oeCreditPassNotSupportedException' => NotSupportedException::class,
     ],
-    'templates' => [
-        'oecreditpass.tpl'              => 'oe/oecreditpass/views/admin/tpl/oecreditpass.tpl',
-        'oecreditpass_list.tpl'         => 'oe/oecreditpass/views/admin/tpl/oecreditpass_list.tpl',
-        'oecreditpass_main.tpl'         => 'oe/oecreditpass/views/admin/tpl/oecreditpass_main.tpl',
-        'oecreditpass_log.tpl'          => 'oe/oecreditpass/views/admin/tpl/oecreditpass_log.tpl',
-        'oecreditpass_log_list.tpl'     => 'oe/oecreditpass/views/admin/tpl/oecreditpass_log_list.tpl',
-        'oecreditpass_log_overview.tpl' => 'oe/oecreditpass/views/admin/tpl/oecreditpass_log_overview.tpl',
-        'oecreditpass_log_details.tpl'  => 'oe/oecreditpass/views/admin/tpl/oecreditpass_log_details.tpl',
-        'oecreditpass_payment.tpl'      => 'oe/oecreditpass/views/admin/tpl/oecreditpass_payment.tpl',
-        'oecreditpass_order.tpl'        => 'oe/oecreditpass/views/admin/tpl/oecreditpass_order.tpl',
-        'oecreditpass_user.tpl'         => 'oe/oecreditpass/views/admin/tpl/oecreditpass_user.tpl',
-        'email/html/admin_notice.tpl'   => 'oe/oecreditpass/views/tpl/email/html/admin_notice.tpl',
-        'email/plain/admin_notice.tpl'  => 'oe/oecreditpass/views/tpl/email/plain/admin_notice.tpl',
+    'templates'   => [
+        'oecreditpass.tpl'              => 'oxps/creditpass/views/admin/tpl/oecreditpass.tpl',
+        'oecreditpass_list.tpl'         => 'oxps/creditpass/views/admin/tpl/oecreditpass_list.tpl',
+        'oecreditpass_main.tpl'         => 'oxps/creditpass/views/admin/tpl/oecreditpass_main.tpl',
+        'oecreditpass_log.tpl'          => 'oxps/creditpass/views/admin/tpl/oecreditpass_log.tpl',
+        'oecreditpass_log_list.tpl'     => 'oxps/creditpass/views/admin/tpl/oecreditpass_log_list.tpl',
+        'oecreditpass_log_overview.tpl' => 'oxps/creditpass/views/admin/tpl/oecreditpass_log_overview.tpl',
+        'oecreditpass_log_details.tpl'  => 'oxps/creditpass/views/admin/tpl/oecreditpass_log_details.tpl',
+        'oecreditpass_payment.tpl'      => 'oxps/creditpass/views/admin/tpl/oecreditpass_payment.tpl',
+        'oecreditpass_order.tpl'        => 'oxps/creditpass/views/admin/tpl/oecreditpass_order.tpl',
+        'oecreditpass_user.tpl'         => 'oxps/creditpass/views/admin/tpl/oecreditpass_user.tpl',
+        'email/html/admin_notice.tpl'   => 'oxps/creditpass/views/tpl/email/html/admin_notice.tpl',
+        'email/plain/admin_notice.tpl'  => 'oxps/creditpass/views/tpl/email/plain/admin_notice.tpl',
     ],
-    'blocks'    => [
+    'blocks'      => [
         ['template' => 'page/checkout/payment.tpl',
          'block'    => 'checkout_payment_nextstep',
          'file'     => '/views/blocks/oecreditpassdisablenext.tpl'],
@@ -106,10 +105,7 @@ $aModule = [
          'block'    => 'checkout_payment_errors',
          'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'],
     ],
-    'settings'  => [
-
-    ],
-    'events'    => [
+    'events'      => [
         'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\Events::onActivate',
         'onDeactivate' => '\OxidProfessionalServices\CreditPassModule\Core\Events::onDeactivate'
     ],
