@@ -10,13 +10,13 @@ use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorage
 /**
  * Class responsible for storing data (i.e. config backup).
  */
-class Storage
+class CreditPassStorage
 {
 
     /**
      * An instance of oxConfig.
      *
-     * @var Config
+     * @var CreditPassConfig
      */
     private $_oConfig;
 
@@ -31,7 +31,7 @@ class Storage
      * Constructor.
      *
      * @param Config                                 $oConfig               An instance of oxConfig.
-     * @param ICreditPassStorageShopAwarePersistence $oShopAwarePersistence An instance of oeICreditPassStorageShopAwarePersistence.
+     * @param ICreditPassStorageShopAwarePersistence $oShopAwarePersistence An instance of ICreditPassStorageShopAwarePersistence.
      */
     public function __construct(Config $oConfig, ICreditPassStorageShopAwarePersistence $oShopAwarePersistence)
     {
@@ -40,16 +40,16 @@ class Storage
     }
 
     /**
-     * Creates instance of oeCreditPassStorage.
+     * Creates instance of CreditPassStorage.
      *
-     * @return Storage
+     * @return CreditPassStorage
      * @throws DatabaseConnectionException
      */
     public static function createInstance()
     {
-        $oInstance = new Storage(
+        $oInstance = new CreditPassStorage(
             Registry::getConfig(),
-            StorageDbShopAwarePersistence::createInstance()
+            CreditPassStorageDbShopAwarePersistence::createInstance()
         );
 
         return $oInstance;
@@ -87,7 +87,7 @@ class Storage
     /**
      * Gets instance of oxConfig.
      *
-     * @return Config
+     * @return CreditPassConfig
      */
     private function _getConfig()
     {

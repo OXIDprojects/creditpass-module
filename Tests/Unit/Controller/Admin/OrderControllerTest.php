@@ -7,8 +7,8 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\OrderController;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassOrderController;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseCacheDbGateway;
 use OxidProfessionalServices\CreditPassModule\Model\Order;
 
 class OrderControllerTest extends UnitTestCase
@@ -37,7 +37,7 @@ class OrderControllerTest extends UnitTestCase
      */
     public function testRender()
     {
-        $oView = $this->getProxyClass(OrderController::class);
+        $oView = $this->getProxyClass(CreditPassOrderController::class);
 
         // test without oxid param:
         $this->setRequestParam('id', null);
@@ -53,7 +53,7 @@ class OrderControllerTest extends UnitTestCase
         $oOrder->save();
 
         $sCacheId = 'test_azcr_oecreditpassresults';
-        $oCacheGateway = $this->getMock(ResponseCacheDbGateway::class, array('_getId'));
+        $oCacheGateway = $this->getMock(CreditPassResponseCacheDbGateway::class, array('_getId'));
         $oCacheGateway->expects($this->once())->method('_getId')->will($this->returnValue($sCacheId));
         $iTimestamp = time();
         $oCacheGateway->save(

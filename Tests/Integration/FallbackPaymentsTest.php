@@ -7,11 +7,11 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\OrderController;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\PaymentController;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
-use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassOrderController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassPaymentController;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 /**
  * Testing payment fallback implementation
@@ -68,7 +68,7 @@ class FallbackPaymentsTest extends UnitTestCase
     protected function _setupPaymentSettings($aAllPaymentSettings)
     {
         foreach ($aAllPaymentSettings as $aPaymentSettings) {
-            $oDbGateway = oxNew(PaymentSettingsDbGateway::class);
+            $oDbGateway = oxNew(CreditPassPaymentSettingsDbGateway::class);
             $oDbGateway->save($aPaymentSettings);
         }
     }
@@ -144,7 +144,7 @@ class FallbackPaymentsTest extends UnitTestCase
     protected function _setupUserCache()
     {
         $sCheckStr = $this->_getAddressIdent();
-        $oCache = oxNew(ResultCache::class);
+        $oCache = oxNew(CreditPassResultCache::class);
         $oCache->setAddressIdentification($sCheckStr);
         $oCache->setUserId('oxdefaultadmin');
         $oCache->setPaymentId('oxidcashondel');
@@ -257,7 +257,7 @@ class FallbackPaymentsTest extends UnitTestCase
     public function testFallbackPaymentsAfterNotAuthorizedResponse($aAllPaymentSettings, $iExpectedPaymentCnt)
     {
         //preset payment data value
-        $oOECreditPassAssessment = new Assessment();
+        $oOECreditPassAssessment = new CreditPassAssessment();
         $this->getSession()->setVar('dynvalue', array('testData1'));
         $oOECreditPassAssessment->checkPaymentDataChange();
 
@@ -271,7 +271,7 @@ class FallbackPaymentsTest extends UnitTestCase
 
         //get payment methods shown in third basket step
         $this->setRequestParam('sShipSet', 'oxidstandard');
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($oUser);
         $aPayments = $oPayment->getPaymentList();
 
@@ -280,10 +280,10 @@ class FallbackPaymentsTest extends UnitTestCase
         $this->setSessionParam('paymentid', 'oxidcashondel');
         $this->setSessionParam('usr', 'oxdefaultadmin');
 
-        $oOrder = $this->getMock(OrderController::class, array('_redirect'));
+        $oOrder = $this->getMock(CreditPassOrderController::class, array('_redirect'));
         $oOrder->expects($this->once())->method('_redirect');
         $oOrder->init();
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($this->_setupUser());
         $aPayments = $oPayment->getPaymentList();
         $this->assertEquals($iExpectedPaymentCnt, count($aPayments));
@@ -331,7 +331,7 @@ class FallbackPaymentsTest extends UnitTestCase
         //get payment methods shown in third basket step
         $this->setRequestParam('sShipSet', 'oxidstandard');
         $this->setSessionParam('usr', 'oxdefaultadmin');
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($oUser);
         $aPayments = $oPayment->getPaymentList();
 
@@ -344,7 +344,7 @@ class FallbackPaymentsTest extends UnitTestCase
      */
     public function testFallbackPaymentsAfterAuthorizedResponse()
     {
-        $oOECreditPassAssessment = new Assessment();
+        $oOECreditPassAssessment = new CreditPassAssessment();
         $this->getSession()->setVar('dynvalue', array('testData1'));
         $oOECreditPassAssessment->checkPaymentDataChange();
 
@@ -380,7 +380,7 @@ class FallbackPaymentsTest extends UnitTestCase
 
         //get payment methods shown in third basket step
         $this->setRequestParam('sShipSet', 'oxidstandard');
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($oUser);
         $aPayments = $oPayment->getPaymentList();
 
@@ -389,9 +389,9 @@ class FallbackPaymentsTest extends UnitTestCase
         $this->setSessionParam('paymentid', 'oxidcashondel');
         $this->setSessionParam('usr', 'oxdefaultadmin');
 
-        $oOrder = new OrderController();
+        $oOrder = new CreditPassOrderController();
         $oOrder->init();
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($this->_setupUser());
         $aPayments = $oPayment->getPaymentList();
         $this->assertEquals(5, count($aPayments));
@@ -403,8 +403,7 @@ class FallbackPaymentsTest extends UnitTestCase
      */
     public function testFallbackPaymentsValidRequstSpecialchars()
     {
-
-        $oOECreditPassAssessment = new Assessment();
+        $oOECreditPassAssessment = new CreditPassAssessment();
         $this->getSession()->setVar('dynvalue', array('testData1'));
         $oOECreditPassAssessment->checkPaymentDataChange();
 
@@ -440,7 +439,7 @@ class FallbackPaymentsTest extends UnitTestCase
 
         //get payment methods shown in third basket step
         $this->setRequestParam('sShipSet', 'oxidstandard');
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
 
         $oPayment->setUser($oUser);
         $aPayments = $oPayment->getPaymentList();
@@ -458,9 +457,9 @@ class FallbackPaymentsTest extends UnitTestCase
 
         $this->setSessionParam('usr', 'oxdefaultadmin');
 
-        $oOrder = new OrderController();
+        $oOrder = new CreditPassOrderController();
         $oOrder->init();
-        $oPayment = new PaymentController();
+        $oPayment = new CreditPassPaymentController();
         $oPayment->setUser($this->_setupUser());
         $aPayments = $oPayment->getPaymentList();
         $this->assertEquals(5, count($aPayments));

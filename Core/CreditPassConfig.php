@@ -16,7 +16,7 @@ use OxidEsales\Eshop\Core\ViewConfig;
 /**
  * CreditPass configuration handler
  */
-class Config
+class CreditPassConfig
 {
 
     /**
@@ -126,9 +126,9 @@ class Config
      */
     public function setCacheTtl($iCacheTtl)
     {
-        $iCacheTtl = (float) $iCacheTtl;
-        if ($iCacheTtl > Config::OECREDITPASS_MAX_CACHE_TTL) {
-            $iCacheTtl = Config::OECREDITPASS_MAX_CACHE_TTL;
+        $iCacheTtl = (float)$iCacheTtl;
+        if ($iCacheTtl > CreditPassConfig::OECREDITPASS_MAX_CACHE_TTL) {
+            $iCacheTtl = CreditPassConfig::OECREDITPASS_MAX_CACHE_TTL;
         }
 
         if ($iCacheTtl < 0) {

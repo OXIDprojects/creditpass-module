@@ -3,8 +3,8 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Controller\Admin;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\PaymentController;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassPaymentController;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 
 /**
  * #PHPHEADER_OXID_LICENSE_INFORMATION#
@@ -22,7 +22,7 @@ class PaymentControllerTest extends UnitTestCase
      */
     public function testRender()
     {
-        $oPaymentController = new PaymentController();
+        $oPaymentController = new CreditPassPaymentController();
         $this->assertEquals('oecreditpass_payment.tpl', $oPaymentController->render());
     }
 
@@ -53,15 +53,15 @@ class PaymentControllerTest extends UnitTestCase
         $this->getConfig()->setParameter('aPaymentSettings', $aSave);
 
         /**
-         * @var PaymentSettingsDbGateway $oPaymentController
+         * @var CreditPassPaymentSettingsDbGateway $oPaymentController
          */
-        $oPaymentDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('save'));
+        $oPaymentDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('save'));
         $oPaymentDbGateway->expects($this->exactly(2))->method('save');
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay'));
         $oPaymentController->expects($this->exactly(2))->method('_getDbGateWay')->will(
             $this->returnValue($oPaymentDbGateway)
         );
@@ -91,11 +91,11 @@ class PaymentControllerTest extends UnitTestCase
         $this->getConfig()->setParameter('aPaymentSettings', $aSave);
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay'));
         $oPaymentController->expects($this->once())->method('_getDbGateWay')->will(
-            $this->returnValue(new PaymentSettingsDbGateway())
+            $this->returnValue(new CreditPassPaymentSettingsDbGateway())
         );
         $oPaymentController->save($aSave);
 
@@ -109,15 +109,15 @@ class PaymentControllerTest extends UnitTestCase
         $aSave = $this->getConfig()->setParameter('aPaymentSettings', null);
 
         /**
-         * @var PaymentSettingsDbGateway $oPaymentController
+         * @var CreditPassPaymentSettingsDbGateway $oPaymentController
          */
-        $oPaymentDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('save'));
+        $oPaymentDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('save'));
         $oPaymentDbGateway->expects($this->never())->method('save');
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay'));
         $oPaymentController->expects($this->never())->method('_getDbGateWay')->will(
             $this->returnValue($oPaymentDbGateway)
         );
@@ -137,7 +137,7 @@ class PaymentControllerTest extends UnitTestCase
             array('g1' => array('one' => 'two', 'oneone' => 'twotwo'), 'g2' => array('three' => 'four'))
         );
 
-        $oPaymentController = new PaymentController();
+        $oPaymentController = new CreditPassPaymentController();
         $this->assertEquals(
             array('g1' => array('one' => 'two', 'oneone' => 'twotwo'), 'g2' => array('three' => 'four')),
             $oPaymentController->getSubmittedPaymentSettings()
@@ -151,15 +151,15 @@ class PaymentControllerTest extends UnitTestCase
     {
         $aTestData = $this->_getTestPaymentSettings('1', null, '0');
         /**
-         * @var PaymentSettingsDbGateway $oPaymentController
+         * @var CreditPassPaymentSettingsDbGateway $oPaymentController
          */
-        $oPaymentDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
+        $oPaymentDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('loadAll'));
         $oPaymentDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue($aTestData));
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay'));
         $oPaymentController->expects($this->once())->method('_getDbGateWay')->will(
             $this->returnValue($oPaymentDbGateway)
         );
@@ -174,15 +174,15 @@ class PaymentControllerTest extends UnitTestCase
     {
         $aTestData = $this->_getTestPaymentSettings('1', null, '0');
         /**
-         * @var PaymentSettingsDbGateway $oPaymentController
+         * @var CreditPassPaymentSettingsDbGateway $oPaymentController
          */
-        $oPaymentDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
+        $oPaymentDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('loadAll'));
         $oPaymentDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue($aTestData));
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay'));
         $oPaymentController->expects($this->once())->method('_getDbGateWay')->will(
             $this->returnValue($oPaymentDbGateway)
         );
@@ -211,15 +211,15 @@ class PaymentControllerTest extends UnitTestCase
         $aTestResults['fallback'] = $aTestData[0]->oxpayments__fallback->value;
 
         /**
-         * @var PaymentSettingsDbGateway $oPaymentController
+         * @var CreditPassPaymentSettingsDbGateway $oPaymentController
          */
-        $oPaymentDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
+        $oPaymentDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('loadAll'));
         $oPaymentDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue($aTestData));
 
         /**
-         * @var PaymentController $oPaymentController
+         * @var CreditPassPaymentController $oPaymentController
          */
-        $oPaymentController = $this->getMock(PaymentController::class, array('_getDbGateWay', 'getUniqueId'));
+        $oPaymentController = $this->getMock(CreditPassPaymentController::class, array('_getDbGateWay', 'getUniqueId'));
         $oPaymentController->expects($this->once())->method('_getDbGateWay')->will(
             $this->returnValue($oPaymentDbGateway)
         );

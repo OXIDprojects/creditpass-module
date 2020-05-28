@@ -3,22 +3,22 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Core;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseLoggerDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseLoggerDbGateway;
 
 require_once __DIR__ . '/../OxidTestDatabase.php';
 
 /**
  * Class TestResponseLoggerDbGateway for testing purposes
  */
-class TestResponseLoggerDbGateway extends ResponseLoggerDbGateway
+class TestResponseLoggerDbGateway extends CreditPassResponseLoggerDbGateway
 {
 
     // reusing implementation
 }
 
 /**
- * Class Unit_core_oeCreditPassResponseLoggerTest - Data Logger test cases
+ * Class ResponseLoggerTest - Data Logger test cases
  */
 class ResponseLoggerTest extends UnitTestCase
 {
@@ -28,9 +28,9 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testGetLoggerDefault()
     {
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
-        $this->isInstanceOf(ResponseLoggerDbGateway::class, $oLogger->getLogger());
+        $this->isInstanceOf(CreditPassResponseLoggerDbGateway::class, $oLogger->getLogger());
     }
 
     /**
@@ -38,7 +38,7 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testSetGetLogger()
     {
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $oDatabaseLogger = new TestResponseLoggerDbGateway();
         $oLogger->setLogger($oDatabaseLogger);
@@ -86,7 +86,7 @@ class ResponseLoggerTest extends UnitTestCase
             $this->returnValue($sLasInsertedIDReturns)
         );
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
         $oLogger->setLogger($oDatabaseLogger);
 
         $this->assertSame($blSaveReturns, $oLogger->save($aSaveData));
@@ -107,7 +107,7 @@ class ResponseLoggerTest extends UnitTestCase
         $oDatabaseLogger->expects($this->at(1))->method('update')->with($this->equalTo('test_id_failed'))
             ->will($this->returnValue(false));
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $oLogger->setLogger($oDatabaseLogger);
 
@@ -128,7 +128,7 @@ class ResponseLoggerTest extends UnitTestCase
             $this->returnValue($aData)
         );
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $oLogger->setLogger($oDatabaseLogger);
 
@@ -151,7 +151,7 @@ class ResponseLoggerTest extends UnitTestCase
             $this->equalTo('test_id_does_not_exist')
         )->will($this->returnValue(false));
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $oLogger->setLogger($oDatabaseLogger);
 
@@ -174,7 +174,7 @@ class ResponseLoggerTest extends UnitTestCase
         $oDatabaseLogger->expects($this->at(1))->method('isValid')->with($this->equalTo('test_id_not_valid'))
             ->will($this->returnValue(false));
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $oLogger->setLogger($oDatabaseLogger);
 
@@ -187,7 +187,7 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testLoadAll()
     {
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $aLogList = array(
             array('test_field_1' => 'test_value_1'),
@@ -218,7 +218,7 @@ class ResponseLoggerTest extends UnitTestCase
             $this->returnValue($aSearchData)
         );
 
-        $oLogger = $this->getMock(ResponseLogger::class, array('_getSearchOrderFieldName'));
+        $oLogger = $this->getMock(CreditPassResponseLogger::class, array('_getSearchOrderFieldName'));
         $oLogger->expects($this->once())->method('_getSearchOrderFieldName')->will(
             $this->returnValue($sSearchOrderFieldName)
         );
@@ -243,7 +243,7 @@ class ResponseLoggerTest extends UnitTestCase
             $this->returnValue($aResult)
         );
 
-        $oLogger = $this->getMock(ResponseLogger::class, array('_getSearchUserFieldName'));
+        $oLogger = $this->getMock(CreditPassResponseLogger::class, array('_getSearchUserFieldName'));
         $oLogger->expects($this->once())->method('_getSearchUserFieldName')->will(
             $this->returnValue($sSearchUserFieldName)
         );

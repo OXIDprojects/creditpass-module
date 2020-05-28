@@ -7,8 +7,8 @@ use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 use OxidProfessionalServices\CreditPassModule\Model\Order;
 
 /**
@@ -156,9 +156,9 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testSave($sResponseXML, $aDatabaseResults)
     {
-        $oeCreditPassAssessment = $this->getProxyClass('oeCreditPassAssessment');
+        $oeCreditPassAssessment = $this->getProxyClass(CreditPassAssessment::class);
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $sTransId = $aDatabaseResults['TRANSACTIONID'];
 
@@ -181,11 +181,11 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testUpdate()
     {
-        $oeCreditPassAssessment = new Assessment();
+        $oeCreditPassAssessment = new CreditPassAssessment();
         $sResponseXML = file_get_contents(__DIR__ . '/../fixtures/authorized.xml');
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $aResponseXML = $oeCreditPassAssessment->xmlParser($sResponseXML, 'testUpdate');
 
@@ -228,11 +228,11 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testUpdateWithUserCheckSameUser()
     {
-        $oeCreditPassAssessment = new Assessment();
+        $oeCreditPassAssessment = new CreditPassAssessment();
         $sResponseXML = file_get_contents(__DIR__ . '/../fixtures/authorized.xml');
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $aResponseXML = $oeCreditPassAssessment->xmlParser($sResponseXML, 'testUpdate');
 
@@ -287,11 +287,11 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testUpdateWithUserCheckDifferentUser()
     {
-        $oeCreditPassAssessment = new Assessment();
+        $oeCreditPassAssessment = new CreditPassAssessment();
         $sResponseXML = file_get_contents(__DIR__ . '/../fixtures/authorized.xml');
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $aResponseXML = $oeCreditPassAssessment->xmlParser($sResponseXML, 'testUpdate');
 
@@ -341,11 +341,11 @@ class ResponseLoggerTest extends UnitTestCase
      */
     public function testLoad()
     {
-        $oeCreditPassAssessment = new Assessment();
+        $oeCreditPassAssessment = new CreditPassAssessment();
         $sResponseXML = file_get_contents(__DIR__ . '/../fixtures/authorized.xml');
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
 
-        $oLogger = new ResponseLogger();
+        $oLogger = new CreditPassResponseLogger();
 
         $aResponseXML = $oeCreditPassAssessment->xmlParser($sResponseXML, 'testLoad');
 

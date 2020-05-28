@@ -2,16 +2,16 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Core;
 
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseLoggerDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseLoggerDbGateway;
 
 /**
- * oeCreditPassResponseLogger
+ * CreditPassResponseLogger class
  */
-class ResponseLogger
+class CreditPassResponseLogger
 {
 
     /**
-     * @var ResponseLoggerDbGateway
+     * @var CreditPassResponseLoggerDbGateway
      */
     protected $_oLogger = null;
 
@@ -28,11 +28,11 @@ class ResponseLogger
     /**
      * Sets logger.
      *
-     * @param ResponseLoggerDbGateway $oLogger
+     * @param CreditPassResponseLoggerDbGateway $oLogger
      *
      * @return null
      */
-    public function setLogger(ResponseLoggerDbGateway $oLogger)
+    public function setLogger(CreditPassResponseLoggerDbGateway $oLogger)
     {
         $this->_oLogger = $oLogger;
     }
@@ -40,15 +40,15 @@ class ResponseLogger
     /**
      * Gets logger.
      *
-     * @return ResponseLoggerDbGateway
+     * @return CreditPassResponseLoggerDbGateway
      */
     public function getLogger()
     {
         if (is_null($this->_oLogger)) {
             /**
-             * @var ResponseLoggerDbGateway $oDatabaseLogger
+             * @var CreditPassResponseLoggerDbGateway $oDatabaseLogger
              */
-            $oDatabaseLogger = oxNew(ResponseLoggerDbGateway::class);
+            $oDatabaseLogger = oxNew(CreditPassResponseLoggerDbGateway::class);
             $this->setLogger($oDatabaseLogger);
         }
 

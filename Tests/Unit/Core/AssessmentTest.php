@@ -12,14 +12,14 @@ use OxidEsales\Eshop\Core\Price;
 use OxidEsales\Eshop\Core\PriceList;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
-use OxidProfessionalServices\CreditPassModule\Core\Events;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents;
 use OxidEsales\Eshop\Application\Model\Basket;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
-use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
-class Assessment_testmod extends Assessment
+class Assessment_testmod extends CreditPassAssessment
 {
 
     public function __call($sMethod, $aArgs)
@@ -91,7 +91,7 @@ class AssessmentTest extends UnitTestCase
     {
         $sConfigFile = dirname(__FILE__) . '/../../examples/EfiPortletSettings.xml';
         $this->setConfigParam('azBoniSettings', file_get_contents($sConfigFile));
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->setConfigParam('azBoniSettings', '');
 
         return $oCreditPass;
@@ -102,17 +102,17 @@ class AssessmentTest extends UnitTestCase
         $iShopId = $this->getShopId();
 
         // default
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->assertEquals(1, $oCreditPass->getNonPublicVar('_iShopId'));
 
         // pe
         $this->setShopId('oxbaseshop');
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->assertEquals(1, $oCreditPass->getNonPublicVar('_iShopId'));
 
         // subshops
         $this->setShopId(2);
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->assertEquals(2, $oCreditPass->getNonPublicVar('_iShopId'));
 
         $this->setShopId($iShopId);
@@ -122,7 +122,7 @@ class AssessmentTest extends UnitTestCase
     {
         $this->markTestSkipped('SKIPPING DUE TO: -2012-07-26 17:27:57 error +2012-07-26 17:27:56 error');
 
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
 
         $sErrorFile = $this->getConfigParam('sShopDir') . 'modules/oe/oecreditpass/log/xml_errors.log';
         $sAlternateErrorFile = $this->getConfigParam('sShopDir') . 'modules/oe/oecreditpass/xml_errors.log';
@@ -156,7 +156,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testCheckStreetNo()
     {
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $oCreditPass->_getInitialData();
 
         // with errorous street nr
@@ -186,7 +186,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetUser()
     {
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
 
         $oCreditPass->getUser();
 
@@ -251,25 +251,25 @@ class AssessmentTest extends UnitTestCase
     public function testIsDebitNote()
     {
         // test with debit note and debit note mapping:
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $this->setRequestParam('aAzCreditPassDebitNoteMapping', array('oxiddebitnote'));
         $oCrassessment->setNonPublicVar('_sPaymentId', 'oxiddebitnote');
         $this->assertTrue($oCrassessment->UNITisDebitNote());
 
         // test with debit note and without debit note mapping:
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $this->setRequestParam('aAzCreditPassDebitNoteMapping', array());
         $oCrassessment->setNonPublicVar('_sPaymentId', 'oxiddebitnote');
         $this->assertTrue($oCrassessment->UNITisDebitNote());
 
         // test without debit note and with debit note mapping:
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $this->setRequestParam('aAzCreditPassDebitNoteMapping', array('oxiddebitnote'));
         $oCrassessment->setNonPublicVar('_sPaymentId', 'testnondebitnote');
         $this->assertFalse($oCrassessment->UNITisDebitNote());
 
         // test without debit not and without debit note mapping:
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $this->setRequestParam('aAzCreditPassDebitNoteMapping', array());
         $oCrassessment->setNonPublicVar('_sPaymentId', 'testnondebitnote');
         $this->assertFalse($oCrassessment->UNITisDebitNote());
@@ -282,9 +282,9 @@ class AssessmentTest extends UnitTestCase
         $oSession->deleteVariable('payerror');
         $oSession->deleteVariable('payerrortext');
 
-        $sErrMsg = Events::OECREDITPASS_DEFAULT_ERROR_MSG_DE;
+        $sErrMsg = CreditPassEvents::OECREDITPASS_DEFAULT_ERROR_MSG_DE;
 
-        $oConfig = $this->getMock(Config::class, array('getUnauthorizedErrorMsg'));
+        $oConfig = $this->getMock(CreditPassConfig::class, array('getUnauthorizedErrorMsg'));
 
         $oConfig->expects($this->at(0))->method('getUnauthorizedErrorMsg')->will(
             $this->returnValue($sErrMsg)
@@ -359,7 +359,7 @@ class AssessmentTest extends UnitTestCase
         // test without logging:
         $this->setConfigParam('blOECreditPassDebug', false);
         $oSession->setVariable('aBoniDebugData', array());
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $oCrassessment->debugLog('testkey', 'testmessage1');
         $this->assertEquals("test", file_get_contents($sLogFile));
         $this->assertEquals(array(), $oSession->getVariable('aBoniDebugData'));
@@ -367,7 +367,7 @@ class AssessmentTest extends UnitTestCase
         // test with logging config param:
         $this->setConfigParam('blOECreditPassDebug', true);
         $oSession->setVariable('aBoniDebugData', array());
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $oCrassessment->debugLog('testkey', 'testmessage3');
         $this->assertTrue(strpos(file_get_contents($sLogFile), 'testmessage3') > 0);
         $aDebugData = $oSession->getVariable('aBoniDebugData');
@@ -383,7 +383,7 @@ class AssessmentTest extends UnitTestCase
     {
         $oSession = Registry::getSession();
         $oSession->setVariable('aBoniDebugData', 'test');
-        $oCrassessment = oxNew(Assessment::class);
+        $oCrassessment = oxNew(CreditPassAssessment::class);
         $oCrassessment->clearDebugData();
         $this->assertNull($oSession->getVariable('aBoniDebugData'));
     }
@@ -441,7 +441,7 @@ class AssessmentTest extends UnitTestCase
         $oUser->oxuser__oxzip = new Field('testzip');
         $oUser->oxuser__oxcity = new Field('testcity');
         $oUser->oxuser__oxcountryid = new Field('testcountryid');
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $oCrassessment->setNonPublicVar('_oUser', $oUser);
         $sExpectedIdent = md5('testfnametestlnameteststreetteststreetnrtestziptestcitytestcountryid');
         $this->assertEquals($sExpectedIdent, $oCrassessment->UNITgetAddressIdent());
@@ -451,7 +451,7 @@ class AssessmentTest extends UnitTestCase
     {
         $oSession = Registry::getSession();
         $oSession->deleteVariable('aBoniSessionData');
-        $oCrassessment = $this->getProxyClass(Assessment::class);
+        $oCrassessment = $this->getProxyClass(CreditPassAssessment::class);
         $oCrassessment->setNonPublicVar('_aBoniSessionData', 'testdata');
         $oCrassessment->writeSessionData();
         $this->assertEquals('testdata', $oSession->getVariable('aBoniSessionData'));
@@ -663,7 +663,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testPrepareXML()
     {
-        $oCrassessment = oxNew(Assessment::class);
+        $oCrassessment = oxNew(CreditPassAssessment::class);
         $this->assertEquals(
             'Test &amp; something { &gt; else',
             $oCrassessment->PrepareXML('<b>Test &amp;amp; something &#123; > else</b>')
@@ -727,7 +727,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testXmlParser()
     {
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $sXML = '<?xml version="1.0" encoding="UTF-8"?><root><parent><child>testA</child><child>testB</child></parent></root>';
 
         $aExample = array(
@@ -785,13 +785,13 @@ class AssessmentTest extends UnitTestCase
 
     public function testOxidGetTime()
     {
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->assertTrue(is_integer($oCreditPass->_oxidGetTime()));
     }
 
     public function testGetCurrentTime()
     {
-        $oCreditPass = $this->getProxyClass(Assessment::class);
+        $oCreditPass = $this->getProxyClass(CreditPassAssessment::class);
         $this->assertGreaterThan(time() - 100, $oCreditPass->_getCurrentTime());
     }
 
@@ -917,14 +917,14 @@ class AssessmentTest extends UnitTestCase
             $sActiveReturns, $sFallbackReturns, $sAllowOnErrorReturns, $sPurchaseType, $sKey
         );
         /**
-         * @var PaymentSettingsDbGateway $oeDbGateway
+         * @var CreditPassPaymentSettingsDbGateway $oeDbGateway
          */
-        $oeDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
+        $oeDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('loadAll'));
         $oeDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue($aTestData));
         /**
-         * @var Assessment $oCreditPass
+         * @var CreditPassAssessment $oCreditPass
          */
-        $oCreditPass = $this->getMock(Assessment::class, array('_getDbGateway'));
+        $oCreditPass = $this->getMock(CreditPassAssessment::class, array('_getDbGateway'));
         $oCreditPass->expects($this->once())->method('_getDbGateway')->will($this->returnValue($oeDbGateway));
 
         $this->assertEquals(
@@ -939,14 +939,14 @@ class AssessmentTest extends UnitTestCase
     public function testLoadPaymentSettingsWhenNullReturned()
     {
         /**
-         * @var PaymentSettingsDbGateway $oeDbGateway
+         * @var CreditPassPaymentSettingsDbGateway $oeDbGateway
          */
-        $oeDbGateway = $this->getMock(PaymentSettingsDbGateway::class, array('loadAll'));
+        $oeDbGateway = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('loadAll'));
         $oeDbGateway->expects($this->once())->method('loadAll')->will($this->returnValue(false));
         /**
-         * @var Assessment $oCreditPass
+         * @var CreditPassAssessment $oCreditPass
          */
-        $oCreditPass = $this->getMock(Assessment::class, array('_getDbGateway'));
+        $oCreditPass = $this->getMock(CreditPassAssessment::class, array('_getDbGateway'));
         $oCreditPass->expects($this->once())->method('_getDbGateway')->will($this->returnValue($oeDbGateway));
 
         $this->assertEquals(false, $oCreditPass->loadPaymentSettings());
@@ -1026,7 +1026,7 @@ class AssessmentTest extends UnitTestCase
     {
         $sUser = "testUser";
 
-        $oOECreditPassAssessment = new Assessment();
+        $oOECreditPassAssessment = new CreditPassAssessment();
         $oOECreditPassAssessment->setUser($sUser);
 
         $sResult = $oOECreditPassAssessment->getUser();
@@ -1044,11 +1044,12 @@ class AssessmentTest extends UnitTestCase
         $oUser = $this->getMock(User::class, array('getId'));
         $oUser->expects($this->once())->method('getId')->will($this->returnValue($sUser));
 
-        $oCreditPassResultCache = $this->getMock(ResultCache::class, array('getData'));
+        $oCreditPassResultCache = $this->getMock(CreditPassResultCache::class, array('getData'));
         $oCreditPassResultCache->expects($this->once())->method('getData')->will($this->returnValue($sXML));
 
         $oOECreditPassAssessment = $this->getMock(
-            Assessment::class, array('_getResultCacheObject', '_getAddressIdent', '_getPaymentId')
+            CreditPassAssessment::class,
+            array('_getResultCacheObject', '_getAddressIdent', '_getPaymentId')
         );
         $oOECreditPassAssessment->expects($this->once())->method('_getResultCacheObject')->will(
             $this->returnValue($oCreditPassResultCache)
@@ -1073,7 +1074,8 @@ class AssessmentTest extends UnitTestCase
 
         // test without former values:
         $oCrassessment = $this->getMock(
-            Assessment::class, array('_getAddressIdent', 'getSessionData', 'setSessionData')
+            CreditPassAssessment::class,
+            array('_getAddressIdent', 'getSessionData', 'setSessionData')
         );
         $oCrassessment->expects($this->any())->method('_getAddressIdent')->will(
             $this->returnValue('testcurrentident1')
@@ -1089,7 +1091,8 @@ class AssessmentTest extends UnitTestCase
 
         // test with unchanged ident:
         $oCrassessment = $this->getMock(
-            Assessment::class, array('_getAddressIdent', 'getSessionData', 'setSessionData')
+            CreditPassAssessment::class,
+            array('_getAddressIdent', 'getSessionData', 'setSessionData')
         );
         $oCrassessment->expects($this->any())->method('_getAddressIdent')->will(
             $this->returnValue('testcurrentident3')
@@ -1105,7 +1108,8 @@ class AssessmentTest extends UnitTestCase
 
         // if no session was set:
         $oCrassessment = $this->getMock(
-            Assessment::class, array('_getAddressIdent', 'getSessionData', 'setSessionData')
+            CreditPassAssessment::class,
+            array('_getAddressIdent', 'getSessionData', 'setSessionData')
         );
         $oCrassessment->expects($this->any())->method('_getAddressIdent')->will(
             $this->returnValue('testcurrentident3')
@@ -1132,7 +1136,7 @@ class AssessmentTest extends UnitTestCase
     {
         $this->setLanguage(0);
 
-        $oeCreditPassAssessment = new Assessment();
+        $oeCreditPassAssessment = new CreditPassAssessment();
 
         $oUser = oxNew(User::class);
         $oUser->load('oxdefaultadmin');
@@ -1151,7 +1155,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testCheckPaymentDataChange()
     {
-        $oOECreditPassAssessment = new Assessment();
+        $oOECreditPassAssessment = new CreditPassAssessment();
         $this->getSession()->setVar('dynvalue', array('testData1'));
         $oOECreditPassAssessment->checkPaymentDataChange();
         $this->getSession()->setVar('dynvalue', array('testData1'));
@@ -1163,7 +1167,10 @@ class AssessmentTest extends UnitTestCase
 
     public function testSetGetSessionData()
     {
-        $oOECreditPassAssessment = $this->getMock(Assessment::class, array('checkAddressChange', 'checkPaymentDataChange'));
+        $oOECreditPassAssessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('checkAddressChange', 'checkPaymentDataChange')
+        );
         $oOECreditPassAssessment->expects($this->any())->method('checkAddressChange')->will(
             $this->returnValue(false)
         );
@@ -1186,7 +1193,7 @@ class AssessmentTest extends UnitTestCase
         $aPayments = array(array('PAYMENTMETHOD' => 'testpaymentid', 'ALLOWPAYMENTONERROR' => 1),
                            array('PAYMENTMETHOD' => 'testpaymentid2', 'ALLOWPAYMENTONERROR' => 0));
         $aResultPayments = array('testpaymentid');
-        $oCrassessment = $this->getMock(Assessment::class, array('getPaymentSettings'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getPaymentSettings'));
         $oCrassessment->expects($this->any())->method('getPaymentSettings')->will(
             $this->returnValue($aPayments)
         );
@@ -1196,7 +1203,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetOnErrorPaymentsNoPaymentsAssigned()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getPaymentSettings'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getPaymentSettings'));
         $oCrassessment->expects($this->any())->method('getPaymentSettings')->will($this->returnValue(false));
 
         $this->assertSame(array(), $oCrassessment->getOnErrorPayments());
@@ -1207,7 +1214,7 @@ class AssessmentTest extends UnitTestCase
         $aPayments = array(array('PAYMENTMETHOD' => 'testpaymentid', 'PAYMENTFALLBACK' => 1),
                            array('PAYMENTMETHOD' => 'testpaymentid2', 'PAYMENTFALLBACK' => 0));
         $aResultPayments = array('testpaymentid');
-        $oCrassessment = $this->getMock(Assessment::class, array('getPaymentSettings'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getPaymentSettings'));
         $oCrassessment->expects($this->any())->method('getPaymentSettings')->will(
             $this->returnValue($aPayments)
         );
@@ -1217,7 +1224,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetFallbackPaymentsNoPaymentsAssigned()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getPaymentSettings'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getPaymentSettings'));
         $oCrassessment->expects($this->any())->method('getPaymentSettings')->will($this->returnValue(false));
 
         $this->assertSame(array(), $oCrassessment->getFallbackPayments());
@@ -1226,7 +1233,8 @@ class AssessmentTest extends UnitTestCase
     public function testGetAllowedPaymentsAfterResponseAck()
     {
         $oCrassessment = $this->getMock(
-            Assessment::class, array('getFallbackPayments', 'getOnErrorPayments', 'getPaymentSettings')
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments', 'getPaymentSettings')
         );
         $oCrassessment->expects($this->never())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
@@ -1240,7 +1248,10 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetAllowedPaymentsAfterResponseNack()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getFallbackPayments', 'getOnErrorPayments'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments')
+        );
         $oCrassessment->expects($this->once())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
         );
@@ -1253,7 +1264,10 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetAllowedPaymentsAfterResponseError()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getFallbackPayments', 'getOnErrorPayments'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments')
+        );
         $oCrassessment->expects($this->never())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
         );
@@ -1267,7 +1281,10 @@ class AssessmentTest extends UnitTestCase
     public function testGetAllowedPaymentsAfterResponseManualAck()
     {
         $this->setConfigParam('iOECreditPassManualWorkflow', 1);
-        $oCrassessment = $this->getMock(Assessment::class, array('getFallbackPayments', 'getOnErrorPayments'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments')
+        );
         $oCrassessment->expects($this->never())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
         );
@@ -1281,7 +1298,10 @@ class AssessmentTest extends UnitTestCase
     public function testGetAllowedPaymentsAfterResponseManualNack()
     {
         $this->setConfigParam('iOECreditPassManualWorkflow', 0);
-        $oCrassessment = $this->getMock(Assessment::class, array('getFallbackPayments', 'getOnErrorPayments'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments')
+        );
         $oCrassessment->expects($this->once())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
         );
@@ -1295,7 +1315,10 @@ class AssessmentTest extends UnitTestCase
     public function testGetAllowedPaymentsAfterResponseManual()
     {
         $this->setConfigParam('iOECreditPassManualWorkflow', 2);
-        $oCrassessment = $this->getMock(Assessment::class, array('getFallbackPayments', 'getOnErrorPayments'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('getFallbackPayments', 'getOnErrorPayments')
+        );
         $oCrassessment->expects($this->never())->method('getFallbackPayments')->will(
             $this->returnValue('onFallback')
         );
@@ -1308,7 +1331,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetAllowedPaymentMethodsNoCallToCreditPass()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getAllowedPaymentsAfterResponse'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getAllowedPaymentsAfterResponse'));
         $oCrassessment->expects($this->never())->method('getAllowedPaymentsAfterResponse')->will(
             $this->returnValue('AllPayments')
         );
@@ -1318,7 +1341,7 @@ class AssessmentTest extends UnitTestCase
 
     public function testGetAllowedPaymentMethods()
     {
-        $oCrassessment = $this->getMock(Assessment::class, array('getAllowedPaymentsAfterResponse'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getAllowedPaymentsAfterResponse'));
         $oCrassessment->expects($this->once())->method('getAllowedPaymentsAfterResponse')->will(
             $this->returnValue('AllPayments')
         );
@@ -1335,12 +1358,15 @@ class AssessmentTest extends UnitTestCase
         $oUser = $this->getMock(User::class, array('getId'));
         $oUser->expects($this->once())->method('getId')->will($this->returnValue($sUser));
 
-        $oResultCache = $this->getMock('oeCreditPassResultCache', array('getRejectedPaymentIds'));
+        $oResultCache = $this->getMock(CreditPassResultCache::class, array('getRejectedPaymentIds'));
         $oResultCache->expects($this->once())->method('getRejectedPaymentIds')->with(1)->will(
             $this->returnValue('AllPayments')
         );
 
-        $oCrassessment = $this->getMock(Assessment::class, array('_getResultCacheObject', '_getAddressIdent'));
+        $oCrassessment = $this->getMock(
+            CreditPassAssessment::class,
+            array('_getResultCacheObject', '_getAddressIdent')
+        );
         $oCrassessment->expects($this->once())->method('_getResultCacheObject')->will(
             $this->returnValue($oResultCache)
         );
@@ -1356,7 +1382,7 @@ class AssessmentTest extends UnitTestCase
                               'testpaymentid2' => 'testpaymentid2',
                               'testpaymentid3' => 'testpaymentid3');
         $aAllowedPayments = array('testpaymentid');
-        $oCrassessment = $this->getMock(Assessment::class, array('getAllowedPaymentMethods'));
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getAllowedPaymentMethods'));
         $oCrassessment->expects($this->any())->method('getAllowedPaymentMethods')->will(
             $this->returnValue($aAllowedPayments)
         );
@@ -1366,10 +1392,12 @@ class AssessmentTest extends UnitTestCase
 
     public function testFilterPaymentMethodsNoFallbackMethodsAllowed()
     {
-        $aAllPayments = array('testpaymentid'  => 'testpaymentid',
-                              'testpaymentid2' => 'testpaymentid2',
-                              'testpaymentid3' => 'testpaymentid3');
-        $oCrassessment = $this->getMock(Assessment::class, array('getAllowedPaymentMethods'));
+        $aAllPayments = array(
+            'testpaymentid'  => 'testpaymentid',
+            'testpaymentid2' => 'testpaymentid2',
+            'testpaymentid3' => 'testpaymentid3'
+        );
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getAllowedPaymentMethods'));
         $oCrassessment->expects($this->any())->method('getAllowedPaymentMethods')->will(
             $this->returnValue(array())
         );
@@ -1384,7 +1412,8 @@ class AssessmentTest extends UnitTestCase
                               'testpaymentid3' => 'testpaymentid3');
         $aRejectedPayments = array('testpaymentid');
         $oCrassessment = $this->getMock(
-            Assessment::class, array('getCachedAndRejectedPayments', 'getAllowedPaymentMethods')
+            CreditPassAssessment::class,
+            array('getCachedAndRejectedPayments', 'getAllowedPaymentMethods')
         );
         $oCrassessment->expects($this->any())->method('getCachedAndRejectedPayments')->will(
             $this->returnValue($aRejectedPayments)
@@ -1398,10 +1427,12 @@ class AssessmentTest extends UnitTestCase
 
     public function testFilterPaymentMethodsNoPaymentsToFilter()
     {
-        $aAllPayments = array('testpaymentid'  => 'testpaymentid',
-                              'testpaymentid2' => 'testpaymentid2',
-                              'testpaymentid3' => 'testpaymentid3');
-        $oCrassessment = $this->getMock(Assessment::class, array('getAllowedPaymentMethods'));
+        $aAllPayments = array(
+            'testpaymentid'  => 'testpaymentid',
+            'testpaymentid2' => 'testpaymentid2',
+            'testpaymentid3' => 'testpaymentid3'
+        );
+        $oCrassessment = $this->getMock(CreditPassAssessment::class, array('getAllowedPaymentMethods'));
         $oCrassessment->expects($this->any())->method('getAllowedPaymentMethods')->will(
             $this->returnValue(false)
         );

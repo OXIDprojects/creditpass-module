@@ -9,11 +9,11 @@ use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\PaymentController;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassPaymentController;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
-class Payment_testmod extends PaymentController
+class Payment_testmod extends CreditPassPaymentController
 {
 
     public function setNonPublicVar($sVar, $mValue)
@@ -46,7 +46,7 @@ class AssessmentPaymentTest extends UnitTestCase
         $oDummyUser->save();
         $this->setSessionParam('usr', 'test_azcr_oxuser');
 
-        $oConfig = new Config();
+        $oConfig = new CreditPassConfig();
         $oConfig->setModuleActive();
     }
 
@@ -66,24 +66,24 @@ class AssessmentPaymentTest extends UnitTestCase
 
     public function testProperties()
     {
-        $oView = $this->getProxyClass(PaymentController::class);
+        $oView = $this->getProxyClass(CreditPassPaymentController::class);
         $this->assertNull($oView->getNonPublicVar('_oCrAssessment'));
         $this->assertNull($oView->getNonPublicVar('_azIntLogicResponse'));
     }
 
     public function testGetPaymentListInactiveDoesNotCallProcessPaymentList()
     {
-        $oConfig = new Config();
+        $oConfig = new CreditPassConfig();
         $oConfig->setModuleActive(false);
 
-        $oView = $this->getMock(PaymentController::class, array('_processPaymentList'));
+        $oView = $this->getMock(CreditPassPaymentController::class, array('_processPaymentList'));
         $oView->expects($this->never())->method('_processPaymentList')->will($this->returnValue(null));
         $oView->getPaymentList();
     }
 
     public function testGetPaymentListCallsProcessPaymentListOnce()
     {
-        $oView = $this->getMock(PaymentController::class, array('_processPaymentList'));
+        $oView = $this->getMock(CreditPassPaymentController::class, array('_processPaymentList'));
         $oView->expects($this->once())->method('_processPaymentList')->will($this->returnValue(null));
         $oView->getPaymentList();
     }
@@ -91,7 +91,7 @@ class AssessmentPaymentTest extends UnitTestCase
     public function testprocessPaymentList()
     {
         $oReturnPayment = array('test_azcr_keeppayment' => new stdClass());
-        $oCrAssessment = $this->getMock(Assessment::class, array('filterPaymentMethods'));
+        $oCrAssessment = $this->getMock(CreditPassAssessment::class, array('filterPaymentMethods'));
         $oCrAssessment->expects($this->once())->method('filterPaymentMethods')->will(
             $this->returnValue($oReturnPayment)
         );
@@ -108,8 +108,8 @@ class AssessmentPaymentTest extends UnitTestCase
 
     public function testgetCrAssessment()
     {
-        $oView = $this->getProxyClass(PaymentController::class);
-        $this->assertTrue($oView->UNITgetCrAssessment() instanceof Assessment);
+        $oView = $this->getProxyClass(CreditPassPaymentController::class);
+        $this->assertTrue($oView->UNITgetCrAssessment() instanceof CreditPassAssessment);
     }
 
 }

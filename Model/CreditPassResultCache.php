@@ -7,9 +7,9 @@ namespace OxidProfessionalServices\CreditPassModule\Model;
  */
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseCacheDbGateway;
 
-class ResultCache
+class CreditPassResultCache
 {
 
     /**
@@ -302,7 +302,7 @@ class ResultCache
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_oDbGateway = oxNew(ResponseCacheDbGateway::class);
+            $this->_oDbGateway = oxNew(CreditPassResponseCacheDbGateway::class);
         }
 
         return $this->_oDbGateway;

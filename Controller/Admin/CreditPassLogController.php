@@ -7,9 +7,9 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
-class LogController extends AdminController
+class CreditPassLogController extends AdminController
 {
 
     /**
@@ -27,10 +27,10 @@ class LogController extends AdminController
     public function getAnswerCodes()
     {
         $aAnswerCodes = array(
-            Assessment::OECREDITPASS_ANSWER_CODE_ACK    => 'OECREDITPASS_LOG_LIST_ACK',
-            Assessment::OECREDITPASS_ANSWER_CODE_NACK   => 'OECREDITPASS_LOG_LIST_NACK',
-            Assessment::OECREDITPASS_ANSWER_CODE_MANUAL => 'OECREDITPASS_LOG_LIST_MANUAL',
-            Assessment::OECREDITPASS_ANSWER_CODE_ERROR  => 'OECREDITPASS_LOG_LIST_ERROR',
+            CreditPassAssessment::OECREDITPASS_ANSWER_CODE_ACK    => 'OECREDITPASS_LOG_LIST_ACK',
+            CreditPassAssessment::OECREDITPASS_ANSWER_CODE_NACK   => 'OECREDITPASS_LOG_LIST_NACK',
+            CreditPassAssessment::OECREDITPASS_ANSWER_CODE_MANUAL => 'OECREDITPASS_LOG_LIST_MANUAL',
+            CreditPassAssessment::OECREDITPASS_ANSWER_CODE_ERROR  => 'OECREDITPASS_LOG_LIST_ERROR',
         );
 
         return $aAnswerCodes;

@@ -10,7 +10,7 @@ use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorage
 /**
  * CreditPass shop aware class which persists data into database.
  */
-class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersistence
+class CreditPassStorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersistence
 {
 
     const DATABASE_TABLE = 'oecreditpassstorage';
@@ -23,7 +23,7 @@ class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersis
     private $_oDb;
 
     /**
-     * Constructor for oeCreditPassStorageDbShopAwarePersistence.
+     * Constructor for CreditPassStorageDbShopAwarePersistence.
      *
      * @param DatabaseInterface $oDb An instance of database class.
      */
@@ -33,14 +33,14 @@ class StorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersis
     }
 
     /**
-     * Creates instance of oeCreditPassStorageDbShopAwarePersistence.
+     * Creates instance of CreditPassStorageDbShopAwarePersistence.
      *
-     * @return StorageDbShopAwarePersistence
+     * @return CreditPassStorageDbShopAwarePersistence
      * @throws DatabaseConnectionException
      */
     public static function createInstance()
     {
-        $oInstance = new StorageDbShopAwarePersistence(
+        $oInstance = new CreditPassStorageDbShopAwarePersistence(
             DatabaseProvider::getDb()
         );
 

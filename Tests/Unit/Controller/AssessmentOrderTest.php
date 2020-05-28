@@ -9,9 +9,9 @@ use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\OrderController;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassOrderController;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
 class AssessmentOrderTest extends UnitTestCase
 {
@@ -50,26 +50,26 @@ class AssessmentOrderTest extends UnitTestCase
     public function testInit()
     {
         // test without 'fnc' param and enabled module (and a non-redirect result):
-        $oCrAssessment = $this->getMock(Assessment::class, array('clearDebugData', 'checkAll'));
+        $oCrAssessment = $this->getMock(CreditPassAssessment::class, array('clearDebugData', 'checkAll'));
         $oCrAssessment->expects($this->once())->method('clearDebugData')->will($this->returnValue(null));
         $oCrAssessment->expects($this->once())->method('checkAll')->will($this->returnValue(true));
-        $oView = $this->getMock(OrderController::class, array('_getCrAssessment', '_redirect'));
+        $oView = $this->getMock(CreditPassOrderController::class, array('_getCrAssessment', '_redirect'));
         $oView->expects($this->once())->method('_getCrAssessment')->will($this->returnValue($oCrAssessment));
         $oView->expects($this->never())->method('_redirect');
         $oView->init();
 
         // test without 'fnc' param and enabled module (and a redirect result):
-        $oCrAssessment = $this->getMock(Assessment::class, array('clearDebugData', 'checkAll'));
+        $oCrAssessment = $this->getMock(CreditPassAssessment::class, array('clearDebugData', 'checkAll'));
         $oCrAssessment->expects($this->once())->method('clearDebugData')->will($this->returnValue(null));
         $oCrAssessment->expects($this->once())->method('checkAll')->will($this->returnValue(false));
-        $oView = $this->getMock(OrderController::class, array('_getCrAssessment', '_Redirect'));
+        $oView = $this->getMock(CreditPassOrderController::class, array('_getCrAssessment', '_Redirect'));
         $oView->expects($this->once())->method('_getCrAssessment')->will($this->returnValue($oCrAssessment));
         $oView->expects($this->once())->method('_Redirect')->will($this->returnValue(null));
         $oView->init();
 
         // test with fnc=execute param:
         $this->setRequestParam('fnc', 'execute');
-        $oView = $this->getMock(OrderController::class, array('_getCrAssessment', '_Redirect'));
+        $oView = $this->getMock(CreditPassOrderController::class, array('_getCrAssessment', '_Redirect'));
         $oView->expects($this->never())->method('_getCrAssessment');
         $oView->expects($this->never())->method('_Redirect');
         $oView->init();
@@ -80,10 +80,10 @@ class AssessmentOrderTest extends UnitTestCase
 
     public function testInitInactive()
     {
-        $oConfig = new Config();
+        $oConfig = new CreditPassConfig();
         $oConfig->setModuleActive(false);
 
-        $oView = $this->getMock(OrderController::class, array('_getCrAssessment', '_Redirect'));
+        $oView = $this->getMock(CreditPassOrderController::class, array('_getCrAssessment', '_Redirect'));
         $oView->expects($this->never())->method('_getCrAssessment');
         $oView->expects($this->never())->method('_Redirect');
         $oView->init();
@@ -91,8 +91,8 @@ class AssessmentOrderTest extends UnitTestCase
 
     public function testgetCrAssessment()
     {
-        $oView = $this->getProxyClass(OrderController::class);
-        $this->assertTrue($oView->UNITgetCrAssessment() instanceof Assessment);
+        $oView = $this->getProxyClass(CreditPassOrderController::class);
+        $this->assertTrue($oView->UNITgetCrAssessment() instanceof CreditPassAssessment);
     }
 
     public function testRedirect()

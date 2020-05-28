@@ -3,7 +3,7 @@
 <form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
     <input type="hidden" name="oxid" value="[{$oxid}]"/>
-    <input type="hidden" name="cl" value="oecreditpass_order"/>
+    <input type="hidden" name="cl" value="CreditPassOrderController"/>
     <input type="hidden" name="fnc" value=""/>
     <input type="hidden" name="editlanguage" value="[{$editlanguage}]"/>
 </form>

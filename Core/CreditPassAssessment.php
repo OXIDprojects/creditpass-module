@@ -3,16 +3,19 @@
 namespace OxidProfessionalServices\CreditPassModule\Core;
 
 use OxidEsales\Eshop\Core\SepaValidator;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 use OxidEsales\Eshop\Application\Model\PaymentList;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
-class Assessment
+/**
+ * CreditPass Assessment class
+ */
+class CreditPassAssessment
 {
 
     /**
@@ -197,8 +200,6 @@ class Assessment
 
     /**
      * Initializes the class, pre-fills values, etc.
-     *
-     * @return null
      */
     protected function _getInitialData()
     {
@@ -213,12 +214,12 @@ class Assessment
     }
 
     /**
-     * @return Config
+     * @return CreditPassConfig
      */
     protected function _getOECreditPassConfig()
     {
         if (!isset($this->_oOECreditPassConfig)) {
-            $this->_oOECreditPassConfig = oxNew(Config::class);
+            $this->_oOECreditPassConfig = oxNew(CreditPassConfig::class);
         }
 
         return $this->_oOECreditPassConfig;
@@ -483,7 +484,7 @@ class Assessment
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_oDbGateway = oxNew(PaymentSettingsDbGateway::class);
+            $this->_oDbGateway = oxNew(CreditPassPaymentSettingsDbGateway::class);
         }
 
         return $this->_oDbGateway;
@@ -673,7 +674,7 @@ class Assessment
     protected function _logResponse()
     {
         /**
-         * @var ResponseLogger $oLogger
+         * @var CreditPassResponseLogger $oLogger
          */
         $oLogger = $this->getLogger();
 
@@ -719,10 +720,10 @@ class Assessment
     public function setLogger($oLogger = null)
     {
         /**
-         * @var ResponseLogger $oLogger
+         * @var CreditPassResponseLogger $oLogger
          */
         if ($this->_oLogger === null) {
-            $this->_oLogger = oxNew(ResponseLogger::class);
+            $this->_oLogger = oxNew(CreditPassResponseLogger::class);
         } else {
             $this->_oLogger = $oLogger;
         }
@@ -1216,11 +1217,11 @@ class Assessment
     /**
      * Returns result cache object
      *
-     * @return ResultCache
+     * @return CreditPassResultCache
      */
     protected function _getResultCacheObject()
     {
-        return oxNew(ResultCache::class);
+        return oxNew(CreditPassResultCache::class);
     }
 
     /**

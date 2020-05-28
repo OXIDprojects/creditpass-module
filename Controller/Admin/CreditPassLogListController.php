@@ -8,9 +8,9 @@ namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Model\Log;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
-class LogListController extends AdminListController
+class CreditPassLogListController extends AdminListController
 {
 
     const ORDER_FILTER_ALL = 1;
@@ -107,9 +107,9 @@ class LogListController extends AdminListController
     public function getAnswerCodesForLog()
     {
         /**
-         * @var Log $oCreditPassLog
+         * @var CreditPassLog $oCreditPassLog
          */
-        $oCreditPassLog = oxNew(Log::class);
+        $oCreditPassLog = oxNew(CreditPassLog::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
         return $aAnswerCodes;
@@ -123,9 +123,9 @@ class LogListController extends AdminListController
     public function getAnswerCodeFilters()
     {
         /**
-         * @var Log $oCreditPassLog
+         * @var CreditPassLog $oCreditPassLog
          */
-        $oCreditPassLog = oxNew(Log::class);
+        $oCreditPassLog = oxNew(CreditPassLog::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodes();
 
         $aFilters = array();

@@ -3,7 +3,7 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Controller\Admin;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Controller\Admin\LogController;
+use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassLogController;
 
 class LogControllerTest extends UnitTestCase
 {
@@ -13,7 +13,7 @@ class LogControllerTest extends UnitTestCase
      */
     public function testRender()
     {
-        $oLogController = new LogController();
+        $oLogController = new CreditPassLogController();
         $this->assertEquals('oecreditpass_log.tpl', $oLogController->render());
     }
 }

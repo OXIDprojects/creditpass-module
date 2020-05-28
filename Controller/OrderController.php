@@ -6,7 +6,7 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderController
 {
@@ -41,11 +41,11 @@ class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderCont
     /**
      * Returns an instance of the module core class.
      *
-     * @return Assessment module core class
+     * @return CreditPassAssessment module core class
      */
     protected function _getCrAssessment()
     {
-        return oxNew(Assessment::class);
+        return oxNew(CreditPassAssessment::class);
     }
 
     // @codeCoverageIgnoreStart

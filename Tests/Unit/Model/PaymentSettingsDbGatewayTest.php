@@ -3,12 +3,12 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Model;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 
 require_once __DIR__ . '/../OxidTestDatabase.php';
 
 /**
- * Class Unit_Models_oeCreditPassPaymentSettingsDbGatewayTest
+ * Class PaymentSettingsDbGatewayTest
  * TODO: refactor and move to integration
  */
 class PaymentSettingsDbGatewayTest extends UnitTestCase
@@ -16,15 +16,16 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
 
     /**
      * Test oeCreditPass_Payment::getPaymentSettings
-     * Check assuming first call to oeCreditPassPaymentSettingsDbGateway::_fetchPaymentSettingsFromDatabase() returns array
+     * Check assuming first call to CreditPassPaymentSettingsDbGateway::_fetchPaymentSettingsFromDatabase() returns array
      */
     public function testLoadAllMethodFirstMethodSuccess()
     {
         /**
-         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         * @var CreditPassPaymentSettingsDbGateway $oePaymentSettingsDbController
          */
         $oePaymentSettingsDbController = $this->getMock(
-            PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
+            CreditPassPaymentSettingsDbGateway::class,
+            array('_fetchPaymentSettingsFromDatabase')
         );
         $oePaymentSettingsDbController->expects($this->once())->method('_fetchPaymentSettingsFromDatabase')->will(
             $this->returnValue(array("x" => "y"))
@@ -43,7 +44,7 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
 
     /**
      * Test oeCreditPass_Payment::getPaymentSettings
-     * Check assuming first call to oeCreditPassPaymentSettingsDbGateway::_fetchPaymentSettingsFromDatabase() fails
+     * Check assuming first call to CreditPassPaymentSettingsDbGateway::_fetchPaymentSettingsFromDatabase() fails
      *
      * @dataProvider wrongDataProvider
      *
@@ -52,10 +53,11 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
     public function testLoadAllMethodFirstFetchMethodFailureSecondSuccess($aWrongAnswer)
     {
         /**
-         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         * @var CreditPassPaymentSettingsDbGateway $oePaymentSettingsDbController
          */
         $oePaymentSettingsDbController = $this->getMock(
-            PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
+            CreditPassPaymentSettingsDbGateway::class,
+            array('_fetchPaymentSettingsFromDatabase')
         );
         $oePaymentSettingsDbController->expects($this->once())->method('_fetchPaymentSettingsFromDatabase')->will(
             $this->returnValue($aWrongAnswer)
@@ -87,10 +89,11 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
     public function testLoad($sId, $aTableData, $sResult)
     {
         /**
-         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         * @var CreditPassPaymentSettingsDbGateway $oePaymentSettingsDbController
          */
         $oePaymentSettingsDbController = $this->getMock(
-            PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
+            CreditPassPaymentSettingsDbGateway::class,
+            array('_fetchPaymentSettingsFromDatabase')
         );
         $oePaymentSettingsDbController->expects($this->once())->method('_fetchPaymentSettingsFromDatabase')->will(
             $this->returnValue($aTableData[$sId])
@@ -105,10 +108,11 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
     public function testGetWhereClause()
     {
         /**
-         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         * @var CreditPassPaymentSettingsDbGateway $oePaymentSettingsDbController
          */
         $oePaymentSettingsDbController = $this->getMock(
-            PaymentSettingsDbGateway::class, array('_fetchPaymentSettingsFromDatabase')
+            CreditPassPaymentSettingsDbGateway::class,
+            array('_fetchPaymentSettingsFromDatabase')
         );
         $oePaymentSettingsDbController->expects($this->once())->method('_fetchPaymentSettingsFromDatabase')->will(
             $this->returnValue(null)
@@ -132,9 +136,9 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
         $oTestDb = new oxTestDb(false);
 
         /**
-         * @var PaymentSettingsDbGateway $oePaymentSettingsDbController
+         * @var CreditPassPaymentSettingsDbGateway $oePaymentSettingsDbController
          */
-        $oePaymentSettingsDbController = $this->getMock(PaymentSettingsDbGateway::class, array('_getDb'));
+        $oePaymentSettingsDbController = $this->getMock(CreditPassPaymentSettingsDbGateway::class, array('_getDb'));
         $oePaymentSettingsDbController->expects($this->at(0))->method('_getDb')->will(
             $this->returnValue($oTestDb)
         );

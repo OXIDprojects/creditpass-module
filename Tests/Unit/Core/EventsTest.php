@@ -8,9 +8,9 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
-use OxidProfessionalServices\CreditPassModule\Core\Events;
-use OxidProfessionalServices\CreditPassModule\Core\StorageDbShopAwarePersistence;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorageDbShopAwarePersistence;
 
 class EventsTest extends UnitTestCase
 {
@@ -24,17 +24,17 @@ class EventsTest extends UnitTestCase
         $this->_prepareDatabase();
         $oDbMetaDataHandler = new DbMetaDataHandler();
 
-        Events::onActivate();
+        CreditPassEvents::onActivate();
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasscache'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasspaymentsettings'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasslog'));
-        $this->assertTrue($oDbMetaDataHandler->tableExists(StorageDbShopAwarePersistence::DATABASE_TABLE));
+        $this->assertTrue($oDbMetaDataHandler->tableExists(CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE));
 
         $aOrderFolder = Registry::getConfig()->getShopConfVar('aOrderfolder', null, 'module:oecreditpass');
-        $this->assertArrayHasKey(Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
+        $this->assertArrayHasKey(CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
 
         $this->_prepareDatabase();
-        Events::onActivate();
+        CreditPassEvents::onActivate();
     }
 
     /**
@@ -46,19 +46,19 @@ class EventsTest extends UnitTestCase
         $oDbMetaDataHandler = new DbMetaDataHandler();
 
 
-        Events::onActivate();
-        Events::onActivate();
+        CreditPassEvents::onActivate();
+        CreditPassEvents::onActivate();
 
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasscache'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasspaymentsettings'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasslog'));
-        $this->assertTrue($oDbMetaDataHandler->tableExists(StorageDbShopAwarePersistence::DATABASE_TABLE));
+        $this->assertTrue($oDbMetaDataHandler->tableExists(CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE));
 
         $aOrderFolder = Registry::getConfig()->getShopConfVar('aOrderfolder', null, 'module:oecreditpass');
-        $this->assertArrayHasKey(Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
+        $this->assertArrayHasKey(CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
 
         $this->_prepareDatabase();
-        Events::onActivate();
+        CreditPassEvents::onActivate();
     }
 
     /**
@@ -69,23 +69,23 @@ class EventsTest extends UnitTestCase
         $this->_prepareDatabase();
         $oDbMetaDataHandler = new DbMetaDataHandler();
 
-        Events::onActivate();
+        CreditPassEvents::onActivate();
 
         $aOrderFolder = Registry::getConfig()->getShopConfVar('aOrderfolder', null, 'module:oecreditpass');
-        $this->assertArrayHasKey(Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
+        $this->assertArrayHasKey(CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW, $aOrderFolder);
 
-        Events::onDeactivate();
+        CreditPassEvents::onDeactivate();
 
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasscache'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasspaymentsettings'));
         $this->assertTrue($oDbMetaDataHandler->tableExists('oecreditpasslog'));
-        $this->assertTrue($oDbMetaDataHandler->tableExists(StorageDbShopAwarePersistence::DATABASE_TABLE));
+        $this->assertTrue($oDbMetaDataHandler->tableExists(CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE));
 
         $aOrderFolder = Registry::getConfig()->getShopConfVar('aOrderfolder', null, 'module:oecreditpass');
         $this->assertNull($aOrderFolder);
 
         $this->_prepareDatabase();
-        Events::onActivate();
+        CreditPassEvents::onActivate();
     }
 
     public function sqlProvider()
@@ -118,7 +118,7 @@ class EventsTest extends UnitTestCase
      */
     public function testParseSql($sSql, $aExpected)
     {
-        $this->assertEquals($aExpected, Events::parseSql($sSql));
+        $this->assertEquals($aExpected, CreditPassEvents::parseSql($sSql));
     }
 
     /**
@@ -130,7 +130,7 @@ class EventsTest extends UnitTestCase
      */
     protected function _prepareDatabase()
     {
-        $sStorageTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sStorageTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
 
         DatabaseProvider::getDb()->execute('DROP TABLE IF EXISTS `oecreditpasscache`');
         DatabaseProvider::getDb()->execute('DROP TABLE IF EXISTS `oecreditpasspaymentsettings`');
@@ -140,7 +140,7 @@ class EventsTest extends UnitTestCase
 
     public function testDefaultCacheTtlIsZero()
     {
-        $this->assertEquals(0, Events::OECREDITPASS_DEFAULT_CACHE_TTL);
+        $this->assertEquals(0, CreditPassEvents::OECREDITPASS_DEFAULT_CACHE_TTL);
     }
 
 }

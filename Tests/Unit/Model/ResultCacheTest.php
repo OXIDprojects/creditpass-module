@@ -3,8 +3,8 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Model;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\ResponseCacheDbGateway;
-use OxidProfessionalServices\CreditPassModule\Model\ResultCache;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassResponseCacheDbGateway;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 class ResultCacheTest extends UnitTestCase
 {
@@ -18,12 +18,17 @@ class ResultCacheTest extends UnitTestCase
         $sPayData = "testPaymentData";
 
         $oDB = $this->getMock(
-            ResponseCacheDbGateway::class, array('load', 'setAddressId', 'setPaymentId'), array(), '', false
+            CreditPassResponseCacheDbGateway::class,
+            array('load', 'setAddressId', 'setPaymentId'),
+            array(),
+            '',
+            false
         );
         $oDB->expects($this->once())->method('load')->will($this->returnValue($sXML));
 
         $oCreditPassResultCache = $this->getMock(
-            ResultCache::class, array('_getDbGateway', '_deleteExpCache')
+            CreditPassResultCache::class,
+            array('_getDbGateway', '_deleteExpCache')
         );
         $oCreditPassResultCache->expects($this->once())->method('_getDbGateway')->will(
             $this->returnValue($oDB)
@@ -41,12 +46,17 @@ class ResultCacheTest extends UnitTestCase
     public function testGetDataHasNoCache()
     {
         $oDB = $this->getMock(
-            ResponseCacheDbGateway::class, array('load', 'setAddressId', 'setPaymentId'), array(), '', false
+            CreditPassResponseCacheDbGateway::class,
+            array('load', 'setAddressId', 'setPaymentId'),
+            array(),
+            '',
+            false
         );
         $oDB->expects($this->once())->method('load')->will($this->returnValue(false));
 
         $oCreditPassResultCache = $this->getMock(
-            ResultCache::class, array('_getDbGateway', '_deleteExpCache')
+            CreditPassResultCache::class,
+            array('_getDbGateway', '_deleteExpCache')
         );
         $oCreditPassResultCache->expects($this->once())->method('_getDbGateway')->will(
             $this->returnValue($oDB)
@@ -61,13 +71,16 @@ class ResultCacheTest extends UnitTestCase
     {
         $this->setConfigParam('iOECreditPassCheckCacheTimeout', 1);
         $oDB = $this->getMock(
-            ResponseCacheDbGateway::class, array('load', 'delete', 'setAddressId', 'setPaymentId'), array(), '',
+            CreditPassResponseCacheDbGateway::class,
+            array('load', 'delete', 'setAddressId', 'setPaymentId'),
+            array(),
+            '',
             false
         );
         $oDB->expects($this->once())->method('load')->will($this->returnValue(false));
         $oDB->expects($this->once())->method('delete')->with('1970-01-01 01:00:05'); //86405 - 1*86400
 
-        $oCreditPassResultCache = $this->getMock(ResultCache::class, array('_getDbGateway', '_getTime'));
+        $oCreditPassResultCache = $this->getMock(CreditPassResultCache::class, array('_getDbGateway', '_getTime'));
         $oCreditPassResultCache->expects($this->exactly(2))->method('_getDbGateway')->will(
             $this->returnValue($oDB)
         );
@@ -80,7 +93,7 @@ class ResultCacheTest extends UnitTestCase
     public function testGetCheckCacheTimeout()
     {
         $this->setConfigParam('iOECreditPassCheckCacheTimeout', 10);
-        $oCreditPassResultCache = new ResultCache();
+        $oCreditPassResultCache = new CreditPassResultCache();
         $sResult = $oCreditPassResultCache->getCheckCacheTimeout();
 
         $this->assertSame(864000, $sResult); //10*86400
@@ -106,10 +119,10 @@ class ResultCacheTest extends UnitTestCase
             'ANSWERCODE'       => $iAnswerCode,
         );
 
-        $oDB = $this->getMock(ResponseCacheDbGateway::class, array('save'));
+        $oDB = $this->getMock(CreditPassResponseCacheDbGateway::class, array('save'));
         $oDB->expects($this->once())->method('save')->with($aData)->will($this->returnValue(true));
 
-        $oCreditPassResultCache = $this->getMock(ResultCache::class, array('_getDbGateway', '_getTime'));
+        $oCreditPassResultCache = $this->getMock(CreditPassResultCache::class, array('_getDbGateway', '_getTime'));
         $oCreditPassResultCache->expects($this->once())->method('_getDbGateway')->will(
             $this->returnValue($oDB)
         );
@@ -131,11 +144,11 @@ class ResultCacheTest extends UnitTestCase
         $sAddress = "testAddress";
         $aIds = array("paymentid" => "testPaymentData");
 
-        $oDB = $this->getMock(ResponseCacheDbGateway::class, array('loadPaymentIdsByAnswer', 'setAddressId'));
+        $oDB = $this->getMock(CreditPassResponseCacheDbGateway::class, array('loadPaymentIdsByAnswer', 'setAddressId'));
         $oDB->expects($this->once())->method('loadPaymentIdsByAnswer')->will($this->returnValue(array($aIds)));
         $oDB->expects($this->once())->method('setAddressId');
 
-        $oCreditPassResultCache = $this->getMock(ResultCache::class, array('_getDbGateway'));
+        $oCreditPassResultCache = $this->getMock(CreditPassResultCache::class, array('_getDbGateway'));
         $oCreditPassResultCache->expects($this->any())->method('_getDbGateway')->will(
             $this->returnValue($oDB)
         );
@@ -151,11 +164,11 @@ class ResultCacheTest extends UnitTestCase
         $sUser = "testUser";
         $sAddress = "testAddress";
 
-        $oDB = $this->getMock(ResponseCacheDbGateway::class, array('loadPaymentIdsByAnswer', 'setAddressId'));
+        $oDB = $this->getMock(CreditPassResponseCacheDbGateway::class, array('loadPaymentIdsByAnswer', 'setAddressId'));
         $oDB->expects($this->once())->method('loadPaymentIdsByAnswer')->will($this->returnValue(false));
         $oDB->expects($this->once())->method('setAddressId');
 
-        $oCreditPassResultCache = $this->getMock(ResultCache::class, array('_getDbGateway'));
+        $oCreditPassResultCache = $this->getMock(CreditPassResultCache::class, array('_getDbGateway'));
         $oCreditPassResultCache->expects($this->any())->method('_getDbGateway')->will(
             $this->returnValue($oDB)
         );

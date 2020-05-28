@@ -7,7 +7,7 @@ use OxidEsales\Eshop\Core\Exception\StandardException;
 /**
  * Exception base class for creditPass
  */
-class Exception extends StandardException
+class CreditPassException extends StandardException
 {
 
     /**

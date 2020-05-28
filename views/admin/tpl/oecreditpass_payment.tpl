@@ -46,14 +46,14 @@
 <form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
     <input type="hidden" name="oxid" value="[{$oxid}]"/>
-    <input type="hidden" name="cl" value="oecreditpass_payment"/>
+    <input type="hidden" name="cl" value="CreditPassPaymentController"/>
     <input type="hidden" name="fnc" value=""/>
     <input type="hidden" name="editlanguage" value="[{$editlanguage}]"/>
 </form>
 
 <form name="myedit" id="myedit" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
-    <input type="hidden" name="cl" value="oecreditpass_payment"/>
+    <input type="hidden" name="cl" value="CreditPassPaymentController"/>
     <input type="hidden" name="fnc" value="save"/>
 
     <table class="oecreditpass_payment" id="oeCreditPassPaymentSettings">

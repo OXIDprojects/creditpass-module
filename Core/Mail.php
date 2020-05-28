@@ -8,6 +8,11 @@ namespace OxidProfessionalServices\CreditPassModule\Core;
 use OxidEsales\Eshop\Core\Email;
 use OxidEsales\Eshop\Core\Registry;
 
+/**
+ * CreditPass Mail class
+ *
+ * @extend        oxEmail
+ */
 class Mail extends Email
 {
 
@@ -27,6 +32,12 @@ class Mail extends Email
 
     /**
      * Sends email to admin
+     *
+     * @param      $oOrder
+     * @param      $sManualReviewEmail
+     * @param null $sSubject
+     *
+     * @return
      */
     public function sendCreditPassAdminEmail($oOrder, $sManualReviewEmail, $sSubject = null)
     {

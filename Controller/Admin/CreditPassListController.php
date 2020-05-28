@@ -7,9 +7,9 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
-class ListController extends AdminListController
+class CreditPassListController extends AdminListController
 {
 
     /**
@@ -28,6 +28,6 @@ class ListController extends AdminListController
      */
     public function getModuleAdminUrl($sFile)
     {
-        return oxNew(Config::class)->getModuleAdminUrl($sFile);
+        return oxNew(CreditPassConfig::class)->getModuleAdminUrl($sFile);
     }
 }

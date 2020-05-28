@@ -7,10 +7,10 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
-use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
-use OxidProfessionalServices\CreditPassModule\Model\Log;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
-class UserController extends AdminDetailsController
+class CreditPassUserController extends AdminDetailsController
 {
 
     /**
@@ -42,9 +42,9 @@ class UserController extends AdminDetailsController
     public function getLogList()
     {
         /**
-         * @var ResponseLogger $oLogger
+         * @var CreditPassResponseLogger $oLogger
          */
-        $oLogger = oxNew(ResponseLogger::class);
+        $oLogger = oxNew(CreditPassResponseLogger::class);
         $aLogList = $oLogger->searchUser($this->getEditObjectId());
 
         // sort list
@@ -61,9 +61,9 @@ class UserController extends AdminDetailsController
     public function getAnswerCodesForLog()
     {
         /**
-         * @var Log $oCreditPassLog
+         * @var CreditPassLog $oCreditPassLog
          */
-        $oCreditPassLog = oxNew(Log::class);
+        $oCreditPassLog = oxNew(CreditPassLog::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
         return $aAnswerCodes;

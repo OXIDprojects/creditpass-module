@@ -5,10 +5,10 @@ namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Core;
 use OxidEsales\Eshop\Core\Config;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
-use OxidProfessionalServices\CreditPassModule\Core\Storage;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorage;
 
 /**
- * Test for oeCreditPassStorage
+ * Test for CreditPassStorage
  */
 class StorageTest extends UnitTestCase
 {
@@ -79,7 +79,7 @@ class StorageTest extends UnitTestCase
         $oShopAwarePersistence->expects($this->once())->method('setValue')->with($iShopId, $sKey, $sValue);
         $oShopAwarePersistence->expects($this->any())->method('getValue');
 
-        $oStorage = new Storage($oConfig, $oShopAwarePersistence);
+        $oStorage = new CreditPassStorage($oConfig, $oShopAwarePersistence);
 
         $oStorage->setValue($sKey, $sValue);
     }
@@ -112,7 +112,7 @@ class StorageTest extends UnitTestCase
             ->method('getValue')
             ->will($this->returnValueMap($aValueMap));
 
-        $oStorage = new Storage($oConfig, $oShopAwarePersistence);
+        $oStorage = new CreditPassStorage($oConfig, $oShopAwarePersistence);
 
         $this->assertSame($mValue, $oStorage->getValue($sKey, $mValue));
     }

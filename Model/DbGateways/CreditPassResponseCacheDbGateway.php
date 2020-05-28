@@ -2,12 +2,12 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 
-use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
 /**
  * Response cache db gateway class
  */
-class ResponseCacheDbGateway extends ModelDbGateway
+class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
 {
 
     /**

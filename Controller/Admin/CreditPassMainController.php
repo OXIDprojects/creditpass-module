@@ -8,9 +8,9 @@ namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
-class MainController extends ShopConfiguration
+class CreditPassMainController extends ShopConfiguration
 {
 
     /**
@@ -75,10 +75,10 @@ class MainController extends ShopConfiguration
         parent::save();
 
         //saving unauthorized error msg
-        oxNew(Config::class)->saveUnauthorizedErrorMsg(
+        oxNew(CreditPassConfig::class)->saveUnauthorizedErrorMsg(
             Registry::getConfig()->getRequestParameter('sUnauthorizedErrorMsg')
         );
-        oxNew(Config::class)->setCacheTtl(
+        oxNew(CreditPassConfig::class)->setCacheTtl(
             Registry::getConfig()->getRequestParameter('iOECreditPassCheckCacheTimeout')
         );
     }
@@ -90,7 +90,7 @@ class MainController extends ShopConfiguration
      */
     public function getUserGroups()
     {
-        return oxNew(Config::class)->getExclUserGroups();
+        return oxNew(CreditPassConfig::class)->getExclUserGroups();
     }
 
     /**
@@ -102,7 +102,7 @@ class MainController extends ShopConfiguration
      */
     public function getUnauthorizedErrorMsg($iLangId = null)
     {
-        return oxNew(Config::class)->getUnauthorizedErrorMsg($iLangId);
+        return oxNew(CreditPassConfig::class)->getUnauthorizedErrorMsg($iLangId);
     }
 
     /**
@@ -137,7 +137,7 @@ class MainController extends ShopConfiguration
      */
     public function getCacheTtl()
     {
-        return oxNew(Config::class)->getCacheTtl();
+        return oxNew(CreditPassConfig::class)->getCacheTtl();
     }
 
     /**
@@ -147,7 +147,7 @@ class MainController extends ShopConfiguration
      */
     public function getMaxCacheTtl()
     {
-        return oxNew(Config::class)->getMaxCacheTtl();
+        return oxNew(CreditPassConfig::class)->getMaxCacheTtl();
     }
 
     /**
@@ -159,6 +159,6 @@ class MainController extends ShopConfiguration
      */
     public function getModuleAdminUrl($sFile)
     {
-        return oxNew(Config::class)->getModuleAdminUrl($sFile);
+        return oxNew(CreditPassConfig::class)->getModuleAdminUrl($sFile);
     }
 }

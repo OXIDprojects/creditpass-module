@@ -2,22 +2,22 @@
 <OX>
     <OXMENU id="NAVIGATION_ESHOPADMIN">
         <MAINMENU id="mxshopsett">
-            <SUBMENU id="OECREDITPASS_SUBMENU" cl="oecreditpass" list="oecreditpass_list">
-                <TAB id="OECREDITPASS_TAB_SETTINGS" cl="oecreditpass_main"/>
-                <TAB id="OECREDITPASS_TAB_PAYMENT" cl="oecreditpass_payment"/>
+            <SUBMENU id="OECREDITPASS_SUBMENU" cl="CreditPassController" list="CreditPassListController">
+                <TAB id="OECREDITPASS_TAB_SETTINGS" cl="CreditPassMainController"/>
+                <TAB id="OECREDITPASS_TAB_PAYMENT" cl="CreditPassPaymentController"/>
             </SUBMENU>
         </MAINMENU>
         <MAINMENU id="mxorders">
             <SUBMENU id="mxdisplayorders">
-                <TAB id="OECREDITPASS_TAB_ORDER" cl="oecreditpass_order"/>
+                <TAB id="OECREDITPASS_TAB_ORDER" cl="CreditPassOrderController"/>
             </SUBMENU>
-            <SUBMENU id="OECREDITPASS_LOG_SUBMENU" cl="oecreditpass_log" list="oecreditpass_log_list">
-                <TAB id="OECREDITPASS_LOG_TAB_LOG" cl="oecreditpass_log_overview"/>
+            <SUBMENU id="OECREDITPASS_LOG_SUBMENU" cl="CreditPassLogController" list="CreditPassLogListController">
+                <TAB id="OECREDITPASS_LOG_TAB_LOG" cl="CreditPassLogOverviewController"/>
             </SUBMENU>
         </MAINMENU>
         <MAINMENU id="mxuadmin">
             <SUBMENU id="mxusers" cl="admin_user" list="user_list">
-                <TAB id="OECREDITPASS_TAB_USER" cl="oecreditpass_user"/>
+                <TAB id="OECREDITPASS_TAB_USER" cl="CreditPassUserController"/>
             </SUBMENU>
         </MAINMENU>
     </OXMENU>

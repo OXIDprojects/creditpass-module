@@ -5,9 +5,9 @@ namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 use OxidEsales\Eshop\Core\Model\ListModel;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
-use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
-class PaymentSettingsDbGateway extends ModelDbGateway
+class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
 {
 
     /**

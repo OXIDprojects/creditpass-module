@@ -6,11 +6,11 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Events;
-use OxidProfessionalServices\CreditPassModule\Core\StorageDbShopAwarePersistence;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorageDbShopAwarePersistence;
 
 /**
- * Test for oeCreditPassStorage
+ * Test for CreditPassStorage
  */
 class EventsTest extends UnitTestCase
 {
@@ -59,7 +59,7 @@ class EventsTest extends UnitTestCase
 
         $oConfig->saveShopConfVar("str", $sConfigName, $sConfigValue, null, 'module:oecreditpass');
 
-        Events::onDeactivate();
+        CreditPassEvents::onDeactivate();
 
         $aBackup = $this->_getData($iShopId, $sStorageKey);
 
@@ -67,7 +67,7 @@ class EventsTest extends UnitTestCase
 
         $this->assertSame($sConfigValue, $sActualConfigValue);
 
-        Events::onActivate();
+        CreditPassEvents::onActivate();
     }
 
     /**
@@ -94,7 +94,7 @@ class EventsTest extends UnitTestCase
 
         $this->_setData($iShopId, $sStorageKey, $aBackup);
 
-        Events::onActivate();
+        CreditPassEvents::onActivate();
 
         // Instance of oxConfig was already used internally, it loaded configs and cached them.
         // When new configs are added to database within the same session, oxConfig does not reload them.
@@ -120,7 +120,7 @@ class EventsTest extends UnitTestCase
      */
     private function _setData($iShopId, $sKey, $mValue)
     {
-        $sTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
 
         $sSql = "replace into `{$sTable}` (`SHOPID`, `KEY`, `VALUE`) values (?, ?, ?)";
         $aSqlParameters = array($iShopId, $sKey, $this->_encode($mValue));
@@ -139,7 +139,7 @@ class EventsTest extends UnitTestCase
      */
     private function _getData($iShopId, $sKey)
     {
-        $sTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
 
         $sSql = "select `VALUE` from `{$sTable}` where `SHOPID` = ? and `KEY` = ?";
         $aSqlParameters = array($iShopId, $sKey);
@@ -266,7 +266,7 @@ class EventsTest extends UnitTestCase
             )
         );
 
-        $sStorageTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sStorageTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
         DatabaseProvider::getDb()->execute("DELETE FROM `$sStorageTable`");
     }
 }

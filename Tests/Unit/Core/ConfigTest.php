@@ -4,16 +4,17 @@ namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Core;
 
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
 
 class ConfigTest extends UnitTestCase
 {
 
     public function testGetExclUserGroups()
     {
-        $oConfig = new Config();
+        $oConfig = new CreditPassConfig();
         modConfig::getInstance()->setConfigParam(
-            'aOECreditPassExclUserGroups', array("oxidsmallcust", "oxiddealer", "oxidgoodcust")
+            'aOECreditPassExclUserGroups',
+            array("oxidsmallcust", "oxiddealer", "oxidgoodcust")
         );
 
         $oExclUserGroups = $oConfig->getExclUserGroups();
@@ -27,7 +28,7 @@ class ConfigTest extends UnitTestCase
 
     public function testSaveGetUnauthorizedErrorMessage()
     {
-        $oConfig = new Config();
+        $oConfig = new CreditPassConfig();
 
 
         $sTestVal1 = "TestVal";
@@ -45,9 +46,9 @@ class ConfigTest extends UnitTestCase
 
     public function testSetCacheTtl()
     {
-        $oConf = new Config();
+        $oConf = new CreditPassConfig();
         $oConf->setCacheTtl(1000);
-        $this->assertEquals(Config::OECREDITPASS_MAX_CACHE_TTL, $oConf->getCacheTtl());
+        $this->assertEquals(CreditPassConfig::OECREDITPASS_MAX_CACHE_TTL, $oConf->getCacheTtl());
 
         $oConf->setCacheTtl(30);
         $this->assertEquals(30, $oConf->getCacheTtl());
@@ -64,13 +65,13 @@ class ConfigTest extends UnitTestCase
 
     public function testGetMaxCacheTtl()
     {
-        $oConf = new Config();
+        $oConf = new CreditPassConfig();
         $this->assertEquals(60, $oConf->getMaxCacheTtl());
     }
 
     public function testSetGetModuleActive()
     {
-        $oConf = new Config();
+        $oConf = new CreditPassConfig();
         $oConf->setModuleActive(false);
         $this->assertFalse($oConf->isModuleActive());
 
@@ -80,7 +81,7 @@ class ConfigTest extends UnitTestCase
 
     public function testGetModuleAdminUrl()
     {
-        $oConf = new Config();
+        $oConf = new CreditPassConfig();
         $sExp = rtrim(Registry::getConfig()->getCurrentShopUrl(true), "/") . "/..//modules/oe/oecreditpass/picture.png";
         $this->assertEquals($sExp, $oConf->getModuleAdminUrl('picture.png'));
     }

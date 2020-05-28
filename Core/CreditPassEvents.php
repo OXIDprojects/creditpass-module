@@ -6,9 +6,11 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\oeCreditPassStorageDbShopAwarePersistence;
 
-class Events
+/**
+ * CreditPass Events class
+ */
+class CreditPassEvents
 {
 
     //default values
@@ -173,7 +175,7 @@ class Events
 
         DatabaseProvider::getDb()->execute($sSql);
 
-        $sTable = oeCreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
         $sSql = "CREATE TABLE IF NOT EXISTS `{$sTable}` (
                   `SHOPID` int(11) NOT NULL DEFAULT '0' COMMENT 'Shop id, reference to oxshops.OXID',
                   `KEY` varchar(64) character set latin1 collate latin1_general_ci NOT NULL,
@@ -289,8 +291,8 @@ class Events
         $oConfig = Registry::getConfig();
 
         $aOrderFolder = $oConfig->getConfigParam("aOrderfolder");
-        if (!isset($aOrderFolder[Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW])) {
-            $aOrderFolder[Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW] = '#FFA500';
+        if (!isset($aOrderFolder[CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW])) {
+            $aOrderFolder[CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW] = '#FFA500';
             $oConfig->saveShopConfVar("aarr", "aOrderfolder", $aOrderFolder, null, 'module:oecreditpass');
         }
     }
@@ -303,7 +305,7 @@ class Events
         $aBackup = self::_getModuleSettingsFromDb();
         //$aBackup = array();
 
-        $oBackupStorage = Storage::createInstance();
+        $oBackupStorage = CreditPassStorage::createInstance();
         $oBackupStorage->setValue("oecreditPass.settings", $aBackup);
     }
 
@@ -312,7 +314,7 @@ class Events
      */
     protected static function _restoreConfigs()
     {
-        $oBackupStorage = Storage::createInstance();
+        $oBackupStorage = CreditPassStorage::createInstance();
         $aBackup = $oBackupStorage->getValue("oecreditPass.settings");
 
         if ($aBackup) {
@@ -378,7 +380,7 @@ class Events
      *
      * @param array $aBackup Raw module settings
      *
-     * @throws DatabaseConnectionException
+     * @return void
      */
     protected static function _setModuleSettingsToDb($aBackup)
     {

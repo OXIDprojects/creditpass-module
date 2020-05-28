@@ -10,9 +10,9 @@ use OxidEsales\Eshop\Application\Model\Basket;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Model\UserPayment;
 use OxidEsales\Eshop\Core\Field;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 use OxidProfessionalServices\CreditPassModule\Core\Mail;
-use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 
 class Order extends \OxidEsales\Eshop\Application\Model\Order
 {
@@ -37,8 +37,8 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
         $aSessionData = $this->getSession()->getVariable('aBoniSessionData');
         $sCreditPassAnswerCode = $aSessionData['azIntLogicResponse'];
 
-        if ($sCreditPassAnswerCode == Assessment::OECREDITPASS_ANSWER_CODE_MANUAL) {
-            $this->_oeCreditPassSetOrderFolder(Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW);
+        if ($sCreditPassAnswerCode == CreditPassAssessment::OECREDITPASS_ANSWER_CODE_MANUAL) {
+            $this->_oeCreditPassSetOrderFolder(CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW);
         }
     }
 
@@ -97,7 +97,7 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
         $iOeIntLogicResponse = (int) $aSessionData['azIntLogicResponse'];
         $iType = (int) $this->getConfig()->getConfigParam('iOECreditPassManualWorkflow');
 
-        return (bool) ($iType == 2 && $iOeIntLogicResponse == Assessment::OECREDITPASS_ANSWER_CODE_MANUAL);
+        return (bool)($iType == 2 && $iOeIntLogicResponse == CreditPassAssessment::OECREDITPASS_ANSWER_CODE_MANUAL);
     }
 
     /**
@@ -106,9 +106,9 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
     protected function _updateLog()
     {
         /**
-         * @var ResponseLogger $oLogger
+         * @var CreditPassResponseLogger $oLogger
          */
-        $oLogger = oxNew(ResponseLogger::class);
+        $oLogger = oxNew(CreditPassResponseLogger::class);
 
         $aSessionData = $this->getSession()->getVariable('aBoniSessionData');
         $sCreditPassId = $aSessionData['sOECreditPassId'];

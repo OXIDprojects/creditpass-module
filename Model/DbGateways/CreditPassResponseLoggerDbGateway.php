@@ -7,12 +7,12 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\ModelDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
 /**
  * ResponseLoggerDbGateway
  */
-class ResponseLoggerDbGateway extends ModelDbGateway
+class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
 {
 
     /**

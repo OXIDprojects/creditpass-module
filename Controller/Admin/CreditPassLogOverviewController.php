@@ -7,10 +7,10 @@
 namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
-use OxidProfessionalServices\CreditPassModule\Core\ResponseLogger;
-use OxidProfessionalServices\CreditPassModule\Model\Log;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
+use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
-class OrderController extends AdminDetailsController
+class CreditPassLogOverviewController extends AdminDetailsController
 {
 
     /**
@@ -18,7 +18,7 @@ class OrderController extends AdminDetailsController
      *
      * @var string
      */
-    protected $_sThisTemplate = 'oecreditpass_order.tpl';
+    protected $_sThisTemplate = 'oecreditpass_log_overview.tpl';
 
     /**
      * Get log details.
@@ -28,10 +28,10 @@ class OrderController extends AdminDetailsController
     public function getLogDetails()
     {
         /**
-         * @var ResponseLogger $oLogger
+         * @var CreditPassResponseLogger $oLogger
          */
-        $oLogger = oxNew(ResponseLogger::class);
-        $aLogDetails = $oLogger->searchOrder($this->getEditObjectId());
+        $oLogger = oxNew(CreditPassResponseLogger::class);
+        $aLogDetails = $oLogger->load($this->getEditObjectId());
 
         return $aLogDetails;
     }
@@ -44,9 +44,9 @@ class OrderController extends AdminDetailsController
     public function getAnswerCodesForLog()
     {
         /**
-         * @var Log $oCreditPassLog
+         * @var CreditPassLog $oCreditPassLog
          */
-        $oCreditPassLog = oxNew(Log::class);
+        $oCreditPassLog = oxNew(CreditPassLog::class);
         $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
 
         return $aAnswerCodes;

@@ -12,7 +12,7 @@
 </script>
 
 <form name="search" id="search" action="[{ $oViewConf->getSelfLink() }]" method="post">
-    [{include file="_formparams.tpl" cl="oecreditpass_list" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}
+    [{include file="_formparams.tpl" cl="CreditPassListController" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}
     ]
 </form>
 

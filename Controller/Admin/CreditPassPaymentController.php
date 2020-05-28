@@ -9,14 +9,14 @@ namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Core\Config;
-use OxidProfessionalServices\CreditPassModule\Model\DbGateways\PaymentSettingsDbGateway;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassConfig;
+use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 
-class PaymentController extends AdminDetailsController
+class CreditPassPaymentController extends AdminDetailsController
 {
 
     /**
-     * @var $_oDbGateway oeCreditPassPaymentSettingsDbGateway variable
+     * @var $_oDbGateway CreditPassPaymentSettingsDbGateway variable
      */
     protected $_oDbGateway = null;
 
@@ -92,7 +92,7 @@ class PaymentController extends AdminDetailsController
     /**
      * Sets database gateway
      *
-     * @param PaymentSettingsDbGateway $oDbGateway
+     * @param CreditPassPaymentSettingsDbGateway $oDbGateway
      */
     protected function _setDbGateway($oDbGateway)
     {
@@ -102,12 +102,12 @@ class PaymentController extends AdminDetailsController
     /**
      * Returns database gateway
      *
-     * @return PaymentSettingsDbGateway
+     * @return CreditPassPaymentSettingsDbGateway
      */
     protected function _getDbGateway()
     {
         if (is_null($this->_oDbGateway)) {
-            $this->_setDbGateway(oxNew(PaymentSettingsDbGateway::class));
+            $this->_setDbGateway(oxNew(CreditPassPaymentSettingsDbGateway::class));
         }
 
         return $this->_oDbGateway;
@@ -139,7 +139,7 @@ class PaymentController extends AdminDetailsController
 
         $aErrors = array_unique($aErrors);
         foreach ($aErrors as $sError) {
-            Registry::get("oxUtilsView")->addErrorToDisplay($sError);
+            Registry::getUtilsView()->addErrorToDisplay($sError);
         }
     }
 
@@ -360,6 +360,6 @@ class PaymentController extends AdminDetailsController
      */
     public function getModuleAdminUrl($sFile)
     {
-        return oxNew(Config::class)->getModuleAdminUrl($sFile);
+        return oxNew(CreditPassConfig::class)->getModuleAdminUrl($sFile);
     }
 }

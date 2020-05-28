@@ -6,11 +6,11 @@ use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
-use OxidProfessionalServices\CreditPassModule\Core\Storage;
-use OxidProfessionalServices\CreditPassModule\Core\StorageDbShopAwarePersistence;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorage;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorageDbShopAwarePersistence;
 
 /**
- * Test for oeCreditPassStorage
+ * Test for CreditPassStorage
  */
 class StorageTest extends UnitTestCase
 {
@@ -52,7 +52,7 @@ class StorageTest extends UnitTestCase
      */
     private function _clearTestData()
     {
-        $sTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
         DatabaseProvider::getDb()->execute("DELETE FROM `{$sTable}`");
     }
 
@@ -107,7 +107,7 @@ class StorageTest extends UnitTestCase
     {
         $iShopId = $this->_iShopId;
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $oCreditPassStorage->setValue($sKey, $mValue);
 
@@ -126,7 +126,7 @@ class StorageTest extends UnitTestCase
     {
         $iShopId = $this->_iShopId;
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $this->_setData($iShopId, $sKey, $mValue);
 
@@ -142,7 +142,7 @@ class StorageTest extends UnitTestCase
             $this->markTestSkipped('This shop edition does not support multiple shops.');
         }
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $sKey = 'test_key';
         $iShopId1 = 1;
@@ -168,7 +168,7 @@ class StorageTest extends UnitTestCase
             $this->markTestSkipped('This shop edition does not support multiple shops.');
         }
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $sKey = 'test_key';
         $iShopId1 = 1;
@@ -192,7 +192,7 @@ class StorageTest extends UnitTestCase
             $this->markTestSkipped('This shop edition does not support multiple shops.');
         }
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $sKey = 'test_key';
         $iShopId1 = 1;
@@ -217,7 +217,7 @@ class StorageTest extends UnitTestCase
             $this->markTestSkipped('This shop edition does not support multiple shops.');
         }
 
-        $oCreditPassStorage = Storage::createInstance();
+        $oCreditPassStorage = CreditPassStorage::createInstance();
 
         $sKey = 'test_key';
         $iShopId1 = 1;
@@ -265,7 +265,7 @@ class StorageTest extends UnitTestCase
             ->method('getValue')
             ->with($mExpectedShopId, $this->anything());
 
-        $oCreditPassStorage = new Storage(
+        $oCreditPassStorage = new CreditPassStorage(
             Registry::getConfig(),
             $oShopAwarePersistence
         );
@@ -287,7 +287,7 @@ class StorageTest extends UnitTestCase
      */
     private function _setData($iShopId, $sKey, $mValue)
     {
-        $sTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
 
         $sSql = "insert into `{$sTable}` (`SHOPID`, `KEY`, `VALUE`) values (?, ?, ?)";
         $aSqlParameters = array($iShopId, $sKey, $this->_encode($mValue));
@@ -306,7 +306,7 @@ class StorageTest extends UnitTestCase
      */
     private function _getData($iShopId, $sKey)
     {
-        $sTable = StorageDbShopAwarePersistence::DATABASE_TABLE;
+        $sTable = CreditPassStorageDbShopAwarePersistence::DATABASE_TABLE;
 
         $sSql = "select `VALUE` from `{$sTable}` where `SHOPID` = ? and `KEY` = ?";
         $aSqlParameters = array($iShopId, $sKey);

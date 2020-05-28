@@ -6,9 +6,9 @@
 </head>
 
 <frameset rows="165,*" border="0">
-    <frame src="[{ $oViewConf->getSelfLink()|oxaddparams:'cl=oecreditpass_list' }]&oxid=[{ $oViewConf->getActiveShopId() }]"
+    <frame src="[{ $oViewConf->getSelfLink()|oxaddparams:'cl=CreditPassListController' }]&oxid=[{ $oViewConf->getActiveShopId() }]"
            name="list" id="list" frameborder="0" scrolling="Auto" noresize marginwidth="0" marginheight="0">
-    <frame src="[{ $oViewConf->getSelfLink()|oxaddparams:'cl=oecreditpass_main' }]&oxid=[{ $oViewConf->getActiveShopId() }]"
+    <frame src="[{ $oViewConf->getSelfLink()|oxaddparams:'cl=CreditPassMainController' }]&oxid=[{ $oViewConf->getActiveShopId() }]"
            name="edit" id="edit" frameborder="0" scrolling="Auto" noresize marginwidth="0" marginheight="0">
 </frameset>
 

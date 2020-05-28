@@ -3,7 +3,7 @@
 namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Model;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
-use OxidProfessionalServices\CreditPassModule\Core\Assessment;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 use OxidProfessionalServices\CreditPassModule\Core\Mail;
 use OxidProfessionalServices\CreditPassModule\Model\Order;
 
@@ -77,7 +77,7 @@ class AssessmentOxOrderTest extends UnitTestCase
         return array(
             array(0, 0, null),
             array(1, 0, null),
-            array(2, 1, Assessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW),
+            array(2, 1, CreditPassAssessment::OECREDITPASS_ORDERFOLDER_MANUAL_REVIEW),
             array(-1, 0, null),
         );
     }
