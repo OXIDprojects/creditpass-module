@@ -8,7 +8,7 @@ namespace OxidProfessionalServices\CreditPassModule\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
+use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 class CreditPassLogListController extends AdminListController
 {
@@ -100,33 +100,14 @@ class CreditPassLogListController extends AdminListController
     }
 
     /**
-     * Get answer codes for translating to human readable text.
-     *
-     * @return array
-     */
-    public function getAnswerCodesForLog()
-    {
-        /**
-         * @var CreditPassLog $oCreditPassLog
-         */
-        $oCreditPassLog = oxNew(CreditPassLog::class);
-        $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
-
-        return $aAnswerCodes;
-    }
-
-    /**
      * Get answer code filters for list.
      *
      * @return array
      */
     public function getAnswerCodeFilters()
     {
-        /**
-         * @var CreditPassLog $oCreditPassLog
-         */
-        $oCreditPassLog = oxNew(CreditPassLog::class);
-        $aAnswerCodes = $oCreditPassLog->getAnswerCodes();
+        $creditPassAssessment = oxNew(CreditPassAssessment::class);
+        $aAnswerCodes = $creditPassAssessment->getAnswerCodes();
 
         $aFilters = array();
 

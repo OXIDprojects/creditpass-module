@@ -11,7 +11,7 @@
     }
 </style>
 
-[{assign var="aAnswerCodes" value=$oView->getAnswerCodesForLog()}]
+[{assign var="aAnswerCodes" value=$oViewConf->getCreditPassAnswerCodesForLog()}]
 
 <table class="oecreditpass_log" cellpadding="0" cellspacing="0" border="0">
     <tr>

@@ -29,7 +29,7 @@
 
 [{assign var="aLogList" value=$oView->getLogList()}]
 [{if $aLogList|@count > 0}]
-    [{assign var="aAnswerCodes" value=$oView->getAnswerCodesForLog()}]
+    [{assign var="aAnswerCodes" value=$oViewConf->getCreditPassAnswerCodesForLog()}]
     <table cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td class="listheader first">

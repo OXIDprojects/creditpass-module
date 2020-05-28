@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Core\Registry;
  *
  * @extend        oxEmail
  */
-class Mail extends Email
+class Email extends Email_parent
 {
 
     /**

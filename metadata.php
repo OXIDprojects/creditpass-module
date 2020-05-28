@@ -4,6 +4,7 @@ use OxidEsales\Eshop\Application\Controller\OrderController;
 use OxidEsales\Eshop\Application\Controller\PaymentController;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Email;
+use OxidEsales\Eshop\Core\ViewConfig;
 use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassController;
 use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassListController;
 use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassOrderController;
@@ -51,10 +52,11 @@ $aModule = [
     'url'         => 'http://www.oxid-esales.com',
     'email'       => 'info@oxid-esales.com',
     'extend'      => [
+        ViewConfig::class        => \OxidProfessionalServices\CreditPassModule\Core\ViewConfig::class,
         OrderController::class   => \OxidProfessionalServices\CreditPassModule\Controller\OrderController::class,
         PaymentController::class => \OxidProfessionalServices\CreditPassModule\Controller\PaymentController::class,
         Order::class             => \OxidProfessionalServices\CreditPassModule\Model\Order::class,
-        Email::class             => Mail::class
+        Email::class             => \OxidProfessionalServices\CreditPassModule\Core\Email::class,
     ],
     'controllers' => [
         'ICreditPassStorageShopAwarePersistence' => ICreditPassStorageShopAwarePersistence::class,

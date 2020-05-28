@@ -1704,4 +1704,22 @@ class CreditPassAssessment
 
         return false;
     }
+
+
+    /**
+     * Get list of answer codes and their descriptions.
+     *
+     * @return array
+     */
+    public function getAnswerCodes()
+    {
+        $aAnswerCodes = array(
+            self::OECREDITPASS_ANSWER_CODE_ACK    => 'OECREDITPASS_LOG_LIST_ACK',
+            self::OECREDITPASS_ANSWER_CODE_NACK   => 'OECREDITPASS_LOG_LIST_NACK',
+            self::OECREDITPASS_ANSWER_CODE_MANUAL => 'OECREDITPASS_LOG_LIST_MANUAL',
+            self::OECREDITPASS_ANSWER_CODE_ERROR  => 'OECREDITPASS_LOG_LIST_ERROR',
+        );
+
+        return $aAnswerCodes;
+    }
 }

@@ -35,20 +35,4 @@ class CreditPassLogOverviewController extends AdminDetailsController
 
         return $aLogDetails;
     }
-
-    /**
-     * Get answer codes for translating to human readable text.
-     *
-     * @return array
-     */
-    public function getAnswerCodesForLog()
-    {
-        /**
-         * @var CreditPassLog $oCreditPassLog
-         */
-        $oCreditPassLog = oxNew(CreditPassLog::class);
-        $aAnswerCodes = $oCreditPassLog->getAnswerCodesForLog();
-
-        return $aAnswerCodes;
-    }
 }

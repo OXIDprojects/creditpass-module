@@ -127,8 +127,8 @@ class CreditPassConfig
     public function setCacheTtl($iCacheTtl)
     {
         $iCacheTtl = (float)$iCacheTtl;
-        if ($iCacheTtl > CreditPassConfig::OECREDITPASS_MAX_CACHE_TTL) {
-            $iCacheTtl = CreditPassConfig::OECREDITPASS_MAX_CACHE_TTL;
+        if ($iCacheTtl > self::OECREDITPASS_MAX_CACHE_TTL) {
+            $iCacheTtl = self::OECREDITPASS_MAX_CACHE_TTL;
         }
 
         if ($iCacheTtl < 0) {
