@@ -10,7 +10,6 @@ use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
 
 /**
  * Log controller class
- *
  * @extend AdminController
  */
 class CreditPassLogController extends AdminController

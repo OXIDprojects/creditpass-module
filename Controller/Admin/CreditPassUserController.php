@@ -59,8 +59,8 @@ class CreditPassUserController extends AdminDetailsController
     /**
      * Sort array by field name.
      *
-     * @param $a
-     * @param $b
+     * @param int $a
+     * @param int $b
      *
      * @return int
      */

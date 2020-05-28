@@ -5,6 +5,7 @@ namespace OxidProfessionalServices\CreditPassModule\Core;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
+use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
 
 /**
@@ -48,7 +49,13 @@ class CreditPassStorageDbShopAwarePersistence implements ICreditPassStorageShopA
     }
 
     /**
-     * {@inheritdoc}
+     * Sets value.
+     *
+     * @param integer $iShopId Shop ID.
+     * @param string  $sKey    Key of value.
+     * @param mixed   $mValue  Value to store.
+     *
+     * @throws DatabaseErrorException
      */
     public function setValue($iShopId, $sKey, $mValue)
     {
@@ -63,7 +70,12 @@ class CreditPassStorageDbShopAwarePersistence implements ICreditPassStorageShopA
     }
 
     /**
-     * {@inheritdoc}
+     * Gets value.
+     *
+     * @param int    $iShopId Shop ID.
+     * @param string $sKey    key of value.
+     *
+     * @return mixed
      */
     public function getValue($iShopId, $sKey)
     {

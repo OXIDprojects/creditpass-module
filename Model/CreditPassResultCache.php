@@ -15,43 +15,49 @@ class CreditPassResultCache
      * Address identification
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sAddressId = null;
+    public $_sAddressId = null;
 
     /**
      * User identification
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sUserId = null;
+    public $_sUserId = null;
 
     /**
      * Payment id
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sPaymentId = null;
+    public $_sPaymentId = null;
 
     /**
      * Response xml
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sResponse = null;
+    public $_sResponse = null;
 
     /**
      * Payment data hash
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sPaymentHash = null;
+    public $_sPaymentHash = null;
 
     /**
      * Answer code
      *
-     * @var integer
+     * @var int
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_iAnswerCode = null;
+    public $_iAnswerCode = null;
 
     /**
      * Currently loaded database gateway
@@ -121,8 +127,6 @@ class CreditPassResultCache
 
     /**
      * Stores data: user id, payment id, user address md5, response xml
-     *
-     * @return string
      */
     public function storeData()
     {

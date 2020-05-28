@@ -2,6 +2,8 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Model\DbGateways;
 
+use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
+use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
 /**
@@ -14,22 +16,25 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Address identification
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sAddressId = null;
+    public $_sAddressId = null;
 
     /**
      * Payment id
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sPaymentId = null;
+    public $_sPaymentId = null;
 
     /**
      * Payment data hash
      *
      * @var string
+     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
-    var $_sPaymentHash = null;
+    public $_sPaymentHash = null;
 
     /**
      * Save object to payment settings table
@@ -37,6 +42,8 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * @param array $aData model data
      *
      * @return int
+     * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
      */
     public function save($aData)
     {

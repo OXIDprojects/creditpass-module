@@ -117,6 +117,8 @@ class CreditPassPaymentController extends AdminDetailsController
 
     /**
      * Update payment settings to database oecreditpasspaymentsettings table
+     *
+     * @return null
      */
     protected function _updatePaymentSettings()
     {

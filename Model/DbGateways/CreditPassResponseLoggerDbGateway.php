@@ -322,7 +322,7 @@ class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
     /**
      * Converted XML node aliases to actual DB field names
      *
-     * @param $aData
+     * @param array $aData
      *
      * @return array
      */
@@ -350,7 +350,7 @@ class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
     /**
      * Extracting data
      *
-     * @param $aValues
+     * @param array $aValues
      *
      * @return array
      */
@@ -510,7 +510,7 @@ class CreditPassResponseLoggerDbGateway extends CreditPassModelDbGateway
     /**
      * Shift primary update field from data
      *
-     * @param $aData
+     * @param array $aData
      *
      * @return string
      */

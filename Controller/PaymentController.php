@@ -10,7 +10,6 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 /**
  * Payment controller class
- *
  * @extend    Oxid PaymentController
  */
 class PaymentController extends \OxidEsales\Eshop\Application\Controller\PaymentController

@@ -10,7 +10,6 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 /**
  * Order controller class
- *
  * @extend    Oxid OrderController
  */
 class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderController

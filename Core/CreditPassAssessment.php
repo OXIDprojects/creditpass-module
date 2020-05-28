@@ -300,7 +300,7 @@ class CreditPassAssessment
      * Returns fallback payment methods
      * reads config and sets fallback payment methods for when the integrated logic fails
      *
-     * @param $iAnswerCode
+     * @param int $iAnswerCode
      *
      * @return array
      */
@@ -319,7 +319,7 @@ class CreditPassAssessment
     /**
      * Checks if only fallback payment methods are allowed
      *
-     * @param $iAnswerCode
+     * @param int $iAnswerCode
      *
      * @return bool
      */
@@ -339,7 +339,7 @@ class CreditPassAssessment
     /**
      * Checks if only on error payment methods are allowed
      *
-     * @param $iAnswerCode
+     * @param int $iAnswerCode
      *
      * @return bool
      */
@@ -397,62 +397,62 @@ class CreditPassAssessment
      * Returns only allowed payment methods
      * Check in cache or for fallback methods
      *
-     * @param $oPaymentMethods
+     * @param array $aPaymentMethods
      *
      * @return array PaymentList
      */
-    public function filterPaymentMethods($oPaymentMethods)
+    public function filterPaymentMethods($aPaymentMethods)
     {
-        $oPaymentMethods = $this->_filterRejectedPayments($oPaymentMethods);
-        $oPaymentMethods = $this->_filterAllowedPayments($oPaymentMethods);
+        $aPaymentMethods = $this->_filterRejectedPayments($aPaymentMethods);
+        $aPaymentMethods = $this->_filterAllowedPayments($aPaymentMethods);
 
-        return $oPaymentMethods;
+        return $aPaymentMethods;
     }
 
     /**
      * Returns only allowed payment methods
      *
-     * @param $oPaymentMethods
+     * @param array $aPaymentMethods
      *
      * @return array PaymentList
      */
-    protected function _filterAllowedPayments($oPaymentMethods)
+    protected function _filterAllowedPayments($aPaymentMethods)
     {
         $aAllowedPaymentMethods = $this->getAllowedPaymentMethods();
-        if (count($oPaymentMethods) && is_array($aAllowedPaymentMethods)) {
+        if (count($aPaymentMethods) && is_array($aAllowedPaymentMethods)) {
             // if there is no valid method specified, show empty payment list
             if (!count($aAllowedPaymentMethods)) {
                 return array();
             }
-            foreach ($oPaymentMethods as $sPaymentId => $oPayment) {
+            foreach ($aPaymentMethods as $sPaymentId => $oPayment) {
                 if (!in_array($sPaymentId, $aAllowedPaymentMethods)) {
-                    unset($oPaymentMethods[$sPaymentId]);
+                    unset($aPaymentMethods[$sPaymentId]);
                 }
             }
         }
 
-        return $oPaymentMethods;
+        return $aPaymentMethods;
     }
 
     /**
      * Returns only allowed payment methods and unsets rejected ones
      *
-     * @param $oPaymentMethods
+     * @param array $aPaymentMethods
      *
      * @return array PaymentList
      */
-    protected function _filterRejectedPayments($oPaymentMethods)
+    protected function _filterRejectedPayments($aPaymentMethods)
     {
         $aRejectedMethods = $this->getCachedAndRejectedPayments();
         if ($aRejectedMethods) {
-            foreach ($oPaymentMethods as $sPaymentId => $oPayment) {
+            foreach ($aPaymentMethods as $sPaymentId => $oPayment) {
                 if (in_array($sPaymentId, $aRejectedMethods)) {
-                    unset($oPaymentMethods[$sPaymentId]);
+                    unset($aPaymentMethods[$sPaymentId]);
                 }
             }
         }
 
-        return $oPaymentMethods;
+        return $aPaymentMethods;
     }
 
     /**
@@ -557,8 +557,6 @@ class CreditPassAssessment
      * Sets current oxuser object to _oUser property
      *
      * @param object $oUser User object
-     *
-     * @return null
      */
     public function setUser($oUser = null)
     {
@@ -736,8 +734,8 @@ class CreditPassAssessment
      *  1 - NOT authorized
      *  2 - Manual testing
      *
-     * @param $sAnswerCode
-     * @param $blAllowPaymentOnErr
+     * @param string $sAnswerCode
+     * @param bool   $blAllowPaymentOnErr
      */
     protected function _handleAnswerCode($sAnswerCode, $blAllowPaymentOnErr)
     {
@@ -760,7 +758,7 @@ class CreditPassAssessment
                 $this->_setOrderContinue(false);
                 $this->_setIntegratedLogicError();
                 break;
-            case self::OECREDITPASS_ANSWER_CODE_MANUAL;
+            case self::OECREDITPASS_ANSWER_CODE_MANUAL:
                 // Manual workflow
                 $this->_handleManualWorkflow();
                 break;
@@ -791,7 +789,7 @@ class CreditPassAssessment
     /**
      * Set _blOrderContinue
      *
-     * @param $blValue
+     * @param bool $blValue
      */
     protected function _setOrderContinue($blValue)
     {
@@ -992,10 +990,8 @@ class CreditPassAssessment
     /**
      * Returns data from session
      *
-     * @param $sName
-     * @param $sValue
-     *
-     * @return void
+     * @param string $sName
+     * @param string $sValue
      */
     public function setSessionData($sName, $sValue)
     {
@@ -1064,6 +1060,10 @@ class CreditPassAssessment
 
     /**
      * Get active payment settings
+     *
+     * @param string $sPaymentId
+     *
+     * @return bool|mixed
      */
     protected function _getPaymentSettings($sPaymentId)
     {
@@ -1082,6 +1082,9 @@ class CreditPassAssessment
 
     /**
      * Calls creditPass
+     *
+     * @param string $sRequestXML
+     * @param string $sUrl
      *
      * @return null
      */
@@ -1172,8 +1175,6 @@ class CreditPassAssessment
      * Sets active payment method id
      *
      * @param string $sPaymentId payment id
-     *
-     * @return null
      */
     protected function _setPaymentId($sPaymentId)
     {
@@ -1679,7 +1680,7 @@ class CreditPassAssessment
     /**
      * Validate IBAN
      *
-     * @param $sAccNr
+     * @param string $sAccNr
      *
      * @return bool
      */

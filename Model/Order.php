@@ -12,7 +12,6 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 
 /**
  * Order class
- *
  * @extend    oxOrder
  */
 class Order extends \OxidEsales\Eshop\Application\Model\Order
@@ -81,7 +80,7 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
     /**
      * Set order folder.
      *
-     * * @param string $sFolder Order folder
+     * @param string $sFolder
      */
     protected function _oeCreditPassSetOrderFolder($sFolder)
     {
