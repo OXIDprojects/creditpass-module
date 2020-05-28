@@ -54,8 +54,7 @@
     [{assign var="aAnswerCodes" value=$oView->getAnswerCodesForLog()}]
 
     <form name="search" id="search" action="[{$oViewConf->getSelfLink()}]" method="post">
-        [{include file="_formparams.tpl" cl="oecreditpass_log_list" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}
-        ]
+        [{include file="_formparams.tpl" cl="oecreditpass_log_list" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}]
 
         <table cellpadding="0" cellspacing="0" border="0">
             <colgroup>
@@ -203,8 +202,7 @@
                 <td class="[{$sListClass}]">
                     <div class="listitemfloating">
                         <a href="javascript:editCreditPassLogListItem('[{$oLogItem->oecreditpasslog__id->value}]');"
-                           class="[{$sListClass}]">[{$oLogItem->oecreditpasslog__timestamp|oxformdate:'datetime':true}
-                            ]</a>
+                           class="[{$sListClass}]">[{$oLogItem->oecreditpasslog__timestamp|oxformdate:'datetime':true}]</a>
                     </div>
                 </td>
                 <td class="[{$sListClass}]">
@@ -235,8 +233,7 @@
                 <td class="[{$sListClass}]">
                     <div class="listitemfloating">
                         <a href="javascript:editCreditPassLogListItem('[{$oLogItem->oecreditpasslog__id->value}]');"
-                           class="[{$sListClass}]">[{$oLogItem->oecreditpasslog__answertext->value|oxtruncate:50:"...":true}
-                            ]</a>
+                           class="[{$sListClass}]">[{$oLogItem->oecreditpasslog__answertext->value|oxtruncate:50:"...":true}]</a>
                     </div>
                 </td>
                 <td class="[{$sListClass}]">

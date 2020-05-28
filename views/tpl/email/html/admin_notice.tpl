@@ -57,9 +57,8 @@
             [{if $oViewConf->getShowGiftWrapping() }]
             <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0; padding: 10px 0;">
                 [{assign var="oWrapping" value=$basketitem->getWrapping() }]
-                <b>[{oxmultilang ident="GIFT_WRAPPING" suffix="COLON" }
-                    ]&nbsp;</b>[{if !$basketitem->getWrappingId() }][{oxmultilang ident="NONE" }][{else}][{$oWrapping->oxwrapping__oxname->value}][{/if}
-                ]
+                <b>[{oxmultilang ident="GIFT_WRAPPING" suffix="COLON" }]&nbsp;</b>
+                [{if !$basketitem->getWrappingId() }][{oxmultilang ident="NONE" }][{else}][{$oWrapping->oxwrapping__oxname->value}][{/if}]
             </p>
             [{/if}]
         </td>
@@ -81,8 +80,7 @@
         </td>
         <td style="padding: 5px; border-bottom: 4px solid #ddd;">
             <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0; padding: 10px 0;">
-                <b>[{if $basketitem->getUnitPrice() }][{oxprice price=$basketitem->getUnitPrice() currency=$currency }][{/if}
-                    ]</b>
+                <b>[{if $basketitem->getUnitPrice() }][{oxprice price=$basketitem->getUnitPrice() currency=$currency }][{/if}]</b>
                 [{if !$basketitem->isBundle() }]
                 [{assign var=dRegUnitPrice value=$basketitem->getRegularUnitPrice()}]
                 [{assign var=dUnitPrice value=$basketitem->getUnitPrice()}]
@@ -176,8 +174,7 @@
                     <td style="padding: 5px 20px 5px 5px;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
                             [{$voucherseries->oxvoucherseries__oxdiscount->value}]
-                            [{if $voucherseries->oxvoucherseries__oxdiscounttype->value == "absolute"}][{ $currency->sign}][{else}]%[{/if}
-                            ]
+                            [{if $voucherseries->oxvoucherseries__oxdiscounttype->value == "absolute"}][{ $currency->sign}][{else}]%[{/if}]
                         </p>
                     </td>
                 </tr>
@@ -281,8 +278,7 @@
                 <tr valign="top">
                     <td style="padding: 5px; border-bottom: 1px solid #ddd;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
-                            [{if $oDiscount->dDiscount < 0 }][{oxmultilang ident="SURCHARGE" }][{else}][{oxmultilang ident="DISCOUNT" }][{/if}
-                            ] <em>[{ $oDiscount->sDiscount }]</em> :
+                            [{if $oDiscount->dDiscount < 0 }][{oxmultilang ident="SURCHARGE" }][{else}][{oxmultilang ident="DISCOUNT" }][{/if}] <em>[{ $oDiscount->sDiscount }]</em> :
                         </p>
                     </td>
                     <td style="padding: 5px; border-bottom: 1px solid #ddd;" align="right">
@@ -396,8 +392,7 @@
                     [{else}]
                     <td style="padding: 5px; border-bottom: 2px solid #ccc;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
-                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" args=$oDeliveryCost->getVat() }
-                            ]
+                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" args=$oDeliveryCost->getVat() }]
                         </p>
                     </td>
                     [{/if}]
@@ -433,8 +428,7 @@
                 <tr valign="top">
                     <td style="padding: 5px; border-bottom: 2px solid #ccc; border-bottom: 1px solid #ddd;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
-                            [{if $oPaymentCost->getPrice() >= 0}][{oxmultilang ident="SURCHARGE" }][{else}][{oxmultilang ident="DEDUCTION" }][{/if}
-                            ] [{oxmultilang ident="PAYMENT_METHOD" suffix="COLON" }]
+                            [{if $oPaymentCost->getPrice() >= 0}][{oxmultilang ident="SURCHARGE" }][{else}][{oxmultilang ident="DEDUCTION" }][{/if}] [{oxmultilang ident="PAYMENT_METHOD" suffix="COLON" }]
                         </p>
                     </td>
                     <td style="padding: 5px; border-bottom: 2px solid #ccc;[{if $basket->getDelCostVat() }]border-bottom: 1px solid #ddd;[{/if}]"
@@ -511,8 +505,7 @@
                     [{else}]
                     <td style="padding: 5px; border-bottom: 2px solid #ccc;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
-                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" args=$trustedShopProtectionCost->getVat()}
-                            ]
+                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" args=$trustedShopProtectionCost->getVat()}]
                         </p>
                     </td>
                     [{/if}]
@@ -599,8 +592,7 @@
                     [{else}]
                     <td style="padding: 5px; border-bottom: 2px solid #ccc;">
                         <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin: 0;">
-                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" suffix="COLON" args=$giftCardCost->getVat()}
-                            ]
+                            [{oxmultilang ident="VAT_PLUS_PERCENT_AMOUNT" suffix="COLON" suffix="COLON" args=$giftCardCost->getVat()}]
                         </p>
                     </td>
                     [{/if}]
