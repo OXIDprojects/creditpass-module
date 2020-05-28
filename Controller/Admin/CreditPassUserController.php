@@ -61,7 +61,6 @@ class CreditPassUserController extends AdminDetailsController
      *
      * @param int $a
      * @param int $b
-     *
      * @return int
      */
     protected function _sortByField($a, $b)

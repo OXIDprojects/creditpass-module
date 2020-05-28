@@ -8,6 +8,8 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
 /**
  * Response cache db gateway class
+ *
+ * @codingStandardsIgnoreFile
  */
 class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
 {
@@ -16,7 +18,7 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Address identification
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
+     * @codingStandardsIgnoreStart
      */
     public $_sAddressId = null;
 
@@ -24,7 +26,6 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Payment id
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sPaymentId = null;
 
@@ -32,7 +33,6 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * Payment data hash
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sPaymentHash = null;
 
@@ -68,6 +68,8 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * @param string $sCurrentTime current timestamp
      *
      * @return bool
+     * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
      */
     public function delete($sCurrentTime)
     {
@@ -83,6 +85,7 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * @param string $sId user id
      *
      * @return array
+     * @throws DatabaseConnectionException
      */
     public function load($sId)
     {
@@ -114,6 +117,8 @@ class CreditPassResponseCacheDbGateway extends CreditPassModelDbGateway
      * @param integer $iAnswer answer code to search for
      *
      * @return array
+     * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
      */
     public function loadPaymentIdsByAnswer($sId, $iAnswer = 1)
     {

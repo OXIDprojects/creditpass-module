@@ -7,6 +7,8 @@ use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassRespons
 
 /**
  * CreditPass check result cache class
+ *
+ * @codingStandardsIgnoreFile
  */
 class CreditPassResultCache
 {
@@ -15,7 +17,6 @@ class CreditPassResultCache
      * Address identification
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sAddressId = null;
 
@@ -23,7 +24,6 @@ class CreditPassResultCache
      * User identification
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sUserId = null;
 
@@ -31,7 +31,6 @@ class CreditPassResultCache
      * Payment id
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sPaymentId = null;
 
@@ -39,7 +38,6 @@ class CreditPassResultCache
      * Response xml
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sResponse = null;
 
@@ -47,7 +45,6 @@ class CreditPassResultCache
      * Payment data hash
      *
      * @var string
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_sPaymentHash = null;
 
@@ -55,7 +52,6 @@ class CreditPassResultCache
      * Answer code
      *
      * @var int
-     * @phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
      */
     public $_iAnswerCode = null;
 

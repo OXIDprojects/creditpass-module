@@ -14,6 +14,8 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 /**
  * CreditPass Assessment class
+ *
+ * @codingStandardsIgnoreFile
  */
 class CreditPassAssessment
 {
@@ -593,7 +595,7 @@ class CreditPassAssessment
      *
      * @return bool
      */
-    protected function _doCheck_groupExcl()
+    protected function _doCheck_groupExcl() // @codingStandardsIgnoreLine
     {
         // first check if actual user group is excluded:
         if ($this->_oUser) {
