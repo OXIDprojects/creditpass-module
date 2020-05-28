@@ -84,7 +84,7 @@ $aModule = [
         'oeCreditPassException'             => \OxidProfessionalServices\CreditPassModule\Core\Exceptions\Exception::class,
         'oeCreditPassNotSupportedException' => NotSupportedException::class,
     ],
-    'templates'   => [
+    'templates' => [
         'oecreditpass.tpl'              => 'oe/oecreditpass/views/admin/tpl/oecreditpass.tpl',
         'oecreditpass_list.tpl'         => 'oe/oecreditpass/views/admin/tpl/oecreditpass_list.tpl',
         'oecreditpass_main.tpl'         => 'oe/oecreditpass/views/admin/tpl/oecreditpass_main.tpl',
@@ -98,7 +98,7 @@ $aModule = [
         'email/html/admin_notice.tpl'   => 'oe/oecreditpass/views/tpl/email/html/admin_notice.tpl',
         'email/plain/admin_notice.tpl'  => 'oe/oecreditpass/views/tpl/email/plain/admin_notice.tpl',
     ],
-    'blocks'      => [
+    'blocks'    => [
         ['template' => 'page/checkout/payment.tpl',
          'block'    => 'checkout_payment_nextstep',
          'file'     => '/views/blocks/oecreditpassdisablenext.tpl'],
@@ -106,7 +106,10 @@ $aModule = [
          'block'    => 'checkout_payment_errors',
          'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'],
     ],
-    'events'      => [
+    'settings'  => [
+
+    ],
+    'events'    => [
         'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\Events::onActivate',
         'onDeactivate' => '\OxidProfessionalServices\CreditPassModule\Core\Events::onDeactivate'
     ],
