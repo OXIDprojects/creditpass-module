@@ -3,8 +3,8 @@
 /**
  * Defining help texts (Deutsch)
  */
-$aLang = array(
-    'charset'                              => 'ISO-8859-15',
+$aLang = [
+    'charset'                              => 'UTF-8',
     'HELP_OECREDITPASS_MAIN_ACTIVATE'      => 'Schaltet creditPass Funktionalität an oder aus',
     'HELP_OECREDITPASS_MAIN_CACHING_TTL'   => 'für die angegebenen Tage werden die creditPass Ergebnisse für die aktuelle Nutzer/Adress-Kombination gespeichert. ' .
                                               ' Während die Ergebnisse gespeichert sind, wird für die Nutzer/Adress-Kombination keine creditPass Anfrage gestellt. ' .
@@ -25,4 +25,4 @@ $aLang = array(
     'HELP_OECREDITPASS_MAIN_DEBUG_MODE'       => 'Speichert die vollständigen Anfrage/Antwort-Informationen im xml/ Verzeichnis des Moduls. ' .
                                                  'Speicher Debug-Information in der log/session.log Datei des Moduls.',
     'HELP_OECREDITPASS_PAYMENT_PURCHASE_TYPE' => 'Identifiziert die mit creditPass festgelegte Entscheidungsmatrix (Beispiel: 1,2,3,4).',
-);
+];
