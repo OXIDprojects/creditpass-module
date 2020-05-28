@@ -16,7 +16,7 @@ class CreditPassLog extends BaseModel
      *
      * @var string
      */
-    protected $_sClassName = 'oecreditpasslog';
+    protected $_sClassName = 'OxidProfessionalServices\CreditPassModule\Model\CreditPassLog';
 
     /**
      * Core database table name. $sCoreTable could be only original data table name and not view name.

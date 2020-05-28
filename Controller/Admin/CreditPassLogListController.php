@@ -31,7 +31,7 @@ class CreditPassLogListController extends AdminListController
      *
      * @var string
      */
-    protected $_sListClass = 'oecreditpasslog';
+    protected $_sListClass = 'OxidProfessionalServices\CreditPassModule\Model\CreditPassLog';
 
     /**
      * Default SQL sorting parameter.
