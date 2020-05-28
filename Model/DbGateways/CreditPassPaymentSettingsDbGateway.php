@@ -203,7 +203,7 @@ class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
          * @var ListModel $oPaymentSettingsList
          */
         $oPaymentSettingsList = oxNew(ListModel::class);
-        $sShopPaymentsTable = TableViewNameGenerator::getViewName("oxpayments");
+        $sShopPaymentsTable = Registry::get(TableViewNameGenerator::class)->getViewName("oxpayments");
         $oPaymentSettingsList->init("oxpayment");
 
         $sCreditPassPaymentsTable = $this->getPaymentSettingsTableName();
