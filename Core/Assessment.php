@@ -497,7 +497,7 @@ class Assessment
     protected function _xmlErrorHandler($sError)
     {
         $sShopDir = $this->getConfig()->getConfigParam('sShopDir');
-        $sLogDir = $sShopDir . 'modules/oe/oecreditpass/log/';
+        $sLogDir = $sShopDir . 'modules/oxps/creditpass/log/';
         $sError = str_replace("<br>", "\n\t", $sError);
         $sErrorMsg = date("Y-m-d H:i:s") . " " . $sError . "\n";
 
@@ -506,7 +506,7 @@ class Assessment
             fwrite($fp, $sErrorMsg);
             fclose($fp);
         } else {
-            $sLogDir = $sShopDir . 'modules/oe/oecreditpass/';
+            $sLogDir = $sShopDir . 'modules/oxps/creditpass/';
             $fp = @fopen($sLogDir . "xml_errors.log", "a");
             fwrite($fp, $sErrorMsg);
             fclose($fp);
@@ -903,7 +903,7 @@ class Assessment
                 $aBoniDebugData[$key] = $string;
             }
 
-            $sPath = getShopBasePath() . "modules/oe/oecreditpass/log/session.log";
+            $sPath = getShopBasePath() . "modules/oxps/creditpass/log/session.log";
             error_log(date("Y-m-d H:i:s") . " - " . $key . ": $string\n\r", 3, $sPath);
 
             $this->getSession()->setVariable('aBoniDebugData', $aBoniDebugData);
@@ -1414,7 +1414,7 @@ class Assessment
 
         $now = date("Y-m-d-H-i-s", $this->_getCurrentTime());
         $sShopDir = $this->getConfig()->getConfigParam('sShopDir');
-        $sXMLDir = $sShopDir . 'modules/oe/oecreditpass/xml/';
+        $sXMLDir = $sShopDir . 'modules/oxps/creditpass/xml/';
 
         if (is_dir($sXMLDir)) {
             $fp = @fopen($sXMLDir . $now . "-" . $sMode . ".xml", "w");
@@ -1427,7 +1427,7 @@ class Assessment
                 fwrite($fp2, $sSessionContent);
                 fclose($fp2);
             } else {
-                $sXMLDir = $sShopDir . 'modules/oe/oecreditpass/';
+                $sXMLDir = $sShopDir . 'modules/oxps/creditpass/';
                 $fp = @fopen($sXMLDir . $now . "-" . $sMode . ".xml", "w");
                 fwrite($fp, $sContent);
                 fclose($fp);

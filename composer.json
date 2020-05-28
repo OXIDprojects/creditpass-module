@@ -1,5 +1,5 @@
 {
-    "name": "oxid-professional-services/creditpass-module",
+    "name": "oxid-professional-services/creditpass",
     "description": "This is Creditpass module for OXID eShop.",
     "type": "oxideshop-module",
     "keywords": [
@@ -7,18 +7,19 @@
         "modules",
         "eShop"
     ],
+    "version": "4.0.0",
     "homepage": "https://www.oxid-esales.com/en/home.html",
     "license": [
         "GPL-3.0-only"
     ],
     "extra": {
         "oxideshop": {
-            "target-directory": "oe/oecreditpass"
+            "target-directory": "oxps/creditpass"
         }
     },
     "autoload": {
         "psr-4": {
-            "OxidProfessionalServices\\CreditPassModule\\": "../../../source/modules/oe/oecreditpass/"
+            "OxidProfessionalServices\\CreditPassModule\\": "../../../source/modules/oxps/creditpass/"
         }
     }
 }
