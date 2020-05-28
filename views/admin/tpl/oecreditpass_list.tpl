@@ -12,15 +12,12 @@
 </script>
 
 <form name="search" id="search" action="[{ $oViewConf->getSelfLink() }]" method="post">
-    [{include file="_formparams.tpl" cl="CreditPassListController" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}
-    ]
+    [{include file="_formparams.tpl" cl="CreditPassListController" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}]
 </form>
 
 
 <div id="liste">
-
-    <img src="[{$oView->getModuleAdminUrl('picture.png')}]">
-
+    <img src="[{$oViewConf->getModuleUrl('oxps/creditpass', 'picture.png')}]" />
 </div>
 
 [{include file="pagetabsnippet.tpl"}]

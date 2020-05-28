@@ -350,16 +350,4 @@ class CreditPassPaymentController extends AdminDetailsController
     {
         return $this->_sThisTemplate;
     }
-
-    /**
-     * Returns module path for admin. SSL aware method.
-     *
-     * @param string $sFile Relative file name
-     *
-     * @return mixed
-     */
-    public function getModuleAdminUrl($sFile)
-    {
-        return oxNew(CreditPassConfig::class)->getModuleAdminUrl($sFile);
-    }
 }

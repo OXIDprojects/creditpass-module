@@ -40,7 +40,7 @@
 </style>
 
 [{oxscript include="js/libs/jquery.min.js"}]
-[{oxscript include=$oView->getModuleAdminUrl('out/admin/src/js/oecreditpass_payment.js')}]
+[{oxscript include=$oViewConf->getModuleUrl('oxps/creditpass', 'out/admin/src/js/oecreditpass_payment.js')}]
 [{oxscript add="jQuery.noConflict();" priority=10}]
 
 <form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">

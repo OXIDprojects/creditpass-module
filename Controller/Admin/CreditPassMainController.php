@@ -149,16 +149,4 @@ class CreditPassMainController extends ShopConfiguration
     {
         return oxNew(CreditPassConfig::class)->getMaxCacheTtl();
     }
-
-    /**
-     * Returns module path for admin. SSL aware method.
-     *
-     * @param string $sFile Relative file name
-     *
-     * @return mixed
-     */
-    public function getModuleAdminUrl($sFile)
-    {
-        return oxNew(CreditPassConfig::class)->getModuleAdminUrl($sFile);
-    }
 }

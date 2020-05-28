@@ -7,12 +7,12 @@
 
 [{oxscript include="js/libs/jquery.min.js"}]
 [{oxscript include="js/libs/jquery-ui.min.js"}]
-[{oxscript include=$oView->getModuleAdminUrl('out/admin/src/js/chosen_v1.0.0/chosen.jquery.min.js')}]
-[{oxscript include=$oView->getModuleAdminUrl('out/admin/src/js/oecreditpass_main.js')}]
+[{oxscript include=$oViewConf->getModuleUrl('oxps/creditpass', 'out/admin/src/js/chosen_v1.0.0/chosen.jquery.min.js')}]
+[{oxscript include=$oViewConf->getModuleUrl('oxps/creditpass', 'out/admin/src/js/oecreditpass_main.js')}]
 [{assign var=maxCachingDays value=$oView->getMaxCacheTtl()}]
 [{oxscript add="oeCreditPassMain.setMaxCachingDays($maxCachingDays);"}]
 
-<link rel="stylesheet" type="text/css" href="[{$oView->getModuleAdminUrl('/out/admin/src/js/chosen_v1.0.0/chosen.min.css')}]" />
+<link rel="stylesheet" type="text/css" href="[{$oViewConf->getModuleUrl('oxps/creditpass', '/out/admin/src/js/chosen_v1.0.0/chosen.min.css')}]" />
 
 <style>
     .oecreditpass_redBorder {

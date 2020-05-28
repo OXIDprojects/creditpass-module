@@ -163,27 +163,4 @@ class CreditPassConfig
     {
         return self::OECREDITPASS_MAX_CACHE_TTL;
     }
-
-    /**
-     * Returns module URL for admin for given $sFile. This is SSL aware method.
-     *
-     * @param string $sFile Relative module file name
-     *
-     * @return string
-     */
-    public function getModuleAdminUrl($sFile)
-    {
-        $oConfig = Registry::getConfig();
-        /**
-         * @var Module $oModule
-         */
-        $oModule = oxNew(ViewConfig::class);
-        $sUrl = str_replace(
-            rtrim($oConfig->getConfigParam('sShopDir'), '/'),
-            rtrim($oConfig->getCurrentShopUrl(true), '/') . "/../",
-            $oModule->getModulePath("oecreditpass", $sFile)
-        );
-
-        return $sUrl;
-    }
 }
