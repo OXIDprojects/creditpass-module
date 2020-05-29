@@ -110,7 +110,7 @@ $aModule = [
          'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'],
     ],
     'events'      => [
-        'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\Events::onActivate',
-        'onDeactivate' => '\OxidProfessionalServices\CreditPassModule\Core\Events::onDeactivate'
+        'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents::onActivate',
+        'onDeactivate' => '\OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents::onDeactivate'
     ],
 ];

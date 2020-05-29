@@ -14,15 +14,15 @@ class CreditPassEvents
 {
 
     //default values
-    const OECREDITPASS_DEFAULT_ERROR_TITLE_DE = "creditPass - abgelehnte Zahlungsart";
-    const OECREDITPASS_DEFAULT_ERROR_TITLE_EN = "creditPass - unauthorized payment method";
-    const OECREDITPASS_DEFAULT_ERROR_MSG_DE = "Die gewünschte Zahlungsart steht derzeit nicht zur Verfügung. Bitte wählen Sie eine andere!";
-    const OECREDITPASS_DEFAULT_ERROR_MSG_EN = "The chosen payment method is currently not available. Please select another one!";
-    const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE = 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Prüfung lautet \'Manuelle Prüfung\'. Bitte prüfen Sie daher diese Bestellung!';
-    const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN = 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!';
-    const OECREDITPASS_DEFAULT_CACHE_TTL = 0;
-    const OECREDITPASS_DEFAULT_SERVICE_URL = "https://secure.creditpass.de/atgw/authorize.cfm";
-    const OECREDITPASS_DEFAULT_MANUAL_WORKFLOW = 1; // see values in oecreditpass_main.tpl
+    public const OECREDITPASS_DEFAULT_ERROR_TITLE_DE = "creditPass - abgelehnte Zahlungsart";
+    public const OECREDITPASS_DEFAULT_ERROR_TITLE_EN = "creditPass - unauthorized payment method";
+    public const OECREDITPASS_DEFAULT_ERROR_MSG_DE = "Die gewünschte Zahlungsart steht derzeit nicht zur Verfügung. Bitte wählen Sie eine andere!";
+    public const OECREDITPASS_DEFAULT_ERROR_MSG_EN = "The chosen payment method is currently not available. Please select another one!";
+    public const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE = 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Prüfung lautet \'Manuelle Prüfung\'. Bitte prüfen Sie daher diese Bestellung!';
+    public const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN = 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!';
+    public const OECREDITPASS_DEFAULT_CACHE_TTL = 0;
+    public const OECREDITPASS_DEFAULT_SERVICE_URL = "https://secure.creditpass.de/atgw/authorize.cfm";
+    public const OECREDITPASS_DEFAULT_MANUAL_WORKFLOW = 1; // see values in oecreditpass_main.tpl
 
 
     /**
@@ -114,12 +114,6 @@ class CreditPassEvents
      */
     protected static function _addTables()
     {
-
-        $sUtfOption = "";
-        if ($iUtfMode = Registry::getConfig()->getShopConfVar('iUtfMode')) {
-            $sUtfOption = " DEFAULT CHARSET=utf8";
-        }
-
         //the data are supplied from this file and currently it is not UTF, therfore we set connection to ISO (latin1).
         $sSql = "SET NAMES latin1";
         DatabaseProvider::getDb()->execute($sSql);
@@ -136,7 +130,7 @@ class CreditPassEvents
                   PRIMARY KEY  (`ID`),
                   KEY `USERID` (`USERID`),
                   KEY `TIMESTAMP` (`TIMESTAMP`)
-                ) ENGINE=MyISAM $sUtfOption;";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;";
 
         DatabaseProvider::getDb()->execute($sSql);
 
@@ -152,7 +146,7 @@ class CreditPassEvents
                   PRIMARY KEY (`ID`),
                   KEY `SHOPID` (`SHOPID`),
                   UNIQUE KEY `PAYMENTID_SHOPID` (`PAYMENTID`,`SHOPID`)
-                ) ENGINE=MyISAM $sUtfOption;";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;";
 
         DatabaseProvider::getDb()->execute($sSql);
 
@@ -171,7 +165,7 @@ class CreditPassEvents
                   PRIMARY KEY (`ID`),
                   KEY `USERID` (`USERID`),
                   KEY `ORDERID` (`ORDERID`)
-                ) ENGINE=MyISAM $sUtfOption;";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
         DatabaseProvider::getDb()->execute($sSql);
 
@@ -181,7 +175,7 @@ class CreditPassEvents
                   `KEY` varchar(64) character set latin1 collate latin1_general_ci NOT NULL,
                   `VALUE` text NOT NULL DEFAULT '' COMMENT 'STORED VALUE',
                   PRIMARY KEY (`SHOPID`, `KEY`)
-                ) ENGINE=MyISAM $sUtfOption;";
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
         DatabaseProvider::getDb()->execute($sSql);
     }
