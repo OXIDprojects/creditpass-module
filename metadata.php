@@ -20,7 +20,6 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents;
 use OxidProfessionalServices\CreditPassModule\Core\Exceptions\CreditPassException;
 use OxidProfessionalServices\CreditPassModule\Core\Exceptions\CreditPassNotSupportedException;
 use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorageShopAwarePersistence;
-use OxidProfessionalServices\CreditPassModule\Core\Mail;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorage;

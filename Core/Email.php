@@ -2,7 +2,6 @@
 
 namespace OxidProfessionalServices\CreditPassModule\Core;
 
-use OxidEsales\Eshop\Core\Email;
 use OxidEsales\Eshop\Core\Registry;
 
 /**
