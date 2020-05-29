@@ -30,7 +30,7 @@ jobs:
       image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
       options: -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     env:
-      MODULE_NAME: arvatoafterpay
+      MODULE_NAME: creditpass
       DB_HOST: "127.0.0.1"
     steps:
     - uses: actions/checkout@v1
