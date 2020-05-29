@@ -54,7 +54,7 @@
     [{assign var="aAnswerCodes" value=$oViewConf->getCreditPassAnswerCodesForLog()}]
 
     <form name="search" id="search" action="[{$oViewConf->getSelfLink()}]" method="post">
-        [{include file="_formparams.tpl" cl="oecreditpass_log_list" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}]
+        [{include file="_formparams.tpl" cl="CreditPassLogListController" fnc="" oxid=$oxid actedit=$actedit language=$actlang editlanguage=$actlang}]
 
         <table cellpadding="0" cellspacing="0" border="0">
             <colgroup>
