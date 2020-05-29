@@ -142,5 +142,4 @@ class EventsTest extends UnitTestCase
     {
         $this->assertEquals(0, CreditPassEvents::OECREDITPASS_DEFAULT_CACHE_TTL);
     }
-
 }

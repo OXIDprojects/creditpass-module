@@ -19,7 +19,7 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 class FallbackPaymentsTest extends UnitTestCase
 {
 
-    var $aAllPaymentSettings = null;
+    public $aAllPaymentSettings = null;
 
     public function tearDown()
     {
@@ -464,5 +464,4 @@ class FallbackPaymentsTest extends UnitTestCase
         $aPayments = $oPayment->getPaymentList();
         $this->assertEquals(5, count($aPayments));
     }
-
 }

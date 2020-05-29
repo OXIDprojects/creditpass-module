@@ -114,7 +114,8 @@
             };
             unsafe_chars = /&(?!\w+;)|[\<\>\"\'\`]/g;
             return text.replace(
-                unsafe_chars, function (chr) {
+                unsafe_chars,
+                function (chr) {
                     return map[chr] || "&amp;";
                 }
             );
@@ -205,7 +206,8 @@
                     return setTimeout(
                         (function () {
                             return _this.container_mousedown();
-                        }), 50
+                        }),
+                        50
                     );
                 }
             } else {
@@ -223,7 +225,8 @@
                 return setTimeout(
                     (function () {
                         return _this.blur_test();
-                    }), 100
+                    }),
+                    100
                 );
             }
         };
@@ -585,7 +588,8 @@
             this.set_tab_index();
             this.set_label_behavior();
             return this.form_field_jq.trigger(
-                "chosen:ready", {
+                "chosen:ready",
+                {
                     chosen: this
                 }
             );
@@ -595,89 +599,106 @@
             var _this = this;
 
             this.container.bind(
-                'mousedown.chosen', function (evt) {
+                'mousedown.chosen',
+                function (evt) {
                     _this.container_mousedown(evt);
                 }
             );
             this.container.bind(
-                'mouseup.chosen', function (evt) {
+                'mouseup.chosen',
+                function (evt) {
                     _this.container_mouseup(evt);
                 }
             );
             this.container.bind(
-                'mouseenter.chosen', function (evt) {
+                'mouseenter.chosen',
+                function (evt) {
                     _this.mouse_enter(evt);
                 }
             );
             this.container.bind(
-                'mouseleave.chosen', function (evt) {
+                'mouseleave.chosen',
+                function (evt) {
                     _this.mouse_leave(evt);
                 }
             );
             this.search_results.bind(
-                'mouseup.chosen', function (evt) {
+                'mouseup.chosen',
+                function (evt) {
                     _this.search_results_mouseup(evt);
                 }
             );
             this.search_results.bind(
-                'mouseover.chosen', function (evt) {
+                'mouseover.chosen',
+                function (evt) {
                     _this.search_results_mouseover(evt);
                 }
             );
             this.search_results.bind(
-                'mouseout.chosen', function (evt) {
+                'mouseout.chosen',
+                function (evt) {
                     _this.search_results_mouseout(evt);
                 }
             );
             this.search_results.bind(
-                'mousewheel.chosen DOMMouseScroll.chosen', function (evt) {
+                'mousewheel.chosen DOMMouseScroll.chosen',
+                function (evt) {
                     _this.search_results_mousewheel(evt);
                 }
             );
             this.form_field_jq.bind(
-                "chosen:updated.chosen", function (evt) {
+                "chosen:updated.chosen",
+                function (evt) {
                     _this.results_update_field(evt);
                 }
             );
             this.form_field_jq.bind(
-                "chosen:activate.chosen", function (evt) {
+                "chosen:activate.chosen",
+                function (evt) {
                     _this.activate_field(evt);
                 }
             );
             this.form_field_jq.bind(
-                "chosen:open.chosen", function (evt) {
+                "chosen:open.chosen",
+                function (evt) {
                     _this.container_mousedown(evt);
                 }
             );
             this.search_field.bind(
-                'blur.chosen', function (evt) {
+                'blur.chosen',
+                function (evt) {
                     _this.input_blur(evt);
                 }
             );
             this.search_field.bind(
-                'keyup.chosen', function (evt) {
+                'keyup.chosen',
+                function (evt) {
                     _this.keyup_checker(evt);
                 }
             );
             this.search_field.bind(
-                'keydown.chosen', function (evt) {
+                'keydown.chosen',
+                function (evt) {
                     _this.keydown_checker(evt);
                 }
             );
             this.search_field.bind(
-                'focus.chosen', function (evt) {
+                'focus.chosen',
+                function (evt) {
                     _this.input_focus(evt);
                 }
             );
             if (this.is_multiple) {
                 return this.search_choices.bind(
-                    'click.chosen', function (evt) {
+                    'click.chosen',
+                    function (evt) {
                         _this.choices_click(evt);
                     }
                 );
             } else {
                 return this.container.bind(
-                    'click.chosen', function (evt) {
+                    'click.chosen',
+                    function (evt) {
                         evt.preventDefault();
                     }
                 );
@@ -842,7 +863,8 @@
         Chosen.prototype.results_show = function () {
             if (this.is_multiple && this.max_selected_options <= this.choices_count()) {
                 this.form_field_jq.trigger(
-                    "chosen:maxselected", {
+                    "chosen:maxselected",
+                    {
                         chosen: this
                     }
                 );
@@ -850,7 +872,8 @@
             }
             this.container.addClass("chosen-with-drop");
             this.form_field_jq.trigger(
-                "chosen:showing_dropdown", {
+                "chosen:showing_dropdown",
+                {
                     chosen: this
                 }
             );
@@ -869,7 +892,8 @@
                 this.result_clear_highlight();
                 this.container.removeClass("chosen-with-drop");
                 this.form_field_jq.trigger(
-                    "chosen:hiding_dropdown", {
+                    "chosen:hiding_dropdown",
+                    {
                         chosen: this
                     }
                 );
@@ -896,7 +920,8 @@
             }
             if (this.form_field_label.length > 0) {
                 return this.form_field_label.bind(
-                    'click.chosen', function (evt) {
+                    'click.chosen',
+                    function (evt) {
                         if (_this.is_multiple) {
                             return _this.container_mousedown(evt);
                         } else {
@@ -948,7 +973,8 @@
                 _this = this;
 
             choice = $(
-                '<li />', {
+                '<li />',
+                {
                     "class": "search-choice"
                 }
             ).html("<span>" + item.html + "</span>");
@@ -956,13 +982,15 @@
                 choice.addClass('search-choice-disabled');
             } else {
                 close_link = $(
-                    '<a />', {
+                    '<a />',
+                    {
                         "class": 'search-choice-close',
                         'data-option-array-index': item.array_index
                     }
                 );
                 close_link.bind(
-                    'click.chosen', function (evt) {
+                    'click.chosen',
+                    function (evt) {
                         return _this.choice_destroy_link_click(evt);
                     }
                 );
@@ -1015,7 +1043,8 @@
                 this.result_clear_highlight();
                 if (this.is_multiple && this.max_selected_options <= this.choices_count()) {
                     this.form_field_jq.trigger(
-                        "chosen:maxselected", {
+                        "chosen:maxselected",
+                        {
                             chosen: this
                         }
                     );
@@ -1047,7 +1076,8 @@
                 this.search_field.val("");
                 if (this.is_multiple || this.form_field.selectedIndex !== this.current_selectedIndex) {
                     this.form_field_jq.trigger(
-                        "change", {
+                        "change",
+                        {
                             'selected': this.form_field.options[item.options_index].value
                         }
                     );
@@ -1083,7 +1113,8 @@
                     this.winnow_results();
                 }
                 this.form_field_jq.trigger(
-                    "change", {
+                    "change",
+                    {
                         deselected: this.form_field.options[result_data.options_index].value
                     }
                 );
@@ -1236,7 +1267,8 @@
                     style_block += style + ":" + this.search_field.css(style) + ";";
                 }
                 div = $(
-                    '<div />', {
+                    '<div />',
+                    {
                         'style': style_block
                     }
                 );

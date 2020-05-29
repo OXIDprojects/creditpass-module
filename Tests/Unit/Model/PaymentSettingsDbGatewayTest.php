@@ -157,4 +157,3 @@ class PaymentSettingsDbGatewayTest extends UnitTestCase
         );
     }
 }
-

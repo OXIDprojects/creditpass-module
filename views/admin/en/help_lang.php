@@ -3,6 +3,7 @@
 /**
  * Defining help texts (English)
  */
+
 $aLang = [
     'charset'                              => 'UTF-8',
     'HELP_OECREDITPASS_MAIN_ACTIVATE'      => 'Switches creditPass functionality on or off ',

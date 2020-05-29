@@ -1,6 +1,5 @@
 <?php
 
-
 class oecreditPass_GuiElementsTest extends oxTestCase
 {
     /**

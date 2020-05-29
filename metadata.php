@@ -33,6 +33,7 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 /**
  * Metadata version
  */
+
 $sMetadataVersion = '2.1';
 
 /**

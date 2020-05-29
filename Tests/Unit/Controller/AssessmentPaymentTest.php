@@ -111,5 +111,4 @@ class AssessmentPaymentTest extends UnitTestCase
         $oView = $this->getProxyClass(CreditPassPaymentController::class);
         $this->assertTrue($oView->UNITgetCrAssessment() instanceof CreditPassAssessment);
     }
-
 }

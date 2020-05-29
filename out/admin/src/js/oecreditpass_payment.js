@@ -34,7 +34,8 @@ var oeCreditPassPaymentSettings = (function ($) {
         toggleActivePaymentSettings: function () {
             var paymentMethods = paymentSettings.find(oeCreditPassPaymentSettings.paymentMethod);
             $.each(
-                paymentMethods, function (i, oPaymentMethod) {
+                paymentMethods,
+                function (i, oPaymentMethod) {
                     togglePaymentMethodActiveSettings(oPaymentMethod);
                     togglePaymentMethodFallbackByStatus(oPaymentMethod);
                     togglePaymentMethodPurchaseTypeByStatus(oPaymentMethod, true);

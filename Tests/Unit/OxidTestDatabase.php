@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Unit;
+
 abstract class DefaultTestMock
 {
 

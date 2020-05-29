@@ -86,4 +86,3 @@ class ConfigTest extends UnitTestCase
         $this->assertEquals($sExp, $oConf->getModuleAdminUrl('picture.png'));
     }
 }
- 
