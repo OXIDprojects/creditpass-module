@@ -9,6 +9,8 @@ use OxidEsales\Eshop\Core\Registry;
 
 /**
  * CreditPass Events class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassEvents
 {

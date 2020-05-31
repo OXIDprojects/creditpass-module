@@ -9,6 +9,8 @@ use OxidEsales\Eshop\Core\Registry;
 
 /**
  * Database maintenance class responsible complete for backuping and restoration of test database.
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class DbRestore
 {

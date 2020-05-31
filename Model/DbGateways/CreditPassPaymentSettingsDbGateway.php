@@ -9,6 +9,8 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassModelDbGateway;
 
 /**
  * Payment Settings db gateway class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassPaymentSettingsDbGateway extends CreditPassModelDbGateway
 {

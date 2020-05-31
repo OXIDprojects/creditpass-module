@@ -27,6 +27,11 @@ class Payment_testmod extends CreditPassPaymentController
     }
 }
 
+/**
+ * Class AssessmentPaymentTest
+ *
+ * @phpcs:ignoreFile
+ */
 class AssessmentPaymentTest extends UnitTestCase
 {
 

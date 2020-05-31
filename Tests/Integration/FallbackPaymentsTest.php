@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Integration;
+
 use OxidEsales\Eshop\Application\Model\Article;
 use OxidEsales\Eshop\Application\Model\Basket;
 use OxidEsales\Eshop\Application\Model\User;
@@ -15,6 +17,8 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 /**
  * Testing payment fallback implementation
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class FallbackPaymentsTest extends UnitTestCase
 {

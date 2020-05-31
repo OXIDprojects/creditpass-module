@@ -7,6 +7,11 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 use OxidProfessionalServices\CreditPassModule\Core\Mail;
 use OxidProfessionalServices\CreditPassModule\Model\Order;
 
+/**
+ * Test class for CreditPass AssessmentOxOrderTest
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
+ */
 class AssessmentOxOrderTest extends UnitTestCase
 {
 

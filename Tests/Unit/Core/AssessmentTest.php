@@ -19,6 +19,11 @@ use OxidEsales\Eshop\Application\Model\Basket;
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
+/**
+ * Test class for CreditPass Assessment
+ *
+ * @phpcs:ignoreFile
+ */
 class Assessment_testmod extends CreditPassAssessment
 {
 

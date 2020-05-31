@@ -32,6 +32,8 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 /**
  * Metadata version
+ *
+ * @phpcs:ignoreFIle
  */
 
 $sMetadataVersion = '2.1';

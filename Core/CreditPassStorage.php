@@ -9,6 +9,8 @@ use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorage
 
 /**
  * Class responsible for storing data (i.e. config backup).
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassStorage
 {

@@ -1,7 +1,17 @@
 <?php
 
-class oecreditPass_GuiElementsTest extends oxTestCase
+namespace OxidProfessionalServices\CreditPassModule\Tests\Acceptance\oecreditpass;
+
+use OxidEsales\TestingLibrary\AcceptanceTestCase;
+
+/**
+ * Class GuiElementsTest
+ *
+ * @phpcs:ignoreFile
+ */
+class GuiElementsTest extends AcceptanceTestCase
 {
+
     /**
      * testing newsletter activation in admin
      *

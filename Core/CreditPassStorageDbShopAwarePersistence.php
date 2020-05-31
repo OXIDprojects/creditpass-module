@@ -10,11 +10,13 @@ use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorage
 
 /**
  * CreditPass shop aware class which persists data into database.
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassStorageDbShopAwarePersistence implements ICreditPassStorageShopAwarePersistence
 {
 
-    const DATABASE_TABLE = 'oecreditpassstorage';
+    public const DATABASE_TABLE = 'oecreditpassstorage';
 
     /**
      * Database instance.
@@ -51,9 +53,9 @@ class CreditPassStorageDbShopAwarePersistence implements ICreditPassStorageShopA
     /**
      * Sets value.
      *
-     * @param integer $iShopId Shop ID.
-     * @param string  $sKey    Key of value.
-     * @param mixed   $mValue  Value to store.
+     * @param int    $iShopId Shop ID.
+     * @param string $sKey    Key of value.
+     * @param mixed  $mValue  Value to store.
      *
      * @throws DatabaseErrorException
      */

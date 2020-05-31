@@ -46,6 +46,7 @@ class CreditPassMainController extends ShopConfiguration
      * return theme filter for config variables
      *
      * @return string
+     * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
      */
     protected function _getModuleForConfigVars()
     {

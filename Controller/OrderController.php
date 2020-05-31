@@ -11,7 +11,9 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 /**
  * Order controller class
+ *
  * @extend    Oxid OrderController
+ * @phpcs     :disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class OrderController extends \OxidEsales\Eshop\Application\Controller\OrderController
 {
