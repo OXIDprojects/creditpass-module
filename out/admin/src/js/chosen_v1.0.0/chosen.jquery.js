@@ -17,7 +17,8 @@
                 }
             }
 
-            function ctor() {
+            function ctor()
+            {
                 this.constructor = child;
             }
 
@@ -28,7 +29,8 @@
         };
 
     SelectParser = (function () {
-        function SelectParser() {
+        function SelectParser()
+        {
             this.options_index = 0;
             this.parsed = [];
         }
@@ -138,7 +140,8 @@
     };
 
     AbstractChosen = (function () {
-        function AbstractChosen(form_field, options) {
+        function AbstractChosen(form_field, options)
+        {
             this.form_field = form_field;
             this.options = options != null ? options : {};
             if (!AbstractChosen.browser_is_supported()) {
@@ -535,7 +538,8 @@
     Chosen = (function (_super) {
         __extends(Chosen, _super);
 
-        function Chosen() {
+        function Chosen()
+        {
             _ref = Chosen.__super__.constructor.apply(this, arguments);
             return _ref;
         }

@@ -14,7 +14,7 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
  * Order class
  *
  * @extend    oxOrder
- * @phpcs     :disable PSR2.Methods.MethodDeclaration.Underscore
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class Order extends \OxidEsales\Eshop\Application\Model\Order
 {

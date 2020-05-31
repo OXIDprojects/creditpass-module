@@ -13,7 +13,7 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
  * Payment controller class
  *
  * @extend    Oxid PaymentController
- * @phpcs     :disable PSR2.Methods.MethodDeclaration.Underscore
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class PaymentController extends \OxidEsales\Eshop\Application\Controller\PaymentController
 {

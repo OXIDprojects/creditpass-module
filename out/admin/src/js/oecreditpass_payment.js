@@ -57,7 +57,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethod(oElement) {
+    function getPaymentMethod(oElement)
+    {
         return $($(oElement).parents(oeCreditPassPaymentSettings.paymentMethod));
     }
 
@@ -66,7 +67,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethodStatus(oPaymentMethod) {
+    function getPaymentMethodStatus(oPaymentMethod)
+    {
         return $(oPaymentMethod).find(oeCreditPassPaymentSettings.paymentMethodOptions.status);
     }
 
@@ -75,7 +77,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethodStatusValue(oPaymentMethod) {
+    function getPaymentMethodStatusValue(oPaymentMethod)
+    {
         return getPaymentMethodStatus(oPaymentMethod).find(':selected').val();
     }
 
@@ -84,7 +87,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethodFallback(oPaymentMethod) {
+    function getPaymentMethodFallback(oPaymentMethod)
+    {
         return $(oPaymentMethod).find(oeCreditPassPaymentSettings.paymentMethodOptions.fallback);
     }
 
@@ -93,7 +97,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethodPurchaseType(oPaymentMethod) {
+    function getPaymentMethodPurchaseType(oPaymentMethod)
+    {
         return $(oPaymentMethod).find(oeCreditPassPaymentSettings.paymentMethodOptions.purchaseType);
     }
 
@@ -102,7 +107,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function getPaymentMethodAllowOnError(oPaymentMethod) {
+    function getPaymentMethodAllowOnError(oPaymentMethod)
+    {
         return $(oPaymentMethod).find(oeCreditPassPaymentSettings.paymentMethodOptions.allowOnError);
     }
 
@@ -111,7 +117,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function togglePaymentMethodActiveSettings(oPaymentMethod) {
+    function togglePaymentMethodActiveSettings(oPaymentMethod)
+    {
         var oStatus = getPaymentMethodStatus(oPaymentMethod);
         var oFallback = getPaymentMethodFallback(oPaymentMethod);
         var oAllowOnError = getPaymentMethodAllowOnError(oPaymentMethod);
@@ -125,7 +132,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function togglePaymentMethodSettingsByStatus(oPaymentMethod) {
+    function togglePaymentMethodSettingsByStatus(oPaymentMethod)
+    {
         togglePaymentMethodFallbackByStatus(oPaymentMethod);
         togglePaymentMethodPurchaseTypeByStatus(oPaymentMethod);
         togglePaymentMethodAllowOnErrorByStatus(oPaymentMethod);
@@ -136,7 +144,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function togglePaymentMethodFallbackByStatus(oPaymentMethod) {
+    function togglePaymentMethodFallbackByStatus(oPaymentMethod)
+    {
         var oFallback = getPaymentMethodFallback(oPaymentMethod);
         if (getPaymentMethodStatusValue(oPaymentMethod) == 1) {
             oFallback.attr('disabled', 'disabled');
@@ -151,7 +160,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function togglePaymentMethodPurchaseTypeByStatus(oPaymentMethod, showError) {
+    function togglePaymentMethodPurchaseTypeByStatus(oPaymentMethod, showError)
+    {
         var oPurchaseType = getPaymentMethodPurchaseType(oPaymentMethod);
         if (getPaymentMethodStatusValue(oPaymentMethod) == 1) {
             oPurchaseType.removeAttr('disabled');
@@ -168,7 +178,8 @@ var oeCreditPassPaymentSettings = (function ($) {
      *
      * @private
      */
-    function togglePaymentMethodAllowOnErrorByStatus(oPaymentMethod) {
+    function togglePaymentMethodAllowOnErrorByStatus(oPaymentMethod)
+    {
         var oAllowOnError = getPaymentMethodAllowOnError(oPaymentMethod);
         if (getPaymentMethodStatusValue(oPaymentMethod) == 1) {
             oAllowOnError.val(0).change();
