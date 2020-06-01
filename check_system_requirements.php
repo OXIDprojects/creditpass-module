@@ -48,16 +48,14 @@ function printOk($sNote = '')
 --------------------------------------*/
 echo 'Teste, ob Decoder f&uuml;r PHP installiert ist.';
 $sPhpVersion = '';
-if (version_compare('5.4', phpversion()) < 0) {
-    $sPhpVersion = '5.4';
-} elseif (version_compare('5.3', phpversion()) < 0) {
-    $sPhpVersion = '5.3';
-} elseif (version_compare('5.2', phpversion()) < 0) {
-    $sPhpVersion = '5.2';
+if (version_compare('7.1', phpversion()) < 0) {
+    $sPhpVersion = '7.1';
+} elseif (version_compare('7.2', phpversion()) < 0) {
+    $sPhpVersion = '7.2';
 } else {
     printError(
-        "PHP 5.2 / 5.3 / 5.4 wird vorausgesetzt. Installiert ist jedoch: " . phpversion(),
-        ". Bitte PHP 5.2.x oder gr&ouml;&szlig;er verwenden."
+        "PHP 7.1 / 7.2 wird vorausgesetzt. Installiert ist jedoch: " . phpversion(),
+        ". Bitte PHP 7.1.x oder gr&ouml;&szlig;er verwenden."
     );
     $blError = true;
 }
