@@ -127,8 +127,7 @@ class CreditPassEvents
         $blHttps = false;
         if ($blHttps = in_array('https', stream_get_wrappers())) {
             $blHttps = true;
-        }
-        else {
+        } else {
             $oUtilsView->addErrorToDisplay(
                 $oLang->translateString('OECREDITPASS_ERROR_HTTPSWRAPPER')
             );
