@@ -150,7 +150,7 @@
                 </dd>
                 <div class="spacer"></div>
             </dl>
-
+<!---
             <dl>
                 <dt>
                     <input id="oecreditpass_inputManualEmail" class="txt" style="width:280px" name="confstrs[sOECreditPassManualEmail]" value="[{$confstrs.sOECreditPassManualEmail}]" type="text">
@@ -161,7 +161,7 @@
                 </dd>
                 <div class="spacer"></div>
             </dl>
-
+-->
         </div>
     </div>
 

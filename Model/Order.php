@@ -24,7 +24,10 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
      */
     public function oeCreditPassSendEmail()
     {
-        $sTo = $this->getConfig()->getConfigParam('sOECreditPassManualEmail');
+        //      $sTo = $this->getConfig()->getConfigParam('sOECreditPassManualEmail');
+        $shop = oxNew(\OxidEsales\Eshop\Application\Model\Shop::class);
+        $shop->load($this->getConfig()->getShopId());
+        $sTo = $shop->oxshops__oxowneremail->value;
         if ($this->_sendEmailForManualReview() && $sTo) {
             $oEmail = $this->_getEmailObject();
             $oEmail->sendCreditPassAdminEmail($this, $sTo);
