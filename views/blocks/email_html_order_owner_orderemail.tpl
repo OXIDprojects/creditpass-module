@@ -1,4 +1,4 @@
 [{if $creditPassEmail}]
-    [{oxmultilang ident="OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER" args=$shop->oxshops__oxname->value}]
+    <p>[{oxmultilang ident="OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER" args=$shop->oxshops__oxname->value}]</p>
 [{/if}]
 [{$smarty.block.parent}]
