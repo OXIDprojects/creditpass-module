@@ -12,15 +12,17 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 
 /**
  * LogList controller class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassLogListController extends AdminListController
 {
 
-    const ORDER_FILTER_ALL = 1;
-    const ORDER_FILTER_WITH_ORDER = 2;
-    const ORDER_FILTER_NO_ORDER = 3;
+    public const ORDER_FILTER_ALL = 1;
+    public const ORDER_FILTER_WITH_ORDER = 2;
+    public const ORDER_FILTER_NO_ORDER = 3;
 
-    const ANSWER_CODE_FILTER_ALL = 'all';
+    public const ANSWER_CODE_FILTER_ALL = 'all';
 
     /**
      * Template filename.

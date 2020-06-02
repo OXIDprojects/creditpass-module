@@ -12,6 +12,11 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorageDbShopAwarePersistence;
 
+/**
+ * Test class for CreditPass Events
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
+ */
 class EventsTest extends UnitTestCase
 {
 
@@ -142,5 +147,4 @@ class EventsTest extends UnitTestCase
     {
         $this->assertEquals(0, CreditPassEvents::OECREDITPASS_DEFAULT_CACHE_TTL);
     }
-
 }

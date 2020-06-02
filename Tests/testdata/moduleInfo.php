@@ -16,4 +16,3 @@ $sSetupSql = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "oecreditpass.sql
 $aDbInstallSql = array(
     'general' => $sSetupSql,
 );
-

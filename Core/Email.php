@@ -5,7 +5,7 @@ namespace OxidProfessionalServices\CreditPassModule\Core;
 use OxidEsales\Eshop\Core\Registry;
 
 /**
- * CreditPass Mail class
+ * CreditPass eMail class
  *
  * @extend        oxEmail
  */
@@ -78,10 +78,10 @@ class Email extends Email_parent
 
         //Sets subject to email
         $sSubject = $oShop->oxshops__oxordersubject->getRawValue(
-            ) . " (#" . $oOrder->oxorder__oxordernr->value . ")" . " " . $sTranslation = $oLang->translateString(
-                'OECREDITPASS_SETTINGS_MANUAL_EMAIL_MESSAGE',
-                $iOrderLang
-            );
+        ) . " (#" . $oOrder->oxorder__oxordernr->value . ")" . " " . $sTranslation = $oLang->translateString(
+            'OECREDITPASS_SETTINGS_MANUAL_EMAIL_MESSAGE',
+            $iOrderLang
+        );
 
         $this->setSubject($sSubject);
 

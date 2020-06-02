@@ -6,6 +6,8 @@ use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassRespons
 
 /**
  * CreditPassResponseLogger class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassResponseLogger
 {

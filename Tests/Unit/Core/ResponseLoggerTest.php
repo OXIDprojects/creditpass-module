@@ -19,6 +19,8 @@ class TestResponseLoggerDbGateway extends CreditPassResponseLoggerDbGateway
 
 /**
  * Class ResponseLoggerTest - Data Logger test cases
+ *
+ * @phpcs:ignoreFile
  */
 class ResponseLoggerTest extends UnitTestCase
 {

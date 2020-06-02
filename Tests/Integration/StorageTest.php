@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Integration;
+
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
@@ -11,6 +13,8 @@ use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorageDbShopAwareP
 
 /**
  * Test for CreditPassStorage
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class StorageTest extends UnitTestCase
 {
@@ -278,9 +282,9 @@ class StorageTest extends UnitTestCase
     /**
      * Sets data into database for testing.
      *
-     * @param integer $iShopId Shop Id.
-     * @param string  $sKey    Key.
-     * @param mixed   $mValue  Value.
+     * @param int    $iShopId Shop Id.
+     * @param string $sKey    Key.
+     * @param mixed  $mValue  Value.
      *
      * @throws DatabaseConnectionException
      * @throws DatabaseErrorException
@@ -298,8 +302,8 @@ class StorageTest extends UnitTestCase
     /**
      * Gets data from database for testing.
      *
-     * @param integer $iShopId Shop Id.
-     * @param string  $sKey    Key.
+     * @param int    $iShopId Shop Id.
+     * @param string $sKey    Key.
      *
      * @return mixed
      * @throws DatabaseConnectionException

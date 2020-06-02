@@ -13,6 +13,8 @@ use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPayment
 
 /**
  * CreditPass Payment controller class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassPaymentController extends AdminDetailsController
 {

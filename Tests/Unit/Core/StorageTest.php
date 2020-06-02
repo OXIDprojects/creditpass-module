@@ -8,7 +8,9 @@ use OxidProfessionalServices\CreditPassModule\Core\Interfaces\ICreditPassStorage
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassStorage;
 
 /**
- * Test for CreditPassStorage
+ * Test class for CreditPass Storage
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class StorageTest extends UnitTestCase
 {
@@ -58,9 +60,9 @@ class StorageTest extends UnitTestCase
     /**
      * Tests set value.
      *
-     * @param integer $iShopId Shop ID.
-     * @param string  $sKey    Key.
-     * @param string  $sValue  Value.
+     * @param int    $iShopId Shop ID.
+     * @param string $sKey    Key.
+     * @param string $sValue  Value.
      *
      * @dataProvider _dpTestSetValue
      */

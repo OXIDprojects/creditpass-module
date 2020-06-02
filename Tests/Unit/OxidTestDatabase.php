@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Unit;
+
 abstract class DefaultTestMock
 {
 
@@ -19,6 +21,11 @@ abstract class DefaultTestMock
     }
 }
 
+/**
+ * Class oxTestDbResult
+ *
+ * @phpcs:ignoreFile
+ */
 class oxTestDbResult extends DefaultTestMock
 {
 
@@ -83,6 +90,10 @@ class oxTestDbResult extends DefaultTestMock
     }
 }
 
+/**
+ * Class oxTestDb
+ * @phpcs:ignoreFile
+ */
 class oxTestDb extends DefaultTestMock
 {
 

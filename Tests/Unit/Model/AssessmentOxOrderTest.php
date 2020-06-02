@@ -4,9 +4,14 @@ namespace OxidProfessionalServices\CreditPassModule\Tests\Unit\Model;
 
 use OxidEsales\TestingLibrary\UnitTestCase;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
-use OxidProfessionalServices\CreditPassModule\Core\Mail;
+use OxidProfessionalServices\CreditPassModule\Core\Email;
 use OxidProfessionalServices\CreditPassModule\Model\Order;
 
+/**
+ * Test class for CreditPass AssessmentOxOrderTest
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
+ */
 class AssessmentOxOrderTest extends UnitTestCase
 {
 
@@ -15,7 +20,7 @@ class AssessmentOxOrderTest extends UnitTestCase
         $this->setSessionParam('aBoniSessionData', array('azIntLogicResponse' => 2));
         $this->setConfigParam('iOECreditPassManualWorkflow', '2');
         $this->setConfigParam('sOECreditPassManualEmail', 'testemail');
-        $oEmail = $this->getMock(Mail::class, array('setRecipient', 'sendCreditPassAdminEmail'));
+        $oEmail = $this->getMock(Email::class, array('setRecipient', 'sendCreditPassAdminEmail'));
         $oEmail->expects($this->once())->method('sendCreditPassAdminEmail');
 
         $oOrder = $this->getMock(Order::class, array('_getEmailObject'));
