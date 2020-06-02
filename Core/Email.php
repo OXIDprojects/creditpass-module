@@ -70,6 +70,8 @@ class Email extends Email_parent
         $oSmarty = $this->_getSmarty();
         $this->setViewData("order", $oOrder);
 
+        $oSmarty->assign('creditPassEmail', true);
+
         // Process view data array through oxoutput processor
         $this->_processViewArray();
 
