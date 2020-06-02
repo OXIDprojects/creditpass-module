@@ -1,7 +1,0 @@
-==3.0.0==
-* Initial release of standalone module.
-==3.0.1==
-Fixed bugs:
-https://bugs.oxid-esales.com/changelog_page.php?version_id=248
-==4.0.0==
-Module for OXID eShop version 6.*
