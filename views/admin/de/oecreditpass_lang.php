@@ -97,5 +97,8 @@ $aLang = [
     'OECREDITPASS_EXCEPTION_PURCHASETYPENOTSET'   => 'Bitte geben Sie den Purchase Type für die aktivierte Prüfung der Zahlungsmethode an!',
     'OECREDITPASS_ORDERFOLDER_REVIEW'             => 'Manuelle Prüfung',
     'OECREDITPASS_ERROR_HTTPSWRAPPER'             => 'https-Wrapper von PHP ist nicht installiert.<br />Der https-wrapper muss installiert sein. Installieren Sie hierzu die OpenSSL-Erweiterung von PHP.',
-    'OECREDITPASS_ERROR_CALL_IP'                  => 'Die creditPass-URL kann nicht aufgerufen werden.<br />Ihre IP ist von creditPass nicht freigeschaltet. Bitte wenden Sie sich an creditPass.'
+    'OECREDITPASS_ERROR_CALL_IP'                  => 'Die creditPass-URL kann nicht aufgerufen werden.<br />Ihre IP ist von creditPass nicht freigeschaltet. Bitte wenden Sie sich an creditPass.',
+    'OECREDITPASS_DEFAULT_ERROR_TITLE'            => 'creditPass - abgelehnte Zahlungsart',
+    'OECREDITPASS_DEFAULT_ERROR_MSG'              => 'Die gewünschte Zahlungsart steht derzeit nicht zur Verfügung. Bitte wählen Sie eine andere!',
+    'OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER'      => 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Prüfung lautet \'Manuelle Prüfung\'. Bitte prüfen Sie daher diese Bestellung!'
 ];

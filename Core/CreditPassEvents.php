@@ -6,6 +6,7 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Application\Model\Content;
 
 /**
  * CreditPass Events class
@@ -16,17 +17,10 @@ class CreditPassEvents
 {
 
     //default values
-    public const OECREDITPASS_DEFAULT_ERROR_TITLE_DE = "creditPass - abgelehnte Zahlungsart";
-    public const OECREDITPASS_DEFAULT_ERROR_TITLE_EN = "creditPass - unauthorized payment method";
-    public const OECREDITPASS_DEFAULT_ERROR_MSG_DE = "Die gewünschte Zahlungsart steht derzeit nicht zur Verfügung. Bitte wählen Sie eine andere!";
-    public const OECREDITPASS_DEFAULT_ERROR_MSG_EN = "The chosen payment method is currently not available. Please select another one!";
-    public const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE = 'Die unten aufgelisteten Artikel wurden soeben unter [{ $shop->oxshops__oxname->value }] bestellt. Das Ergebnis der creditPass-Prüfung lautet \'Manuelle Prüfung\'. Bitte prüfen Sie daher diese Bestellung!';
-    public const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN = 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!';
     public const OECREDITPASS_DEFAULT_CACHE_TTL = 0;
     public const OECREDITPASS_DEFAULT_SERVICE_URL = "https://secure.creditpass.de/atgw/authorize.cfm";
-    public const OECREDITPASS_CONTENT_URL = "https://secures.creditpass.de/cpgw/index.cfm";
+    public const OECREDITPASS_CONTENT_URL = "https://secure.creditpass.de/cpgw/index.cfm";
     public const OECREDITPASS_DEFAULT_MANUAL_WORKFLOW = 1; // see values in oecreditpass_main.tpl
-
 
     /**
      * Parse sql file to split sql file into one line queries and execute them.
@@ -230,51 +224,28 @@ class CreditPassEvents
      */
     protected static function _modifyExistingTables()
     {
+        $oDB = DatabaseProvider::getDb();
+
         $sSql = "UPDATE `oxpayments` SET OXFROMBONI = 0;";
+        $oDB->execute($sSql);
 
-        $sErrorMsgDe = self::OECREDITPASS_DEFAULT_ERROR_MSG_DE;
-        $sErrorMsgEn = self::OECREDITPASS_DEFAULT_ERROR_MSG_EN;
-        $sErrorTitleDe = self::OECREDITPASS_DEFAULT_ERROR_TITLE_DE;
-        $sErrorTitleEn = self::OECREDITPASS_DEFAULT_ERROR_TITLE_EN;
+        $oLang = Registry::getLang();
 
-        $sShopId = Registry::getConfig()->getShopId();
+        $oContent = oxNew(Content::class);
+        if (!$oContent->loadByIdent('oecreditpassunauthorized')) {
+            $oContent->oxcontents__oxactive->setValue(1);
+            $oContent->oxcontents__oxsnippet->setValue(1);
+            $oContent->oxcontents__oxloadid->setValue('oecreditpassunauthorized');
+            $oContent->oxcontents__oxshopid->setValue(Registry::getConfig()->getShopId());
+            $oContent->save();
 
-        //add CMS page to active subshop
-        $sSql .= "INSERT IGNORE INTO oxcontents (OXID, OXLOADID, OXSHOPID, OXSNIPPET, OXACTIVE, OXACTIVE_1, OXTITLE, OXCONTENT, OXTITLE_1, OXCONTENT_1)
-                         VALUES ( '9be49ff479009$sShopId', 'oecreditpassunauthorized', '$sShopId', 1, 1, 1, '$sErrorTitleDe', '$sErrorMsgDe', '$sErrorTitleEn', '$sErrorMsgEn');";
-
-        //add CMS page to active subshop
-        $sSql .= "INSERT IGNORE INTO oxcontents (OXID, OXLOADID, OXSHOPID, OXSNIPPET, OXACTIVE, OXACTIVE_1, OXTITLE, OXCONTENT, OXTITLE_1, OXCONTENT_1)
-                         VALUES ( '9be49ff479009$sShopId', 'oecreditpassunauthorized', '$sShopId', 1, 1, 1, '$sErrorTitleDe', '$sErrorMsgDe', '$sErrorTitleEn', '$sErrorMsgEn');";
-
-        $aSqlStrings = self::parseSql($sSql);
-
-        $aSqlStrings[] = self::_getManualReviewEmailOrderContents();
-
-        foreach ($aSqlStrings as $sSqlEntry) {
-            DatabaseProvider::getDb()->execute($sSqlEntry);
+            foreach ($oLang->getAllShopLanguageIds() as $iLang => $sLang) {
+                $oContent->setLanguage($iLang);
+                $oContent->oxcontents__oxtitle->setValue($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_TITLE', $iLang));
+                $oContent->oxcontents__oxcontent->setValue($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_MSG', $iLang));
+                $oContent->save();
+            }
         }
-    }
-
-    /**
-     * Get some contents for manual review email for insertion
-     *
-     * @return string
-     */
-    protected static function _getManualReviewEmailOrderContents()
-    {
-        $sMsgDE = self::OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_DE;
-        $sMsgEN = self::OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN;
-
-        $sShopId = Registry::getConfig()->getShopId();
-
-        $sSql = "INSERT IGNORE INTO `oxcontents` (`OXID`, `OXLOADID`, `OXSHOPID`, `OXSNIPPET`, `OXTYPE`, `OXACTIVE`, `OXACTIVE_1`, `OXPOSITION`, `OXTITLE`, `OXCONTENT`, `OXTITLE_1`, `OXCONTENT_1`, `OXACTIVE_2`, `OXTITLE_2`, `OXCONTENT_2`, `OXACTIVE_3`, `OXTITLE_3`, `OXCONTENT_3`, `OXCATID`, `OXFOLDER`, `OXTERMVERSION`) VALUES
-(\"ad542e49bff479009oe.cp64538090$sShopId\", \"oecreditpassorderemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin\", \"$sMsgDE<br>\r\n<br>\", \"your order admin\", \"$sMsgEN<br>\r\n<br>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
-(\"c8d45408c4998f421oe.cp15746968$sShopId\", \"oecreditpassordernpemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdländer)\", \"<div>\r\n<p> <span style='color: #ff0000;'><strong>Hinweis:</strong></span> Derzeit ist keine Liefermethode für dieses Land bekannt. Bitte Liefermöglichkeiten suchen und den Besteller unter Angabe der <strong>Lieferkosten</strong> informieren!\r\n&nbsp;</p> </div>\r\n<div>$sMsgDE<br>\r\n<br>\r\n</div>\", \"your order admin (other country)\", \"<p> <span style='color: #ff0000'><strong>Information:</strong></span> Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the <strong>shipping costs</strong>.</p>\r\n<p>$sMsgEN<br />\r\n<br /></p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
-(\"c8d45408c718782f3oe.cp21298666$sShopId\", \"oecreditpassordernpplainemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin (Fremdländer) Plain\", \"Hinweis: Derzeit ist keine Liefermethode für dieses Land bekannt. Bitte Liefermöglichkeiten suchen und den Besteller informieren!\r\n\r\n$sMsgDE\", \"your order admin plain (other country)\", \"<p>Information: Currently, there is no shipping method defined for this country. Please find a delivery option and inform the customer about the shipping costs.\r\n\r\n$sMsgEN</p>\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\"),
-(\"ad542e49c19109ad6oe.cp04198712$sShopId\", \"oecreditpassorderplainemail\", \"$sShopId\", 1, 0, 1, 1, \"\", \"Ihre Bestellung Admin Plain\", \"<p>$sMsgDE</p>\", \"your order admin plain\", \"$sMsgEN\", 1, \"\", \"\", 1, \"\", \"\", \"30e44ab83fdee7564.23264141\", \"CMSFOLDER_EMAILS\", \"\");";
-
-        return $sSql;
     }
 
     /**

@@ -97,5 +97,8 @@ $aLang = [
     'OECREDITPASS_EXCEPTION_PURCHASETYPENOTSET'   => 'Please enter the purchase type for the activated payment method check!',
     'OECREDITPASS_ORDERFOLDER_REVIEW'             => 'Manual review',
     'OECREDITPASS_ERROR_HTTPSWRAPPER'             => 'https wrapper from PHP is not installed.<br /> The https wrapper must be installed. To do this, install the OpenSSL extension from PHP.',
-    'OECREDITPASS_ERROR_CALL_IP'                  => 'The creditPass URL cannot be called up.<br /> Your IP is not activated by creditPass. Please contact creditPass.'
+    'OECREDITPASS_ERROR_CALL_IP'                  => 'The creditPass URL cannot be called up.<br /> Your IP is not activated by creditPass. Please contact creditPass.',
+    'OECREDITPASS_DEFAULT_ERROR_TITLE'            => 'creditPass - unauthorized payment method',
+    'OECREDITPASS_DEFAULT_ERROR_MSG'              => 'The chosen payment method is currently not available. Please select another one!',
+    'OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER'      => 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!'
 ];
