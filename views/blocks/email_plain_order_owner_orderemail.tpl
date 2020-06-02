@@ -1,0 +1,5 @@
+[{if $payment->oxuserpayments__oxpaymentsid->value == "oxempty"}]
+    [{oxcontent ident="oecreditpassordernpplainemail"}]
+    [{else}]
+    [{oxmultilang ident="OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER" args=$shop->oxshops__oxname->value}]
+[{/if}]

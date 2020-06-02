@@ -73,8 +73,8 @@ class Email extends Email_parent
         // Process view data array through oxoutput processor
         $this->_processViewArray();
 
-        $this->setBody($oSmarty->fetch($myConfig->getTemplatePath($this->_sAdminNoticeTemplate, false)));
-        $this->setAltBody($oSmarty->fetch($myConfig->getTemplatePath($this->_sAdminNoticeTemplatePlain, false)));
+        $this->setBody($oSmarty->fetch($myConfig->getTemplatePath($this->_sOrderOwnerTemplate, false)));
+        $this->setAltBody($oSmarty->fetch($myConfig->getTemplatePath($this->_sOrderOwnerPlainTemplate, false)));
 
         //Sets subject to email
         $sSubject = $oShop->oxshops__oxordersubject->getRawValue(

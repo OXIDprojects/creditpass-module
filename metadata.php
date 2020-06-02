@@ -101,16 +101,68 @@ $aModule = [
         'oecreditpass_payment.tpl'      => 'oxps/creditpass/views/admin/tpl/oecreditpass_payment.tpl',
         'oecreditpass_order.tpl'        => 'oxps/creditpass/views/admin/tpl/oecreditpass_order.tpl',
         'oecreditpass_user.tpl'         => 'oxps/creditpass/views/admin/tpl/oecreditpass_user.tpl',
-        'email/html/admin_notice.tpl'   => 'oxps/creditpass/views/tpl/email/html/admin_notice.tpl',
-        'email/plain/admin_notice.tpl'  => 'oxps/creditpass/views/tpl/email/plain/admin_notice.tpl',
     ],
     'blocks'      => [
-        ['template' => 'page/checkout/payment.tpl',
-         'block'    => 'checkout_payment_nextstep',
-         'file'     => '/views/blocks/oecreditpassdisablenext.tpl'],
-        ['template' => 'page/checkout/payment.tpl',
-         'block'    => 'checkout_payment_errors',
-         'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'],
+        [
+            'theme' => 'flow',
+            'template' => 'page/checkout/payment.tpl',
+            'block'    => 'checkout_payment_nextstep',
+            'file'     => '/views/blocks/oecreditpassdisablenext.tpl'
+        ],
+        [
+            'theme' => 'flow',
+            'template' => 'page/checkout/payment.tpl',
+            'block'    => 'checkout_payment_errors',
+            'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'
+        ],
+        [
+            'theme' => 'wave',
+            'template' => 'page/checkout/payment.tpl',
+            'block'    => 'checkout_payment_nextstep',
+            'file'     => '/views/blocks/oecreditpassdisablenext.tpl'
+        ],
+        [
+            'theme' => 'wave',
+            'template' => 'page/checkout/payment.tpl',
+            'block'    => 'checkout_payment_errors',
+            'file'     => '/views/blocks/oecreditpassfallbackerror.tpl'
+        ],
+        [
+            'theme' => 'flow',
+            'template' => 'email/html/order_owner.tpl',
+            'block'    => 'email_html_order_owner_orderemail',
+            'file'     => '/views/blocks/email_html_order_owner_orderemail.tpl'
+        ],
+        [
+            'theme' => 'wave',
+            'template' => 'email/html/order_owner.tpl',
+            'block'    => 'email_html_order_owner_orderemail',
+            'file'     => '/views/blocks/email_html_order_owner_orderemail.tpl'
+        ],
+        [
+            'theme' => 'flow',
+            'template' => 'email/html/order_owner.tpl',
+            'block'    => 'email_html_order_owner_paymentinfo',
+            'file'     => '/views/blocks/email_html_order_owner_paymentinfo.tpl'
+        ],
+        [
+            'theme' => 'wave',
+            'template' => 'email/html/order_owner.tpl',
+            'block'    => 'email_html_order_owner_paymentinfo',
+            'file'     => '/views/blocks/email_html_order_owner_paymentinfo.tpl'
+        ],
+        [
+            'theme' => 'flow',
+            'template' => 'email/plain/order_owner.tpl',
+            'block'    => 'email_plain_order_owner_orderemail',
+            'file'     => '/views/blocks/email_plain_order_owner_orderemail.tpl'
+        ],
+        [
+            'theme' => 'wave',
+            'template' => 'email/plain/order_owner.tpl',
+            'block'    => 'email_plain_order_owner_orderemail',
+            'file'     => '/views/blocks/email_plain_order_owner_orderemail.tpl'
+        ],
     ],
     'events'      => [
         'onActivate'   => '\OxidProfessionalServices\CreditPassModule\Core\CreditPassEvents::onActivate',
