@@ -24,6 +24,7 @@ class CreditPassEvents
     public const OECREDITPASS_MANUAL_REVIEW_EMAIL_ORDER_EN = 'The products listed below have been ordered in [{ $shop->oxshops__oxname->value }] right now. The result of the creditPass check is \'manual review\'. Therefore please check this order!';
     public const OECREDITPASS_DEFAULT_CACHE_TTL = 0;
     public const OECREDITPASS_DEFAULT_SERVICE_URL = "https://secure.creditpass.de/atgw/authorize.cfm";
+    public const OECREDITPASS_CONTENT_URL = "https://secures.creditpass.de/cpgw/index.cfm";
     public const OECREDITPASS_DEFAULT_MANUAL_WORKFLOW = 1; // see values in oecreditpass_main.tpl
 
 
@@ -87,6 +88,8 @@ class CreditPassEvents
      */
     public static function onActivate()
     {
+        self::_checkSystem();
+
         self::_addTables();
 
         self::_modifyExistingTables();
@@ -103,9 +106,46 @@ class CreditPassEvents
      */
     public static function onDeactivate()
     {
+        return true;
         self::_removeModifiedExistingConfigs();
 
         self::_backupConfigs();
+    }
+
+    /**
+     * check the system requirements
+     *
+     * @throws SystemErrorException
+     */
+    protected static function _checkSystem()
+    {
+        $bResult = true;
+
+        $oLang = Registry::getLang();
+        $oUtilsView = Registry::getUtilsView();
+
+        $blHttps = false;
+        if ($blHttps = in_array('https', stream_get_wrappers())) {
+            $blHttps = true;
+        }
+        else {
+            $oUtilsView->addErrorToDisplay(
+                $oLang->translateString('OECREDITPASS_ERROR_HTTPSWRAPPER')
+            );
+        }
+        if ($blHttps) {
+            try {
+                $bResult = (false !== file_get_contents(self::OECREDITPASS_CONTENT_URL, 'r'));
+            } catch (Exception $exception) {
+                $bResult = false;
+            }
+            if (!$bResult) {
+                $oUtilsView->addErrorToDisplay(
+                    $oLang->translateString('OECREDITPASS_ERROR_CALL_IP')
+                );
+            }
+        }
+        return $bResult;
     }
 
     /**

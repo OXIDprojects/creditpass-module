@@ -96,4 +96,6 @@ $aLang = [
     'OECREDITPASS_LOG_NORESULTS'                  => 'Bitte wählen Sie eine creditPass-Prüfung aus der Liste!',
     'OECREDITPASS_EXCEPTION_PURCHASETYPENOTSET'   => 'Bitte geben Sie den Purchase Type für die aktivierte Prüfung der Zahlungsmethode an!',
     'OECREDITPASS_ORDERFOLDER_REVIEW'             => 'Manuelle Prüfung',
+    'OECREDITPASS_ERROR_HTTPSWRAPPER'             => 'https-Wrapper von PHP ist nicht installiert.<br />Der https-wrapper muss installiert sein. Installieren Sie hierzu die OpenSSL-Erweiterung von PHP.',
+    'OECREDITPASS_ERROR_CALL_IP'                  => 'Die creditPass-URL kann nicht aufgerufen werden.<br />Ihre IP ist von creditPass nicht freigeschaltet. Bitte wenden Sie sich an creditPass.'
 ];
