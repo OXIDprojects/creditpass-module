@@ -5,7 +5,7 @@ namespace OxidProfessionalServices\CreditPassModule\Core;
 use OxidEsales\Eshop\Core\Registry;
 
 /**
- * CreditPass Mail class
+ * CreditPass eMail class
  *
  * @extend        oxEmail
  */
