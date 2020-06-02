@@ -7,12 +7,14 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Model\UserPayment;
 use OxidEsales\Eshop\Core\Field;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassAssessment;
-use OxidProfessionalServices\CreditPassModule\Core\Mail;
+use OxidProfessionalServices\CreditPassModule\Core\Email;
 use OxidProfessionalServices\CreditPassModule\Core\CreditPassResponseLogger;
 
 /**
  * Order class
+ *
  * @extend    oxOrder
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class Order extends \OxidEsales\Eshop\Application\Model\Order
 {
@@ -43,13 +45,13 @@ class Order extends \OxidEsales\Eshop\Application\Model\Order
     }
 
     /**
-     * return oeCreditPassMail object
+     * return oeCreditPassEmail object
      *
-     * @return Mail
+     * @return Email
      */
     protected function _getEmailObject()
     {
-        return oxNew(Mail::class);
+        return oxNew(Email::class);
     }
 
     /**

@@ -9,6 +9,8 @@ use OxidEsales\Eshop\Core\Registry;
 
 /**
  * Database maintenance class responsible complete for backuping and restoration of test database.
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class DbRestore
 {
@@ -16,27 +18,27 @@ class DbRestore
     /**
      * Restore database in single rows (updating, deleting or inserting single records)
      */
-    const MAINTENANCE_SINGLEROWS = 1;
+    public const MAINTENANCE_SINGLEROWS = 1;
 
     /**
      * Restore database by dropping the whole table and inserting all records back
      */
-    const MAINTENANCE_WHOLETABLES = 2;
+    public const MAINTENANCE_WHOLETABLES = 2;
 
     /**
      * Only reset the database, but do not create log file
      */
-    const MAINTENANCE_MODE_ONLYRESET = 1;
+    public const MAINTENANCE_MODE_ONLYRESET = 1;
 
     /**
      * Only create log files with changes, but do not restore database
      */
-    const MAINTENANCE_MODE_ONLYOUTPUT = 2;
+    public const MAINTENANCE_MODE_ONLYOUTPUT = 2;
 
     /**
      * Create log file with changes and restore database
      */
-    const MAINTENANCE_MODE_RESETANDOUTPUT = 3;
+    public const MAINTENANCE_MODE_RESETANDOUTPUT = 3;
 
     /**
      * Temp directory, where to store database dump
@@ -200,8 +202,8 @@ class DbRestore
      * Checks which tables of the db changed and then restores these tables.
      * Uses dump file '/tmp/tmp_db_dump' for comparison and restoring.
      *
-     * @param integer $iMode   Maintenance mode
-     * @param integer $iOutput Outout type
+     * @param int $iMode Maintenance mode
+     * @param int $iOutput Outout type
      *
      * @return array changes array
      */
@@ -220,7 +222,7 @@ class DbRestore
         foreach ($aTables as $sTable) {
             if (!isset($aDump[$sTable])) {
                 $this->_dropTable($sTable);
-            } else if ($aChecksum[$sTable] !== $aDumpChecksum[$sTable]) {
+            } elseif ($aChecksum[$sTable] !== $aDumpChecksum[$sTable]) {
                 $this->restoreTable($sTable, false);
                 $blHasChanges = true;
             }
@@ -285,7 +287,7 @@ class DbRestore
             $aMissingRecords = array_diff($aOriginalIds, $aExistingIds);
 
             $this->_insertMissingRecords($sTable, $aMissingRecords);
-        } else if (!empty($aDump[$sTable])) {
+        } elseif (!empty($aDump[$sTable])) {
             $this->resetTable($sTable);
         }
     }
@@ -406,7 +408,7 @@ class DbRestore
         if ($this->getResetMode() == self::MAINTENANCE_SINGLEROWS) {
             $sSQL = "DELETE FROM " . $sTable . " WHERE OXID = '" . $sId . "'";
             $this->_executeSQL($sSQL, $sTable, "record was added with id '$sId' ");
-        } else if ($this->getResetMode() == self::MAINTENANCE_WHOLETABLES) {
+        } elseif ($this->getResetMode() == self::MAINTENANCE_WHOLETABLES) {
             $this->resetTable($sTable);
         }
     }
@@ -438,8 +440,12 @@ class DbRestore
                 }
                 $sSQL = $sSQL . implode(', ', $aUpdates) . " WHERE `oxid` = " . $oDb->quote($sId);
 
-                $this->_executeSQL($sSQL, $sTable, "record '$sId' columns '" . implode("', '", $aColumns) . "' was changed");
-            } else if ($this->getResetMode() == self::MAINTENANCE_WHOLETABLES) {
+                $this->_executeSQL(
+                    $sSQL,
+                    $sTable,
+                    "record '$sId' columns '" . implode("', '", $aColumns) . "' was changed"
+                );
+            } elseif ($this->getResetMode() == self::MAINTENANCE_WHOLETABLES) {
                 $this->resetTable($sTable);
             }
             $blResult = true;

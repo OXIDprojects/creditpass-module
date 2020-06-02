@@ -19,6 +19,11 @@ use OxidEsales\Eshop\Application\Model\Basket;
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
+/**
+ * Test class for CreditPass Assessment
+ *
+ * @phpcs:ignoreFile
+ */
 class Assessment_testmod extends CreditPassAssessment
 {
 
@@ -196,7 +201,8 @@ class AssessmentTest extends UnitTestCase
     public function testCheckAll()
     {
         $oCrassessment = $this->getMock(
-            Assessment_testmod::class, array('_doAssessment', '_doCheck_groupExcl')
+            Assessment_testmod::class,
+            array('_doAssessment', '_doCheck_groupExcl')
         );
         $oCrassessment->expects($this->once())->method('_doAssessment');
         $oCrassessment->expects($this->once())->method('_doCheck_groupExcl')->will($this->returnValue(true));
@@ -207,7 +213,8 @@ class AssessmentTest extends UnitTestCase
     public function testCheckAllIfUserIsExcluded()
     {
         $oCrassessment = $this->getMock(
-            Assessment_testmod::class, array('_doIntegratedLogicCheck', '_doCheck_groupExcl')
+            Assessment_testmod::class,
+            array('_doIntegratedLogicCheck', '_doCheck_groupExcl')
         );
         $oCrassessment->expects($this->never())->method('_doIntegratedLogicCheck');
         $oCrassessment->expects($this->once())->method('_doCheck_groupExcl')->will($this->returnValue(false));
@@ -505,7 +512,8 @@ class AssessmentTest extends UnitTestCase
         $this->setConfigParam('sOECreditPassAuthPw', 'testcppass');
 
         $oCrassessment = $this->getMock(
-            Assessment_testmod::class, array('_prepareAccountData', '_isTestMode')
+            Assessment_testmod::class,
+            array('_prepareAccountData', '_isTestMode')
         );
         $oCrassessment->expects($this->once())->method('_prepareAccountData')->with($aDynValues)->will(
             $this->returnValue($aDynValues)
@@ -616,7 +624,8 @@ class AssessmentTest extends UnitTestCase
         $this->setConfigParam('sOECreditPassAuthPw', 'testcppass');
 
         $oCrassessment = $this->getMock(
-            Assessment_testmod::class, array('_prepareAccountData', '_isTestMode')
+            Assessment_testmod::class,
+            array('_prepareAccountData', '_isTestMode')
         );
         $oCrassessment->expects($this->once())->method('_prepareAccountData')->with($aDynValues)->will(
             $this->returnValue($aDynValues)
@@ -866,7 +875,9 @@ class AssessmentTest extends UnitTestCase
         $oOECreditPassAssessment->UNIThandleAnswerCode($iAnswerCode, $blAllowPaymentOnErr);
 
         $this->assertEquals(
-            $blIsOrderContinue, $oOECreditPassAssessment->getNonPublicVar("_blOrderContinue"), $sMsg
+            $blIsOrderContinue,
+            $oOECreditPassAssessment->getNonPublicVar("_blOrderContinue"),
+            $sMsg
         );
     }
 
@@ -914,7 +925,11 @@ class AssessmentTest extends UnitTestCase
     public function testLoadPaymentSettings($sActiveReturns, $sFallbackReturns, $sAllowOnErrorReturns, $sPurchaseType, $sKey)
     {
         $aTestData = $this->_getTestPaymentSettings(
-            $sActiveReturns, $sFallbackReturns, $sAllowOnErrorReturns, $sPurchaseType, $sKey
+            $sActiveReturns,
+            $sFallbackReturns,
+            $sAllowOnErrorReturns,
+            $sPurchaseType,
+            $sKey
         );
         /**
          * @var CreditPassPaymentSettingsDbGateway $oeDbGateway
@@ -994,7 +1009,9 @@ class AssessmentTest extends UnitTestCase
             $oRequest = new SimpleXMLElement($oOECreditPassAssessment->UNITgetBoniRequestXML(true));
 
             $this->assertSame(
-                $sIBAN, (string) $oRequest->QUERY->IBAN, 'IBAN is valid, so must be inserted to request'
+                $sIBAN,
+                (string)$oRequest->QUERY->IBAN,
+                'IBAN is valid, so must be inserted to request'
             );
         } else {
             $this->markTestSkipped("Requires oxSepaValidator class from eShop 5.1.x core");
@@ -1084,7 +1101,8 @@ class AssessmentTest extends UnitTestCase
             $this->returnValue(array('addressIdent' => 'testoldident'))
         );
         $oCrassessment->expects($this->any())->method('setSessionData')->with(
-            'addressIdent', 'testcurrentident1'
+            'addressIdent',
+            'testcurrentident1'
         );
         $oCrassessment->setUser($oUser);
         $this->assertTrue($oCrassessment->checkAddressChange());
@@ -1101,7 +1119,8 @@ class AssessmentTest extends UnitTestCase
             $this->returnValue(array('addressIdent' => 'testcurrentident3'))
         );
         $oCrassessment->expects($this->any())->method('setSessionData')->with(
-            'addressIdent', 'testcurrentident3'
+            'addressIdent',
+            'testcurrentident3'
         );
         $oCrassessment->setUser($oUser);
         $this->assertFalse($oCrassessment->checkAddressChange());
@@ -1116,7 +1135,8 @@ class AssessmentTest extends UnitTestCase
         );
         $oCrassessment->expects($this->any())->method('getSessionData')->will($this->returnValue(null));
         $oCrassessment->expects($this->any())->method('setSessionData')->with(
-            'addressIdent', 'testcurrentident3'
+            'addressIdent',
+            'testcurrentident3'
         );
         $oCrassessment->setUser($oUser);
         $this->assertTrue($oCrassessment->checkAddressChange());
@@ -1439,5 +1459,4 @@ class AssessmentTest extends UnitTestCase
 
         $this->assertSame(3, count($oCrassessment->filterPaymentMethods($aAllPayments)));
     }
-
 }

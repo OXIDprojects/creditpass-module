@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Integration;
+
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
@@ -13,6 +15,8 @@ use OxidProfessionalServices\CreditPassModule\Model\Order;
 
 /**
  * Response logger integration test
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class ResponseLoggerTest extends UnitTestCase
 {

@@ -178,5 +178,4 @@ class ResultCacheTest extends UnitTestCase
 
         $this->assertFalse($aResult);
     }
-
 }

@@ -139,7 +139,8 @@ var oeCreditPassMain = (function ($) {
             setTimeout(
                 function () {
                     setCacheInput.removeClass(oeCreditPassMain.classRedBorder);
-                }, 600
+                },
+                600
             );
 
         }

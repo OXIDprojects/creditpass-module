@@ -12,6 +12,8 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassLog;
 
 /**
  * User controller class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class CreditPassUserController extends AdminDetailsController
 {

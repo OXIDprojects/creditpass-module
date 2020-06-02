@@ -8,6 +8,8 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 
 /**
  * CreditPass Model Db Gateway class
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 abstract class CreditPassModelDbGateway
 {

@@ -7,12 +7,9 @@ use OxidProfessionalServices\CreditPassModule\Controller\Admin\CreditPassPayment
 use OxidProfessionalServices\CreditPassModule\Model\DbGateways\CreditPassPaymentSettingsDbGateway;
 
 /**
- * #PHPHEADER_OXID_LICENSE_INFORMATION#
+ * Test class for CreditPass Payment Controller
  *
- * @link          http://www.oxid-esales.com
- * @package       tests
- * @copyright (c) OXID eSales AG 2003-#OXID_VERSION_YEAR#
- * @version       SVN: $Id: $
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class PaymentControllerTest extends UnitTestCase
 {

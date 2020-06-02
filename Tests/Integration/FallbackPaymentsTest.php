@@ -1,5 +1,7 @@
 <?php
 
+namespace OxidProfessionalServices\CreditPassModule\Tests\Integration;
+
 use OxidEsales\Eshop\Application\Model\Article;
 use OxidEsales\Eshop\Application\Model\Basket;
 use OxidEsales\Eshop\Application\Model\User;
@@ -15,11 +17,13 @@ use OxidProfessionalServices\CreditPassModule\Model\CreditPassResultCache;
 
 /**
  * Testing payment fallback implementation
+ *
+ * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 class FallbackPaymentsTest extends UnitTestCase
 {
 
-    var $aAllPaymentSettings = null;
+    public $aAllPaymentSettings = null;
 
     public function tearDown()
     {
@@ -464,5 +468,4 @@ class FallbackPaymentsTest extends UnitTestCase
         $aPayments = $oPayment->getPaymentList();
         $this->assertEquals(5, count($aPayments));
     }
-
 }

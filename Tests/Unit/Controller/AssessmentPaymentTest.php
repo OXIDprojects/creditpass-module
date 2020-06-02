@@ -27,6 +27,11 @@ class Payment_testmod extends CreditPassPaymentController
     }
 }
 
+/**
+ * Class AssessmentPaymentTest
+ *
+ * @phpcs:ignoreFile
+ */
 class AssessmentPaymentTest extends UnitTestCase
 {
 
@@ -111,5 +116,4 @@ class AssessmentPaymentTest extends UnitTestCase
         $oView = $this->getProxyClass(CreditPassPaymentController::class);
         $this->assertTrue($oView->UNITgetCrAssessment() instanceof CreditPassAssessment);
     }
-
 }
