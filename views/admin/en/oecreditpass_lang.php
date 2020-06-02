@@ -96,4 +96,6 @@ $aLang = [
     'OECREDITPASS_LOG_NORESULTS'                  => 'Please select one creditPass check from the list!',
     'OECREDITPASS_EXCEPTION_PURCHASETYPENOTSET'   => 'Please enter the purchase type for the activated payment method check!',
     'OECREDITPASS_ORDERFOLDER_REVIEW'             => 'Manual review',
+    'OECREDITPASS_ERROR_HTTPSWRAPPER'             => 'https wrapper from PHP is not installed.<br /> The https wrapper must be installed. To do this, install the OpenSSL extension from PHP.',
+    'OECREDITPASS_ERROR_CALL_IP'                  => 'The creditPass URL cannot be called up.<br /> Your IP is not activated by creditPass. Please contact creditPass.'
 ];
