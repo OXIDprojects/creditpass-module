@@ -25,73 +25,28 @@ jobs:
         exclude:
           - oxid: dev-master
             php: 7.1
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: oxid
+        ports:
+          - 3306
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     runs-on: ubuntu-latest
     container:
       image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
-      options: -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     env:
       MODULE_NAME: creditpass
-      DB_HOST: "127.0.0.1"
     steps:
     - uses: actions/checkout@v1
     - name: route db from socket to port
       run: bash /var/www/oxideshop/scripts/routeDbfromSocketToPort.sh
     - name: setup oxid
       run: bash /var/www/oxideshop/scripts/setup.sh
-    - name: try to install phpstan-phpunit
-      run: composer require --working-dir=/var/www/oxideshop --dev phpstan/phpstan-phpunit
-      continue-on-error: true
-    - name: phpstan
-      continue-on-error: true
+    - name: runt tests
       run: |
         MD=$(pwd)
-        cd /var/www/oxideshop/
-        vendor/bin/phpstan analys --configuration phpstan.neon $MD
-    - name: phpstan loose
-      continue-on-error: true
-      run: |
-        MD=$(pwd)
-        cd /var/www/oxideshop/
-        composer remove phpstan/phpstan-strict-rules --dev
-        composer remove phpstan/phpstan-deprecation-rules --dev
-        vendor/bin/phpstan analys  --level 2 --configuration phpstan.neon $MD
-    - name: psalm
-      run: |
-        MD=$(pwd)
-        cd /var/www/oxideshop/
-        cat autoload.oxid.php
-        curl -OL https://circleci.com/api/v1.1/project/github/weirdan/psalm/232/artifacts/0/home/docker/project/build/psalm.phar
-        php psalm.phar --stats --debug-by-line --show-info=true $MD
-    - name: run tests
-      run: |
-        cd /var/www/oxideshop/
+        cd /var/www/OXID/
         vendor/bin/runtests
-        ls -al source/log
-    - name: run oxid console list
-      run: |
-        cd /var/www/oxideshop
-        vendor/bin/oxid
-    - name: run in oxid console for all shops
-      run: |
-        cd /var/www/oxideshop
-        vendor/bin/oxid -vvv fix:states -a
-    - name: oxrun list
-      continue-on-error: ${{matrix.oxid != 6.1}}
-      run: |
-        cd /var/www/oxideshop
-        php oxrun.phar list
-    - name: oxrun fix
-      continue-on-error: ${{matrix.oxid != 6.1}}
-      run: |
-        cd /var/www/oxideshop
-        php oxrun.phar -vvv fix:states -a
-    - name: oxid console list
-      if: matrix.oxid != 6.1
-      run: |
-        cd /var/www/oxideshop
-        vendor/bin/oe-console list
-    - name: oxid console fix
-      if: matrix.oxid != 6.1
-      run: |
-        cd /var/www/oxideshop
-        vendor/bin/oe-console -vvv fix:states -a
