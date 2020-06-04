@@ -20,11 +20,7 @@ jobs:
     needs: stand_alone_checks
     strategy:
       matrix:
-        php: [7.1, 7.2]
-        oxid: [6.1, 6.2-rc, dev-master]
-        exclude:
-          - oxid: dev-master
-            php: 7.1
+        tag: [6.1_php7.1, 6.2-rc_php7.1]
     services:
       mysql:
         image: mysql:5.7
@@ -36,8 +32,7 @@ jobs:
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
     runs-on: ubuntu-latest
-    container:
-      image: oxidprojects/oxid-test:${{matrix.oxid}}_php${{matrix.php}}
+    container: oxidprojects/oxid-test:${{matrix.tag}}
     env:
       MODULE_NAME: oxps/creditpass
     steps:
@@ -45,6 +40,7 @@ jobs:
 
     - name: setup oxid
       run: bash /var/www/OXID/setup.sh
+
     - name: runt tests
       run: |
         MD=$(pwd)
