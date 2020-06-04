@@ -38,7 +38,7 @@ jobs:
     container:
       image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
     env:
-      MODULE_NAME: creditpass
+      MODULE_NAME: oxps/creditpass
     steps:
     - uses: actions/checkout@v1
     - name: route db from socket to port
