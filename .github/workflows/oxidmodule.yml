@@ -34,17 +34,17 @@ jobs:
         ports:
           - 3306
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+
     runs-on: ubuntu-latest
     container:
-      image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
+      image: oxidprojects/oxid-test:${{matrix.oxid}}_php${{matrix.php}}
     env:
       MODULE_NAME: oxps/creditpass
     steps:
     - uses: actions/checkout@v1
-    - name: route db from socket to port
-      run: bash /var/www/oxideshop/scripts/routeDbfromSocketToPort.sh
+
     - name: setup oxid
-      run: bash /var/www/oxideshop/scripts/setup.sh
+      run: bash /var/www/OXID/setup.sh
     - name: runt tests
       run: |
         MD=$(pwd)
