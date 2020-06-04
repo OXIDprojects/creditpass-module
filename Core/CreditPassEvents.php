@@ -7,6 +7,7 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Application\Model\Content;
+use OxidEsales\Eshop\Core\Field;
 
 /**
  * CreditPass Events class
@@ -233,16 +234,17 @@ class CreditPassEvents
 
         $oContent = oxNew(Content::class);
         if (!$oContent->loadByIdent('oecreditpassunauthorized')) {
-            $oContent->oxcontents__oxactive->setValue(1);
-            $oContent->oxcontents__oxsnippet->setValue(1);
-            $oContent->oxcontents__oxloadid->setValue('oecreditpassunauthorized');
-            $oContent->oxcontents__oxshopid->setValue(Registry::getConfig()->getShopId());
+            $oContent->setId();
+            $oContent->oxcontents__oxactive = new Field(1, Field::T_RAW);
+            $oContent->oxcontents__oxsnippet = new Field(1, Field::T_RAW);
+            $oContent->oxcontents__oxloadid = new Field('oecreditpassunauthorized', Field::T_TEXT);
+            $oContent->oxcontents__oxshopid = new Field(Registry::getConfig()->getShopId(), Field::T_RAW);
             $oContent->save();
 
             foreach ($oLang->getAllShopLanguageIds() as $iLang => $sLang) {
                 $oContent->setLanguage($iLang);
-                $oContent->oxcontents__oxtitle->setValue($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_TITLE', $iLang));
-                $oContent->oxcontents__oxcontent->setValue($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_MSG', $iLang));
+                $oContent->oxcontents__oxtitle = new Field($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_TITLE', $iLang), Field::T_TEXT);
+                $oContent->oxcontents__oxcontent = new Field($oLang->translateString('OECREDITPASS_DEFAULT_ERROR_MSG', $iLang), Field::T_TEXT);
                 $oContent->save();
             }
         }
