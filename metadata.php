@@ -49,7 +49,7 @@ $aModule = [
         'en' => 'Module for solvency check with creditPass.',
     ],
     'thumbnail'   => 'picture.png',
-    'version'     => '4.0.0',
+    'version'     => '4.0',
     'author'      => 'OXID eSales AG',
     'url'         => 'http://www.oxid-esales.com',
     'email'       => 'info@oxid-esales.com',

@@ -1,6 +1,6 @@
 # OXID PS creditPass Module
 
-# Version 4.0.0
+# Version 4.0
 
 ## Description
 
@@ -40,6 +40,6 @@ composer update
 Fixed bugs:
 https://bugs.oxid-esales.com/changelog_page.php?version_id=248
 
-### Version 4.0.0
+### Version 4.0.*
 
 * Version for OXID6 installable via Composer
